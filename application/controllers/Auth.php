@@ -59,7 +59,7 @@ class Auth extends CI_Controller
 					'Cabang' => $this->cabang,
 					'sign' => $response->sign,
 				);
-				$this->session->set_userdata($session);
+				
 
 				// ambil data settings
 				$settings = $this->Settings_m->getCurrentsettings($this->cabang);
@@ -78,14 +78,17 @@ class Auth extends CI_Controller
 					"instagram" => $settings->instagram,
 					"gambar_logo" => $settings->gambar_logo,
 					"favicon" => $settings->favicon,
-					"foto_dokter" => $settings->foto_dokter,
-					'Sidebar' => $this->akses_sidebar(),
+					"foto_dokter" => $settings->foto_dokter
 				);
-				$this->session->set_userdata($session_settings);
 
 				if (empty($response->sign)) {
 					redirect('auth/sign');
 				} else {
+					// simpan session
+					$this->session->set_userdata($session);
+					$this->session->set_userdata($session_settings);
+					$this->session->set_userdata('Sidebar', $this->akses_sidebar());
+					
 					if ($this->session->userdata('prev_url'))
 						header("Location: " . $this->session->userdata('prev_url'));
 					else if ($this->session->userdata('Role') == 'DOKTER')
