@@ -5,9 +5,10 @@ class Settings extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
-		if(!$this->session->userdata('username')){
+		if (!$this->session->userdata('User_Code')) {
 			$this->session->set_flashdata('message', 'Anda harus login terlebih dahulu.');
-			redirect('app/auth');
+			$this->session->set_userdata("prev_url", $_SERVER['REQUEST_URI']);
+			redirect('auth');
 		}
         $this->load->model('settings_m','settings');
 	}

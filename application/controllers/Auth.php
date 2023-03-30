@@ -48,6 +48,7 @@ class Auth extends CI_Controller
 			if ($response->Status == 'AKTIF') {
 				// data session
 				$session = array(
+					'token' => $response->token,
 					'Dep_Code' => $response->Dep_Code,
 					'Role' => $response->is_doctor,
 					'Doctor_Code' => $response->Doctor_Code,
@@ -78,7 +79,7 @@ class Auth extends CI_Controller
 					"gambar_logo" => $settings->gambar_logo,
 					"favicon" => $settings->favicon,
 					"foto_dokter" => $settings->foto_dokter,
-					'Sidebar' => $this->akses(),
+					'Sidebar' => $this->akses_sidebar(),
 				);
 				$this->session->set_userdata($session_settings);
 
@@ -139,7 +140,7 @@ class Auth extends CI_Controller
 
 	}
 
-	public function getUserDep($User_Code)
+	public function api_department($User_Code)
 	{
 		// try and catch get department
 		try 
@@ -170,7 +171,7 @@ class Auth extends CI_Controller
 	// data api section END
 
 	// function untuk role akses sidebar
-	public function akses()
+	public function akses_sidebar()
 	{
         // ambil role dari session
         $akses_user = $this->session->userdata('Role');
@@ -220,13 +221,76 @@ class Auth extends CI_Controller
         return $sidebar_menu;
     }
 
+	// tanda tangan
+
+	public function api_update_sign()
+	{
+		// try and catch get department
+		try 
+		{
+			$ttd_petugas = $this->input->post('ttd_petugas');
+
+			$curl = curl_init();
+			curl_setopt_array($curl, array(
+				CURLOPT_URL => $this->endpoint.'update_sign',
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_ENCODING => '',
+				CURLOPT_MAXREDIRS => 10,
+				CURLOPT_TIMEOUT => 0,
+				CURLOPT_FOLLOWLOCATION => true,
+				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+				CURLOPT_CUSTOMREQUEST => 'POST',
+				CURLOPT_POSTFIELDS => array('User_Code' => $this->session->userdata('User_Code'), 'ttd_petugas' => $ttd_petugas),
+				CURLOPT_HTTPHEADER => array(
+					'x-token: '.$this->session->userdata('token'),
+					'x-username: '.$this->session->userdata('User_Code')
+				),
+			));
+
+			$response = curl_exec($curl);
+			curl_close($curl);
+
+			// insert log
+			$this->Log_model->save_log($response, 'Sign');
+
+			$response = json_decode($response, true);
+			$this->session->set_userdata('sign', $ttd_petugas);
+			echo json_encode($response);
+
+		} catch (Exception $e) {
+			$this->session->set_flashdata('message', 'Gangguan jaringan! silahkan coba lagi');
+		}
+	}
+	// data api section END
+
+	public function sign()
+	{
+		if (!$this->session->userdata('User_Code')) {
+			$this->session->set_flashdata('message', 'Anda harus login terlebih dahulu.');
+			$this->session->set_userdata("prev_url", $_SERVER['REQUEST_URI']);
+			redirect('auth');
+		}
+
+		if (empty($this->session->userdata('sign'))) {
+			$data['title'] = 'Harap Tanda Tangan Terlebih dahulu';
+			$data['cara'] = 'Klik save setelah melakukan tanda tangan';
+			$this->session->set_flashdata('message_sign', '<div class="alert alert-danger text-center msg" role="alert"> <h5> Maaf kamu harus menyimpan tanda tangan terlebih dahulu!</h5></div>');
+		} else {
+			$data['title'] = "Tanda Tangan Digital";
+			$data['cara'] = "";
+		}
+
+		$data['content'] = 'auth/page-sign';
+		$this->load->view('layout', $data);
+	}
+
 	//function for backup database mysqli
 	public function backup_database()
 	{
 		$this->load->dbutil();
 		$prefs = array(
 			'format' => 'zip',
-			'filename' => 'emr-eshmun.sql'
+			'filename' => 'emr.sql'
 		);
 		$backup = &$this->dbutil->backup($prefs);
 		$db_name = 'backup-on-' . date("Y-m-d-H-i-s") . '.zip';

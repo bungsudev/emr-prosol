@@ -5,7 +5,7 @@ class Log_model extends CI_Model {
     public function __construct()
     {
         parent::__construct();
-        $this->table = 'log_login';
+        $this->table = 'log_data';
     }
     
     public function save_log($log, $job)

@@ -115,7 +115,7 @@
 		//AJAX get department
 		function getdep(usercode) {
 			$.ajax({
-				url: "<?= base_url(); ?>auth/getUserDep/" + usercode,
+				url: "<?= base_url(); ?>auth/api_department/" + usercode,
 				method: 'POST',
 				dataType: 'json',
 				success: function(data) {

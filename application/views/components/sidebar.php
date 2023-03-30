@@ -14,6 +14,7 @@
 		</div>
 		
 		<ul class="sidebar-menu" data-widget="tree">
+			<!-- Sidebar diambil dari table mst_menu field struktur_menu dalam bentuk json -->
 			<?= $this->session->userdata('Sidebar') ?>
 		</ul>
 	</section>

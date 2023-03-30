@@ -50,13 +50,13 @@
 					</a>
 					<ul class="dropdown-menu animated flipInX">
 						<li class="user-body">
-							<!-- //Change Request Password 09Des2022 azmi -->
-							<a href="#" onClick="a_error('Maaf','Untuk melakukan perubahan password silahkan di aplikasi HIS')" class="dropdown-item"><i class="ti-user text-muted mr-2"></i> Ganti Password</a>
-							<!-- //Change Request Password 09Des2022 azmi -->
-							<a class="dropdown-item" href="<?= base_url() ?>settings"><i class="ti-settings text-muted mr-2"></i>
-								Settings</a>
+							<a href="#" onClick="a_error('Maaf','Untuk melakukan perubahan password silahkan di aplikasi HIS')" class="dropdown-item"><i class="ti-lock text-muted mr-2"></i> Ganti Password</a>
+							<!-- <a class="dropdown-item" href="<?= base_url() ?>settings"><i class="ti-settings text-muted mr-2"></i>
+								Settings</a> -->
+							<a class="dropdown-item" href="<?= base_url() ?>auth/sign"><i class="ti-marker-alt text-muted mr-2"></i>
+								Tanda Tangan</a>
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="<?= base_url();?>auth/logout"><i class="ti-lock text-muted mr-2"></i> Logout</a>
+							<a class="dropdown-item" href="<?= base_url();?>auth/logout"><i class="ti-power-off text-muted mr-2"></i> Logout</a>
 						</li>
 					</ul>
 				</li>
