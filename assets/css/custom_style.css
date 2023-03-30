@@ -1,0 +1,25 @@
+.mouse-hover-pointer{
+    cursor: pointer;
+}
+.hide{
+    display: none;
+}
+.show{
+    display: block;
+}
+.text-c-danger{
+    color: #ff7ca1 !important
+}
+.theme-primary .btn-primary:hover, .theme-primary .btn-primary:active, .theme-primary .btn-primary:focus, .theme-primary .btn-primary.active{
+    background-color: #0b9678 !important;
+    border-color: #0b9678 !important;
+}
+.logo-container{
+    margin: 0 auto;
+}
+.logo-container > a > img{
+    width: 250px !important;
+}
+.copy-right{
+    font-size: 0.85rem;
+}
