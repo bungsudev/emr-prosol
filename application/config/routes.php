@@ -52,3 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'auth';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+// menu daftar pasien
+$route['daftar-pasien/rawat-inap'] = 'daftar_pasien/rawat_inap';
+$route['daftar-pasien/rawat-jalan'] = 'daftar_pasien/rawat_jalan';

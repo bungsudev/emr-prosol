@@ -38,6 +38,7 @@ class Auth extends CI_Controller
 		$data = $this->api_login($user_code, $password, $dep);
 		$data = json_decode($data);
 
+		// pisah response dan metadata
 		$response = $data->response;
 		$metadata = $data->metadata;
 
@@ -225,7 +226,6 @@ class Auth extends CI_Controller
     }
 
 	// tanda tangan
-
 	public function api_update_sign()
 	{
 		// try and catch get department
