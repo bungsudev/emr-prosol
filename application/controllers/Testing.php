@@ -54,4 +54,14 @@ class Testing extends CI_Controller {
         }
         return $sidebar_menu;
     }
+
+    public function encode_url($id)
+	{
+		echo encrypt_url($id);
+	}
+
+    public function decode_url($id)
+	{
+		echo decrypt_url($id);
+	}
 }

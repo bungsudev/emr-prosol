@@ -253,8 +253,13 @@ class Auth extends CI_Controller
 			$response = curl_exec($curl);
 			curl_close($curl);
 
-			// insert log
-			$this->Log_model->save_log($response, 'Sign');
+			// insert 
+			$log_response = [
+				'log' => json_decode($response,true),
+				'old_sign' => $this->session->userdata('sign')
+			];
+			
+			$this->Log_model->save_log(json_encode($log_response), 'Sign');
 
 			$response = json_decode($response, true);
 			$this->session->set_userdata('sign', $ttd_petugas);

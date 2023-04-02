@@ -5,15 +5,14 @@ class Daftar_pasien extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
-		// if (!$this->session->userdata('User_Code')) {
-		// 	$this->session->set_flashdata('message', 'Anda harus login terlebih dahulu.');
-		// 	$this->session->set_userdata("prev_url", $_SERVER['REQUEST_URI']);
-		// 	redirect('auth');
-		// }
+		if (!$this->session->userdata('User_Code')) {
+			$this->session->set_flashdata('message', 'Anda harus login terlebih dahulu.');
+			$this->session->set_userdata("prev_url", $_SERVER['REQUEST_URI']);
+			redirect('auth');
+		}
 
 		//load model
         $this->load->model('Log_model');
-		$this->load->model('Formulir_model');
 
 		//define
         $this->endpoint = ENDPOINT;
@@ -134,11 +133,11 @@ class Daftar_pasien extends CI_Controller {
 			$response = curl_exec($curl);
 			curl_close($curl);
 
-			// insert log
-			$this->Log_model->save_log($response, 'Daftar Pasien');
-
-			return $response;
-
+            if ($response['metadata']['code'] === 200)
+                return $response;
+			else
+			    // insert log
+    			$this->Log_model->save_log($response, 'Daftar Pasien Error');
 		} catch (Exception $e) {
 			$this->session->set_flashdata('message', 'Gangguan jaringan! silahkan coba lagi');
 		}

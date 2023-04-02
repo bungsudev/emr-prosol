@@ -10,7 +10,7 @@
 			</li>
 		</ul>
 	</div> -->
-	&copy; <?= date('Y') ?> <a href="#">Prosolution</a> Clinic. All Rights Reserved.
+	&copy; <?= date('Y') ?> <a href="https://prosol.id" target="_blank">Prosolution</a> Medical Record. All Rights Reserved.
 </footer>
 
 <!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->

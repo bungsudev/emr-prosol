@@ -16,6 +16,12 @@ class Formulir_model extends CI_Model
         return $query;
     }
 
+    public function getFormulirDetail($id)
+    {
+        $query = $this->db->query("SELECT * FROM $this->table where id = '$id' AND status = 1 AND id_cabang= '$this->cabang'")->row();
+        return $query;
+    }
+
     public function updateFormulir($data, $kode_poli)
     {
         $this->db->where('kode_poli', $kode_poli);
