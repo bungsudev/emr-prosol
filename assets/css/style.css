@@ -18021,7 +18021,8 @@ form p:last-child {
 
 [type="checkbox"] + label {
   position: relative;
-  padding-left: 35px;
+  /* padding-left: 35px; */
+  padding-left: 25px;
   cursor: pointer;
   display: inline-block;
   height: 25px;
@@ -18034,7 +18035,10 @@ form p:last-child {
   -khtml-user-select: none;
   /* webkit (konqueror) browsers */
   -ms-user-select: none;
-  /* IE10+ */ }
+  /* IE10+ */ 
+  /* custom */
+  margin-right: 10px !important;
+}
 
 [type="checkbox"] + label:before,
 [type="checkbox"]:not(.filled-in) + label:after {
@@ -18045,7 +18049,7 @@ form p:last-child {
   width: 18px;
   height: 18px;
   z-index: 0;
-  border: 2px solid #5a5a5a;
+  border: 2px solid #f1f3f4;
   border-radius: 1px;
   margin-top: 2px;
   transition: .2s; }
@@ -18069,9 +18073,9 @@ form p:last-child {
 
 [type="checkbox"]:checked + label:before {
   top: -4px;
-  left: -5px;
-  width: 12px;
-  height: 22px;
+  left: -4px;
+  width: 10px;
+  height: 20px;
   border-top: 2px solid transparent;
   border-left: 2px solid transparent;
   border-right: 2px solid #26a69a;

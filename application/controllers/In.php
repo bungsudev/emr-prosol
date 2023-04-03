@@ -24,13 +24,13 @@ class In extends CI_Controller
 
 		$this->kode_rm = '';
 		$this->content = '';
+		$this->label = 'components/parts/label';
 		$this->title = '';
 	}
 
 	public function form($id_form = '', $visit_no = '')
 	{
 		$id_form = decrypt_url($id_form);
-		$data['detail'] = $this->api_detail_pasien($visit_no);
 
 		// ambil data form dari table mst_formulir
 		$formulir = $this->Formulir_model->getFormulirDetail($id_form);
@@ -39,6 +39,9 @@ class In extends CI_Controller
 		$this->content = $formulir->content;
 		$this->title = $formulir->nama_formulir;
 
+		// ambil detail pasien
+		$data['detail'] = $this->api_detail_pasien($visit_no);
+		
 		$data['link_print'] = base_url() . $this->controller . '/print?Visit_No=' . $visit_no;
 		$data['row'] = $this->Record_model->detail($this->table, $visit_no);
 		// $data['dokter'] = $this->User_model->data_dokter();
@@ -46,6 +49,7 @@ class In extends CI_Controller
 
 		$data['controller'] = $this->controller;
 		$data['title'] = $this->title;
+		$data['label'] = $this->label;
 		$data['content'] = $this->content . '/page-index';
 
 		$this->load->view('layout', $data);
@@ -151,12 +155,13 @@ class In extends CI_Controller
 			$response = json_decode($response, true);
 
 			if ($response['metadata']['code'] === 200)
-				return $response['metadata']['code'];
+				// echo json_encode($response['response']['data']);
+				return $response['response']['data'];
 			else
 				$this->Log_model->save_log($response, 'Detail Pasien Error');
 		} catch (Exception $e) {
             // insert log
-			$this->Log_model->save_log($response, 'Detail Pasien Error');
+			$this->Log_model->save_log($e, 'Detail Pasien Error');
 			$this->session->set_flashdata('message', 'Gangguan jaringan! silahkan coba lagi');
 		}
 	}

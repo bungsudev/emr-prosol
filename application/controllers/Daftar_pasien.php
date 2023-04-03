@@ -97,7 +97,7 @@ class Daftar_pasien extends CI_Controller {
                 return $e;
             }
         }else{
-            echo "Tidak Ada data";
+            echo "Tidak ada data Pasien saat ini...";
         }
     }
 
@@ -133,7 +133,7 @@ class Daftar_pasien extends CI_Controller {
 			$response = curl_exec($curl);
 			curl_close($curl);
 
-            if ($response['metadata']['code'] === 200)
+            if (!empty($response['metadata']['code']) === 200)
                 return $response;
 			else
 			    // insert log
