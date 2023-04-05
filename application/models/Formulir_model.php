@@ -28,4 +28,12 @@ class Formulir_model extends CI_Model
         $this->db->where('id_cabang', $this->cabang);
         $this->db->update($this->table, $data);
     }
+
+    public function getFormulirDetailPrint($id)
+    {
+        $query = $this->db->query("SELECT t.*, s.nama_rs, s.*  FROM $this->table t
+        LEFT JOIN settings s ON s.id = t.id_cabang
+        WHERE t.id = '$id' AND t.status = 1 AND t.id_cabang= '$this->cabang'")->row();
+        return $query;
+    }
 }

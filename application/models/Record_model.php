@@ -31,6 +31,10 @@ class Record_model extends CI_Model
         foreach ($data as $key => $value)
             $data[$key] = $this->checkArray($data[$key]);
 
+        // tanda tangan hanya dilakukan saat penyimpanan pertama, karena ttd berdasarkan created time untuk menghindari manipulasi
+        $data['nama_ttd'] = $this->session->userdata('User_Name');
+        $data['ttd'] = $this->session->userdata('sign');
+
         $data['status'] = 'created';
         $data['created_by'] = $this->session->userdata('User_Code');
         $data['created_time'] = date('Y-m-d H:i:s');

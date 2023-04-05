@@ -55,6 +55,16 @@
 	</script>
 
 	<script type="text/javascript">
+
+		function showComponent(id_name, field_name) {
+            $("#" + id_name+"0").on("click", function() {
+                $("input[name='" + field_name + "']").css('display', 'none');
+                $("input[name='" + field_name + "']").val('');
+            });
+            $("#" + id_name+"1").on("click", function() {
+                $("input[name='" + field_name + "']").css('display', 'block');
+            });
+	    }
 		function formatBackNumber(number) {
 			return number.toString().replace(/[ ,.]/g, "");
 		}

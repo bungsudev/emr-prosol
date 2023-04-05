@@ -1,6 +1,3 @@
-<!-- Untuk assets pakai NAMA RS ada space-->
-<?php $nama_rs_strip = str_replace(' ', '-', $this->session->userdata('nama_rs')) ?>
-
 <header class="main-header">
 	<div class="d-flex align-items-center logo-box justify-content-between">
 		<a href="#" class="waves-effect waves-light nav-link rounded d-none d-md-inline-block mx-10 push-btn"
@@ -12,8 +9,8 @@
 		<a href="<?= base_url() ?>" class="logo">
 			<!-- logo-->
 			<div class="logo-lg">
-				<span class="light-logo"><img src="<?= base_url() ?>assets/images/cabang/<?= $nama_rs_strip.'/'.$this->session->userdata('gambar_logo') ?>" alt="logo"></span>
-				<span class="dark-logo"><img src="<?= base_url() ?>assets/images/cabang/<?= $nama_rs_strip.'/'.$this->session->userdata('gambar_logo') ?>" alt="logo"></span>
+				<span class="light-logo"><img src="<?= base_url() ?>assets/images/cabang/<?= $this->session->userdata('Cabang').'/'.$this->session->userdata('gambar_logo') ?>" alt="logo"></span>
+				<span class="dark-logo"><img src="<?= base_url() ?>assets/images/cabang/<?= $this->session->userdata('Cabang').'/'.$this->session->userdata('gambar_logo') ?>" alt="logo"></span>
 			</div>
 		</a>
 	</div>

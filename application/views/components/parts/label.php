@@ -1,5 +1,6 @@
 <!--  -->
 <div class="row">
+
 	<div class="col-md-6">
 		<span class="text-gray"><?= $detail["Visit_No"] ?></span>
 		<h5 class="mb-0"><b><?= $detail["Patient_Name"] ?></b></h5>
@@ -10,11 +11,25 @@
 		<span class="text-gray" style="font-size: 15px;">KAMAR : <?= $detail["Room_Type"] ?> /
 			<?= $detail["Room_No"] ?></span>
 	</div>
-	<div class="col-md-6 d-flex align-items-center justify-content-end">
-		<button type="button" class="btn btn-danger mr-2" data-toggle="modal" data-target="#mdlAlergi">
-			<span class="ti-info-alt"></span> Riwayat Alergi
-		</button>
-		<a href="<?= $link_print ?>" id="link_print" class="btn btn-primary disabled" target="_blank"> <i
-				class="bi bi-printer-fill"></i> Print</a>
+	<div class="col-md-6">
+		<div class="row text-right">
+			<div class="col-md-12">
+				<label for="">Data wajib lengkap</label>
+				<button type="button" class="btn btn-toggle" id="btnMandatory" data-toggle="button" 
+				aria-pressed="<?= ($row['wajib'] == 1) ? 'false' : 'true' ?>"
+					autocomplete="off">
+					<div class="handle"></div>
+				</button> 
+				<br />
+				<span class="text-xsm text-danger">*Nonaktifkan jika tidak ingin melengkapi seluruh isian.</span>
+			</div>
+			<div class="col-md-12 mt-4">
+				<button type="button" class="btn btn-danger mr-2" data-toggle="modal" data-target="#mdlAlergi">
+					<span class="ti-info-alt"></span> Riwayat Alergi
+				</button>
+				<a href="<?= $link_print ?>" id="link_print" class="btn btn-primary disabled" target="_blank"> <i
+						class="bi bi-printer-fill"></i> Print</a>
+			</div>
+		</div>
 	</div>
 </div>

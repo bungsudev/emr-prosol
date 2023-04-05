@@ -34,7 +34,7 @@
 								
 								<!-- logo -->
 								<div class="logo-container">
-									<a href="<?= base_url(); ?>"><img src="<?= base_url(); ?>assets/images/cabang/rsu-eshmun/eshmun-banner.jpeg" alt="logo" class="img-responsive"></a>
+									<a href="<?= base_url(); ?>"><img src="<?= base_url(); ?>assets/images/cabang/1/eshmun-banner.jpeg" alt="logo" class="img-responsive"></a>
 								</div>
 
 								<!-- <p class="mb-0">Enter your Account to get access.</p>							 -->

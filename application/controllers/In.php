@@ -19,106 +19,107 @@ class In extends CI_Controller
 		$this->load->model('Formulir_model');
 
 		$this->controller = 'In';
-		$this->table = '';
-		$this->field = '';
-
-		$this->kode_rm = '';
-		$this->content = '';
 		$this->label = 'components/parts/label';
-		$this->title = '';
 	}
 
 	public function form($id_form = '', $visit_no = '')
 	{
-		$id_form = decrypt_url($id_form);
+		// $id_form = decrypt_url($id_form);
 
 		// ambil data form dari table mst_formulir
 		$formulir = $this->Formulir_model->getFormulirDetail($id_form);
-		$this->table = $formulir->table;
-		$this->kode_rm = $formulir->kode_formulir;
-		$this->content = $formulir->content;
-		$this->title = $formulir->nama_formulir;
+		$data['table'] = $formulir->table;
+		$data['field'] = $formulir->field;
+		$data['kode_rm'] = $formulir->kode_formulir;
+		$data['content'] = $formulir->content;
+		$data['title'] = $formulir->nama_formulir;
 
+		$this->id_form = $id_form;
 		// ambil detail pasien
 		$data['detail'] = $this->api_detail_pasien($visit_no);
 		
-		$data['link_print'] = base_url() . $this->controller . '/print?Visit_No=' . $visit_no;
-		$data['row'] = $this->Record_model->detail($this->table, $visit_no);
+		$data['link_print'] = base_url() . $this->controller .'/print/'.encrypt_url($id_form).'/'.$visit_no;
+		$data['row'] = $this->Record_model->detail($formulir->table, $visit_no);
 		// $data['dokter'] = $this->User_model->data_dokter();
 		// $data['rujukan'] = $this->Main_model->getPartner();
 
 		$data['controller'] = $this->controller;
-		$data['title'] = $this->title;
 		$data['label'] = $this->label;
-		$data['content'] = $this->content . '/page-index';
+		$data['content'] = $formulir->content . '/page-index';
 
 		$this->load->view('layout', $data);
 	}
 
-	public function detail($visit_no)
+	public function detail($visit_no, $table)
 	{
-		echo json_encode($this->Record_model->detail($this->table, $visit_no));
+		// echo $table; die();
+		echo json_encode($this->Record_model->detail($table, $visit_no));
 	}
 
-	public function insert()
+	public function insert($table)
 	{
-		echo json_encode($this->Record_model->insert($this->table, $_POST));
+		echo json_encode($this->Record_model->insert($table, $_POST));
 	}
 
-	public function update($visit_no)
+	public function update($visit_no, $table)
 	{
-		echo json_encode($this->Record_model->update($this->table, $visit_no));
+		echo json_encode($this->Record_model->update($table, $visit_no));
 	}
-
-    function myfunction($value) 
-    {   
-        echo $value;
-    }
 
 	//	RIWAYAT PENGOBATAN 
-	public function insert_rp($visit_no)
+	public function insert_list($visit_no, $field, $table)
 	{
 		// explode jika field (multi input ajax dalam 1 form)
-		if (!empty($formulir->field))
-			$arr_field = explode(',', $formulir->field);
+		if (!empty($field))
+			$arr_field = explode(',', $field);
 
 		foreach ($arr_field as $key => $val) {
-			$this->field = $val;
+			$field = $val;
 		}
-		echo $this->Record_model->insert_json($this->table, $this->field, $_POST, $visit_no);
-	}
-	public function delete_rp($id)
-	{
-		echo $this->Record_model->delete_json($this->table, $this->field, $id);
+		echo $this->Record_model->insert_json($table, $field, $_POST, $visit_no);
 	}
 
-	public function print()
+	public function delete_list($table, $field, $id)
+	{
+		echo $this->Record_model->delete_json($table, $field, $id);
+	}
+
+	public function print($id_form, $visit_no)
 	{
 		require_once './vendor/autoload.php';
-		$mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => [215, 330], 'margin_left' => 10, 'margin_right' => 10, 'margin_top' => 8, 'margin_bottom' => 15, 'margin_header' => 0, 'margin_footer' => 0]); //use this customization
-		$data['user'] = $this->db->get_where('User_Pass', ['User_Code' => $this->session->userdata('User_Code')])->row_array();
-		$data['detail'] = $this->Pasien_model->detail_pasien($this->input->get('Visit_No'));
-		$data['header'] = 'template/header';
-		$data['title'] = $this->title;
-		$data['kode_rm'] = $this->kode_rm;
-		$data['dtl'] = $this->Record_model->detail($this->table, $this->input->get('Visit_No'));
 
-		$mpdf->SetTitle($this->title);
+		$id_form = decrypt_url($id_form);
+		
+		$mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => [215, 330], 'margin_left' => 10, 'margin_right' => 10, 'margin_top' => 8, 'margin_bottom' => 10, 'margin_header' => 0, 'margin_footer' => 0]); //use this customization
+		$data['detail'] = $this->api_detail_pasien($visit_no);
+
+		// ambil data dari table mst_formulir
+		$formulir = $this->Formulir_model->getFormulirDetailPrint($id_form);
+		$data['cabang'] = $formulir;
+
+		$data['header'] = 'template/header';
+		$data['dtl'] = $this->Record_model->detail($formulir->table, $visit_no);
+		
+		// var_dump($data['dtl']['terapi_pulang']);
+		// die();
+		// $data['dtl_list'] = $this->Record_model->detail($formulir->table, $formulir->field, $visit_no);
+
+		$mpdf->SetTitle($formulir->nama_formulir);
 		$i = 1;
 		do {
 			if ($i == 1) {
 				$data['page'] = 'Hal ' . $i . '/3';
-				$data['content'] = $this->content . '/page-print-' . $i;
+				$data['content'] = $formulir->content . '/page-print-' . $i;
 				$html = $this->load->view('layout_print', $data, true);
 				$mpdf->WriteHTML($html);
 			} else {
 				$mpdf->AddPage();
 				$data['page'] = 'Hal ' . $i . '/3';
-				$html = $this->load->view($this->content . '/page-print-' . $i, $data, true);
+				$html = $this->load->view($formulir->content . '/page-print-' . $i, $data, true);
 				$mpdf->WriteHTML($html);
 			}
 			$i++;
-		} while (file_exists(APPPATH . 'views/' . $this->content . '/page-print-' . $i . '.php'));
+		} while (file_exists(APPPATH . 'views/' . $formulir->content . '/page-print-' . $i . '.php'));
 		$mpdf->Output();
 	}
 
