@@ -12,6 +12,7 @@ class Daftar_pasien extends CI_Controller {
 		}
 
 		//load model
+        $this->load->model('Formulir_model');
         $this->load->model('Log_model');
 
 		//define
@@ -39,6 +40,11 @@ class Daftar_pasien extends CI_Controller {
 		$this->load->view('layout',$data);
     }
 
+    function fetch_daftar_formulir($jenis)
+    {
+        echo json_encode($this->Formulir_model->getFormulirStatus($jenis));
+    }
+
     function fetch_daftar_pasien($jenis)
     {
         $data = $this->api_daftar_pasien($jenis);
@@ -48,7 +54,6 @@ class Daftar_pasien extends CI_Controller {
         if ($data) {
             $response = $data->response;
             $metadata = $data->metadata;
-            
             try {
                 if ($metadata->code === 200) {
                     $no = 1;
@@ -133,9 +138,9 @@ class Daftar_pasien extends CI_Controller {
 			$response = curl_exec($curl);
 			curl_close($curl);
 
-            if (!empty($response['metadata']['code']) === 200)
+            // if (!empty($response['metadata']['code']) === 200)
                 return $response;
-			else
+
 			    // insert log
     			$this->Log_model->save_log($response, 'Daftar Pasien Error');
 		} catch (Exception $e) {

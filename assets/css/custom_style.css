@@ -2,6 +2,10 @@ select:hover {
 	cursor: pointer;
 }
 
+.pointer:hover {
+	cursor: pointer !important;
+}
+
 .select2 {
 	width: 100% !important;
 }

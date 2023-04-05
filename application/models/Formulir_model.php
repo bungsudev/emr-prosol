@@ -36,4 +36,11 @@ class Formulir_model extends CI_Model
         WHERE t.id = '$id' AND t.status = 1 AND t.id_cabang= '$this->cabang'")->row();
         return $query;
     }
+
+    // formulir status
+    public function getFormulirStatus($jenis)
+    {
+        $query = $this->db->query("SELECT * FROM $this->table where status = 1 AND jenis = '$jenis' AND id_cabang= '$this->cabang'")->result_array();
+        return $query;
+    }
 }
