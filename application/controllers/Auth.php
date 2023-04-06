@@ -14,6 +14,7 @@ class Auth extends CI_Controller
 		// define
 		$this->endpoint = ENDPOINT;
 		$this->cabang = NULL;
+		// RAMA
 	}
 
 	public function index()
@@ -25,8 +26,9 @@ class Auth extends CI_Controller
 		$data['title'] = 'Login';
 		$this->load->view('auth/page-login', $data);
 	}
-	
-	function login(){
+
+	function login()
+	{
 		// $user_code = 'IT1';
 		// $password = 'p@ssw0rd';
 		// $dep = 'IT';
@@ -34,7 +36,7 @@ class Auth extends CI_Controller
 		$user_code = $this->input->post('user_code');
 		$password = $this->input->post('password');
 		$dep = $this->input->post('dep');
-		
+
 		$data = $this->api_login($user_code, $password, $dep);
 		$data = json_decode($data);
 
@@ -60,7 +62,7 @@ class Auth extends CI_Controller
 					'Cabang' => $this->cabang,
 					'sign' => $response->sign,
 				);
-				
+
 
 				// ambil data settings
 				$settings = $this->Settings_m->getCurrentsettings($this->cabang);
@@ -89,7 +91,7 @@ class Auth extends CI_Controller
 					$this->session->set_userdata($session);
 					$this->session->set_userdata($session_settings);
 					$this->session->set_userdata('Sidebar', $this->akses_sidebar());
-					
+
 					if ($this->session->userdata('prev_url'))
 						header("Location: " . $this->session->userdata('prev_url'));
 					else if ($this->session->userdata('Role') == 'DOKTER')
@@ -97,15 +99,14 @@ class Auth extends CI_Controller
 					else
 						redirect('dashboard');
 				}
-			}else {
+			} else {
 				$this->session->set_flashdata('message', 'Maaf, Akun anda tidak aktif!');
 				redirect('auth');
 			}
-			
-		}else if ($metadata->code == 401) {
+		} else if ($metadata->code == 401) {
 			$this->session->set_flashdata('message', 'User atau Password yang anda masukan salah!');
 			redirect('auth');
-		}else{
+		} else {
 			$this->session->set_flashdata('message', $metadata->message);
 			redirect('auth');
 		}
@@ -115,11 +116,10 @@ class Auth extends CI_Controller
 	function api_login($user_code, $password, $dep)
 	{
 		// try and catch login
-		try 
-		{
+		try {
 			$curl = curl_init();
 			curl_setopt_array($curl, array(
-				CURLOPT_URL => $this->endpoint.'auth',
+				CURLOPT_URL => $this->endpoint . 'auth',
 				CURLOPT_RETURNTRANSFER => true,
 				CURLOPT_ENCODING => '',
 				CURLOPT_MAXREDIRS => 10,
@@ -132,7 +132,7 @@ class Auth extends CI_Controller
 
 			$response = curl_exec($curl);
 			curl_close($curl);
-			
+
 			// insert log
 			$this->Log_model->save_log($response, 'Login');
 
@@ -141,17 +141,15 @@ class Auth extends CI_Controller
 			$this->Log_model->save_log($e, 'LoginError');
 			$this->session->set_flashdata('message', 'Gangguan jaringan! silahkan coba lagi');
 		}
-
 	}
 
 	public function api_department($User_Code)
 	{
 		// try and catch get department
-		try 
-		{
+		try {
 			$curl = curl_init();
 			curl_setopt_array($curl, array(
-				CURLOPT_URL => $this->endpoint.'department',
+				CURLOPT_URL => $this->endpoint . 'department',
 				CURLOPT_RETURNTRANSFER => true,
 				CURLOPT_ENCODING => '',
 				CURLOPT_MAXREDIRS => 10,
@@ -164,10 +162,9 @@ class Auth extends CI_Controller
 
 			$response = curl_exec($curl);
 			curl_close($curl);
-			
+
 			$response = json_decode($response, true);
 			echo json_encode($response);
-
 		} catch (Exception $e) {
 			$this->session->set_flashdata('message', 'Gangguan jaringan! silahkan coba lagi');
 		}
@@ -177,65 +174,64 @@ class Auth extends CI_Controller
 	// function untuk role akses sidebar
 	public function akses_sidebar()
 	{
-        // ambil role dari session
-        $akses_user = $this->session->userdata('Role');
+		// ambil role dari session
+		$akses_user = $this->session->userdata('Role');
 
-        // ambil menu
+		// ambil menu
 		$res = $this->db->query("SELECT * FROM mst_menu WHERE status = 1 AND 
-        id_cabang= '".$this->session->userdata('Cabang')."'")->row();
+        id_cabang= '" . $this->session->userdata('Cabang') . "'")->row();
 
-        // menu ada di table mst_menu field struktur_menu dalam bentuk json
-        $res = json_decode($res->struktur_menu, true);
+		// menu ada di table mst_menu field struktur_menu dalam bentuk json
+		$res = json_decode($res->struktur_menu, true);
 
 		// container HTML
-        $sidebar_menu = "";
+		$sidebar_menu = "";
 
-        // ambil title menu
-        foreach($res['menu'] as $menu){
-            //grup menu role akses
-            $akses_array = $menu['akses'];
+		// ambil title menu
+		foreach ($res['menu'] as $menu) {
+			//grup menu role akses
+			$akses_array = $menu['akses'];
 
-            //check akses grup menu
-            if(in_array($akses_user, $akses_array) || in_array("ALL", $akses_array)){
-                $title = $menu['title'];
-                $sidebar_menu .= "<li class='header'>{$title}</li>";
+			//check akses grup menu
+			if (in_array($akses_user, $akses_array) || in_array("ALL", $akses_array)) {
+				$title = $menu['title'];
+				$sidebar_menu .= "<li class='header'>{$title}</li>";
 
-                //ambil menu
-                foreach ($menu['sub_menu'] as $sub_menu) {
-                    //sub menu role akses
-                    $sub_akses_array = $sub_menu['akses'];
+				//ambil menu
+				foreach ($menu['sub_menu'] as $sub_menu) {
+					//sub menu role akses
+					$sub_akses_array = $sub_menu['akses'];
 
-                    //check akses sub menu
-                    if(in_array($akses_user, $sub_akses_array) || in_array("ALL", $sub_akses_array)){
-                        $menu = $sub_menu['nama_sub_menu'];
-                        $icon = $sub_menu['icon'];
-                        $link = $sub_menu['link'];
+					//check akses sub menu
+					if (in_array($akses_user, $sub_akses_array) || in_array("ALL", $sub_akses_array)) {
+						$menu = $sub_menu['nama_sub_menu'];
+						$icon = $sub_menu['icon'];
+						$link = $sub_menu['link'];
 
-                        $sidebar_menu .= '
-                        <li class="'.$link.'">
-                            <a href="'.base_url().$link.'">
-                                '.$icon.'
-                                <span>'.$menu.'</span>
+						$sidebar_menu .= '
+                        <li class="' . $link . '">
+                            <a href="' . base_url() . $link . '">
+                                ' . $icon . '
+                                <span>' . $menu . '</span>
                             </a>
                         </li>';
-                    }
-                }
-            }
-        }
-        return $sidebar_menu;
-    }
+					}
+				}
+			}
+		}
+		return $sidebar_menu;
+	}
 
 	// tanda tangan
 	public function api_update_sign()
 	{
 		// try and catch get department
-		try 
-		{
+		try {
 			$ttd_petugas = $this->input->post('ttd_petugas');
 
 			$curl = curl_init();
 			curl_setopt_array($curl, array(
-				CURLOPT_URL => $this->endpoint.'update_sign',
+				CURLOPT_URL => $this->endpoint . 'update_sign',
 				CURLOPT_RETURNTRANSFER => true,
 				CURLOPT_ENCODING => '',
 				CURLOPT_MAXREDIRS => 10,
@@ -245,8 +241,8 @@ class Auth extends CI_Controller
 				CURLOPT_CUSTOMREQUEST => 'POST',
 				CURLOPT_POSTFIELDS => array('User_Code' => $this->session->userdata('User_Code'), 'ttd_petugas' => $ttd_petugas),
 				CURLOPT_HTTPHEADER => array(
-					'x-token: '.$this->session->userdata('token'),
-					'x-username: '.$this->session->userdata('User_Code')
+					'x-token: ' . $this->session->userdata('token'),
+					'x-username: ' . $this->session->userdata('User_Code')
 				),
 			));
 
@@ -255,16 +251,15 @@ class Auth extends CI_Controller
 
 			// insert 
 			$log_response = [
-				'log' => json_decode($response,true),
+				'log' => json_decode($response, true),
 				'old_sign' => $this->session->userdata('sign')
 			];
-			
+
 			$this->Log_model->save_log(json_encode($log_response), 'Sign');
 
 			$response = json_decode($response, true);
 			$this->session->set_userdata('sign', $ttd_petugas);
 			echo json_encode($response);
-
 		} catch (Exception $e) {
 			$this->session->set_flashdata('message', 'Gangguan jaringan! silahkan coba lagi');
 		}
@@ -313,7 +308,7 @@ class Auth extends CI_Controller
 		force_download($db_name, $backup);
 	}
 
-	
+
 	function check_username_avalibility()
 	{
 		if (!filter_var($_POST["username"], FILTER_VALIDATE_DOMAIN)) {
