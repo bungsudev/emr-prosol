@@ -26,12 +26,13 @@
 					</div>
 				</div>
 				<div class="text-center bt-1 border-light p-10" id="listFormIncompleted">
-					<a class="text-uppercase d-block font-size-12" href="#">Belum Lengkap</a>
+					<a class="text-uppercase d-block font-size-12" href="#">Belum Lengkap Disimpan</a>
+                    <hr>
+                    <span class="text-xsm">Tidak ada</span>
 				</div>
 			</div>
 			<div class="modal-footer modal-footer-uniform">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary float-right">Save changes</button>
+				<button type="button" class="btn btn-secondary float-right" data-dismiss="modal">Tutup</button>
 			</div>
 		</div>
 	</div>
