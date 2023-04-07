@@ -38,6 +38,7 @@ class Record_model extends CI_Model
         $data['status'] = 'created';
         $data['created_by'] = $this->session->userdata('User_Code');
         $data['created_time'] = date('Y-m-d H:i:s');
+        $data['id_cabang'] = $this->session->userdata('Cabang');
 
         if ($db2->insert($table, $data))
             return json_encode(array('msg_insert' => 'Success', 'status_insert' => 200));

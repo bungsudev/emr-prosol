@@ -13,6 +13,7 @@ $umur = $today->diff($lahir);
     .tblBorder tr, .tblBorder td, thead tr th{
         padding: 2px;
         border: 1px solid;
+        vertical-align: top;
         font-size: 10px;
     }
 
@@ -23,7 +24,8 @@ $umur = $today->diff($lahir);
 
     .tblDataSm tr td {
         padding: 2px;
-        font-size: 10px;
+        vertical-align: top;
+        font-size: 11px;
     }
 
     .tblData {
@@ -34,7 +36,7 @@ $umur = $today->diff($lahir);
     .tblData td {
         padding: 3px;
         vertical-align: middle;
-        font-size: 13px;
+        font-size: 12px;
     }
 
     .v-top{
@@ -89,6 +91,9 @@ $umur = $today->diff($lahir);
     .f-7{
         font-size: 9px;
     }
+    .px-10{
+        padding:10px 0 10px 0 !important;
+    }
 </style>
 
 <div style="text-align:right; color:dimgray">
@@ -99,17 +104,17 @@ $umur = $today->diff($lahir);
         <td class="b-left b-top b-bot" width="15%" align="center">
             <img src="<?= base_url() ?>assets/images/cabang/<?= $this->session->userdata('Cabang').'/'.$cabang->gambar_logo_2 ?>" alt="logo" width="100">
         </td>
-        <td class="b-top b-bot" width="35%">
+        <td class="b-top b-bot b-right" width="35%">
             <p>
                 <b><?= $cabang->nama_rs ?></b> <br />
                 <?= $cabang->alamat ?>
             </p>
         </td>
         <td class="b-top b-right b-bot" width="50%">
-            <table class="tblDataSm">
+            <table class="tblData">
                 <tr>
-                    <td>No. RM</td>
-                    <td>:</td>
+                    <td width="90">No. RM</td>
+                    <td width="1">:</td>
                     <td><?= $cabang->kode_formulir ?></td>
                 </tr>
                 <tr>

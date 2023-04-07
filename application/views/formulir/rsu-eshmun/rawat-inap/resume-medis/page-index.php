@@ -31,7 +31,7 @@
 						<div class="form-group">
 							<label for="tanggal_keluar">Tanggal Keluar / Tanggal Meninggal</label>
 							<input type="date" name="tanggal_keluar" id="tanggal_keluar" class="form-control"
-								value='<?= (!empty($row['tanggal_keluar'])) ? $row['tanggal_keluar'] : date('Y-m-d') ?>'>
+								value='<?= (!empty($row['tanggal_keluar'])) ? $row['tanggal_keluar'] : '' ?>'>
 						</div>
 					</div>
 					<!-- <div class="col-md-2">
@@ -70,7 +70,7 @@
 					<div class="col-md-2">
 						<div class="form-group">
 							<?php
-								$temp_Val = isset($row['tim_dokter']) ? $row['tim_dokter'] : '';;
+								$temp_Val = isset($row['tim_dokter_pil']) ? $row['tim_dokter_pil'] : '';;
 								if (!empty($temp_Val))
 									$Val = explode("|", $temp_Val);
 			
@@ -79,13 +79,13 @@
 									"Ya",
 								];
 							?>
-							<label for="tim_dokter">Rawat Tim Dokter</label>
+							<label for="tim_dokter_pil">Rawat Tim Dokter</label>
 							<?php for ($i = 0; $i < sizeof($dataVal); $i++): ?>
 							<div class="radio">
-								<input class="form-control" name="tim_dokter" type="radio" id="tim_dokter<?= $i ?>"
+								<input class="form-control" name="tim_dokter_pil" type="radio" id="tim_dokter_pil<?= $i ?>"
 									value="<?= $dataVal[$i] ?>"
 									<?= (!empty($Val)) ? ((in_array($dataVal[$i], $Val)) ? 'checked' : '') : '' ?>>
-								<label for="tim_dokter<?= $i ?>"><?= $dataVal[$i] ?></label>
+								<label for="tim_dokter_pil<?= $i ?>"><?= $dataVal[$i] ?></label>
 							</div>
 							<?php endfor; ?>
 						</div>
@@ -127,7 +127,7 @@
 						<div class="form-group">
 							<label for="indikasi_dirawat">Indikasi Dirawat</label>
 							<textarea rows="3" name="indikasi_dirawat" id="indikasi_dirawat" class="form-control"
-								placeholder="Indikasi Dirawat"> <?= (!empty($row['indikasi_dirawat'])) ? $row['indikasi_dirawat'] : '' ?></textarea>
+								placeholder="Indikasi Dirawat"><?= (!empty($row['indikasi_dirawat'])) ? $row['indikasi_dirawat'] : '' ?></textarea>
 						</div>
 					</div>
 					<div class="col-md-12">
@@ -353,7 +353,7 @@
 	let panel = $('#panel_tim_dokter');
 	let panel_input = $('#panel_tim_dokter input:first');
 
-	// Rawat Tim Dokter
+	// membuat semua menjadi required
 	$("input, textarea, select, .radio.form-control").addClass('required');
 	$(".not-req input").removeClass('required');
 
@@ -362,7 +362,7 @@
 		get_list()
 
 		// tim dokter
-		$('input[name="tim_dokter"]').on('change', function () {
+		$('input[name="tim_dokter_pil"]').on('change', function () {
 			let value = $(this).val();
 			if (value == 'Tidak') {
 				panel_input.addClass('not-required');
@@ -378,10 +378,10 @@
 		});
 
 		// kondisi untuk panel_tim_dokter dan tidak mandatory
-		if ($('input[name="tim_dokter"]:checked').val() == 'Tidak') {
+		if ($('input[name="tim_dokter_pil"]:checked').val() == 'Tidak') {
 			panel_input.addClass('not-required');
 			panel.hide()
-		} else if ($('input[name="tim_dokter"]:checked').val() == 'Ya') {
+		} else if ($('input[name="tim_dokter_pil"]:checked').val() == 'Ya') {
 			panel_input.removeClass('not-required');
 			panel.show()
 		} else {
@@ -394,7 +394,6 @@
 			e.preventDefault()
 			if (validate()) {
 				$('#link_print').removeClass('disabled', true);
-				console.log($('#form-data').serializeArray());
 				tidak_lengkap = cek_field_kosong($('#form-data').serializeArray())
 				save(tidak_lengkap)
 			} else {
@@ -441,14 +440,12 @@
 	// simpan di table
 	function save_list() {
 		let data = $('#form-data-2').serializeArray()
-		console.log(data)
 		$.ajax({
 			url: base_url + '<?= $controller ?>/insert_list/' + visit_no + '/' + field + '/' + table,
 			type: 'POST',
 			data: data,
 			dataType: 'json',
 			success: function (res) {
-				console.log(res)
 				get_list()
 				a_ok('Berhasil', 'Data Berhasil Ditambahkan');
 				$('#form-data-2')[0].reset()
@@ -464,7 +461,6 @@
 			url: base_url + '<?= $controller ?>/detail/' + visit_no + '/' + table,
 			dataType: 'json',
 			success: function (res) {
-				console.log(res)
 				let html
 				let no = 1
 				let btnHapus = ''
@@ -511,7 +507,6 @@
 						visit_no: visit_no
 					},
 					success: function (res) {
-						// console.log(res)
 						if (res.status == 200)
 							a_ok('Berhasil', 'Data Berhasil Dihapus')
 						else if (res.status == 500)

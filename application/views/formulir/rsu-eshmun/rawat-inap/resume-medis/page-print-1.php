@@ -10,8 +10,6 @@ $checkbox = '<input type="checkbox"/>';
         <td class="b-all b-right" align="center"><h2><?= $cabang->nama_formulir ?></h2></td>
     </tr>
 </table>
-<!-- Tanggal Masuk      : 						Tanggal Keluar / Tanggal Meninggal   : 							
-Ruang Rawat Terakhir   :						 :							 -->
 
 <table class="tblDataSm">
     <tr>
@@ -47,8 +45,8 @@ Ruang Rawat Terakhir   :						 :							 -->
                         ];
                         ?>
                         Rawat Tim Dokter : 
-                        <?= ($dtl['tim_dokter'] == $data[1]) ? checkbox() : box() ?> <?= $data[1] ?>
-                        <?= ($dtl['tim_dokter'] == $data[0]) ? checkbox() : box() ?> <?= $data[0] . ' , Oleh :' ?>
+                        <?= ($dtl['tim_dokter_pil'] == $data[1]) ? checkbox() : box() ?> <?= $data[1] ?>
+                        <?= ($dtl['tim_dokter_pil'] == $data[0]) ? checkbox() : box() ?> <?= $data[0] . ' , Oleh :' ?>
                     </td>
                     <td>
                         <table class="tblDataSm">
@@ -267,7 +265,7 @@ Ruang Rawat Terakhir   :						 :							 -->
                 <tr>
                     <td colspan="2" align="center">
                         <br><br>
-                        Medan, Tanggal <?= (!empty($dtl['created_time'])) ? date_dfy(strtotime($dtl['created_time'])) : $empty ?> Pukul <?= (!empty($dtl['created_time'])) ? date('H:i', strtotime($dtl['created_time'])) : $empty ?> WIB
+                        Medan, <?= (!empty($dtl['created_time'])) ? date_dfy(strtotime($dtl['created_time'])) : $empty ?> Pukul <?= (!empty($dtl['created_time'])) ? date('H:i', strtotime($dtl['created_time'])) : $empty ?> WIB
                     </td>
                 </tr>
                 <tr>
