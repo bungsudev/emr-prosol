@@ -12,8 +12,7 @@
 				<input type="hidden" name="nama_penanda" id="nama_penanda" value="<?= (!empty($row['nama_penanda'])) ? $row['nama_penanda'] : $this->session->userdata['User_Code'] ?>">
 				<input type="hidden" name="alamat_penanda" id="alamat_penanda" value="RSU Eshmun">
 				<input type="hidden" name="wajib" id="wajib"
-					value="<?= (!empty($row['wajib'])) ? $row['wajib'] : true ?>">
-				<input type="hidden" name="status" id="status" value="<?= (!empty($row['status'])) ? $row['status'] : '0' ?>">
+					value="<?= ($row['wajib'] != '') ? $row['wajib'] : true ?>">
 				<div class="row">
 					<div class="col-md-12">
 						<h5>Dalam hal ini bertindak sebagai Dokter Jaga IGD, dengan ini menyatakan bahwa pasien tersebut
@@ -113,13 +112,13 @@
 	let controller = '<?= $controller ?>';
 	let field = '<?= $field ?>';
 	let table = '<?= $table ?>';
-	let cek = $("#status").val();
+	let cek = '<?= (!empty($row['status'])) ? $row['status'] : '' ?>';
 	let tidak_lengkap;
 	let panel = $('#panel_faskes_perujuk');
 	let panel_input = $('#panel_faskes_perujuk input');
 	let panel_checked = $('input[name="faskes_perujuk_pil"]:checked').val();
 	let data_val = <?= json_encode($dataVal) ?>;
-	let is_mandatory = <?= (!empty($row['wajib'])) ? $row['wajib'] : 1 ?>;
+	let is_mandatory = <?= ($row['wajib'] != '') ? $row['wajib'] : 1 ?>;
     // value radio untuk menampilkan input
     let valueShowInput = "Ada";
 
@@ -128,10 +127,14 @@
 	$(".not-req input").removeClass('required');
 
 	$(document).ready(function () {
+        console.clear();
+        $("#btnMandatory").attr('aria-pressed', handleTrueFalse(is_mandatory));
+
 		$('#simpan').click(function (e) {
 			e.preventDefault()
-			if (validate()) {
-				$('#link_print').removeClass('disabled', true);
+            $("#wajib").val(is_mandatory);
+			if (validate(is_mandatory)) {
+				$('#link_print').removeClass('disabled', handleTrueFalse());
 				tidak_lengkap = cek_field_kosong($('#form-data').serializeArray())
 				save(tidak_lengkap)
 			} else {
@@ -142,17 +145,18 @@
 		})
 
         $('#btnMandatory').on('click', function () {
-			let check = $(this).attr("aria-pressed");
-			let is_mandatory = $("#wajib").val();
+			let check = $("#wajib").val();
 			// jika false maka artinya pengisian form mandatory
-			if (check == 'true') {
-				is_mandatory = 1;
+			if (check == 1) {
+				is_mandatory = 0;
+                $("#wajib").val(0);
 				$("input, textarea, select, .radio.form-control").removeClass('required');
 				$("input, textarea, select, .radio.form-control").removeClass('is-invalid');
+                $(".not-req input").removeClass('required');
 			} else {
-				is_mandatory = 0;
+				is_mandatory = 1;
+                $("#wajib").val(1);
 				$("input, textarea, select, .radio.form-control").addClass('required');
-				$(".not-req input").removeClass('required');
 			}
 		});
 
@@ -165,6 +169,11 @@
 
 		// kondisi untuk radioHasInput mandatory atau tidak setelah page load
         radioHasInput(panel_checked, valueShowInput, panel, panel_input, is_mandatory);
+
+        if (cek)
+			$('#link_print').removeClass('disabled', true)
+		else
+			$('#link_print').addClass('disabled', true)
 	});
 
     // main form
@@ -231,9 +240,9 @@
 
 
 	// required
-	validate = () => {
+	validate = (is_mandatory) => {
 		let valid = true;
-		if ($("#wajib").val() == 1) {
+		if (is_mandatory == 1) {
 			$('.required').each(function () {
 				let value = $(this).val();
 				let value_radio = $(this).find('input[type="radio"]:checked').val() == '';

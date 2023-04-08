@@ -56,6 +56,11 @@
 
 	<script type="text/javascript">
 
+		function handleTrueFalse(input) {
+			return (input == 1)? "true" : "false";
+		}
+
+
 		function showComponent(id_name, field_name) {
             $("#" + id_name+"0").on("click", function() {
                 $("input[name='" + field_name + "']").css('display', 'none');

@@ -23,9 +23,9 @@ $umur = $today->diff($lahir);
     }
 
     .tblDataSm tr td {
-        padding: 2px;
+        padding: 1px;
         vertical-align: top;
-        font-size: 11px;
+        font-size: 10px;
     }
 
     .tblData {
@@ -34,7 +34,7 @@ $umur = $today->diff($lahir);
     }
 
     .tblData td {
-        padding: 3px;
+        padding: 1px;
         vertical-align: middle;
         font-size: 12px;
     }
@@ -93,6 +93,9 @@ $umur = $today->diff($lahir);
     }
     .px-10{
         padding:10px 0 10px 0 !important;
+    }
+    .pl-20{
+        padding-left:20px !important;
     }
 </style>
 

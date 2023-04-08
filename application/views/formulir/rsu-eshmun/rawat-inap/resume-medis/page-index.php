@@ -7,10 +7,10 @@
 		<!-- /.box-header -->
 		<div class="box-body">
 			<form id="form-data">
+				<input type="hidden" id="visit_no" name="visit_no" value="<?= $detail['Visit_No'] ?>">
 				<input type="hidden" name="mr_code" id="mr_code" value="<?= $detail['MR_Code'] ?>">
-				<input type="hidden" name="visit_no" id="visit_no" value="<?= $detail['Visit_No'] ?>">
 				<input type="hidden" name="wajib" id="wajib"
-					value="<?= (!empty($row['wajib'])) ? $row['wajib'] : true ?>">
+					value="<?= ($row['wajib'] != '') ? $row['wajib'] : true ?>">
 				<div class="row">
 					<div class="col-md-3">
 						<div class="form-group">
@@ -352,6 +352,7 @@
 	let tidak_lengkap;
 	let panel = $('#panel_tim_dokter');
 	let panel_input = $('#panel_tim_dokter input:first');
+	let is_mandatory = <?= ($row['wajib'] != '') ? $row['wajib'] : 1 ?>;
 
 	// membuat semua menjadi required
 	$("input, textarea, select, .radio.form-control").addClass('required');
@@ -359,6 +360,7 @@
 
 	$(document).ready(function () {
 		// list terapi obat
+		$("#btnMandatory").attr('aria-pressed', handleTrueFalse(is_mandatory));
 		get_list()
 
 		// tim dokter
@@ -392,7 +394,8 @@
 
 		$('#simpan').click(function (e) {
 			e.preventDefault()
-			if (validate()) {
+			$("#wajib").val(is_mandatory);
+			if (validate(is_mandatory)) {
 				$('#link_print').removeClass('disabled', true);
 				tidak_lengkap = cek_field_kosong($('#form-data').serializeArray())
 				save(tidak_lengkap)
@@ -404,16 +407,18 @@
 		})
 
 		$('#btnMandatory').on('click', function () {
-			let check = $(this).attr("aria-pressed");
+			let check = $("#wajib").val();
 			// jika false maka artinya pengisian form mandatory
-			if (check == 'true') {
-				$("#wajib").val(0);
+			if (check == 1) {
+				is_mandatory = 0;
+                $("#wajib").val(0);
 				$("input, textarea, select, .radio.form-control").removeClass('required');
 				$("input, textarea, select, .radio.form-control").removeClass('is-invalid');
+                $(".not-req input").removeClass('required');
 			} else {
-				$("#wajib").val(1);
+				is_mandatory = 1;
+                $("#wajib").val(1);
 				$("input, textarea, select, .radio.form-control").addClass('required');
-				$(".not-req input").removeClass('required');
 			}
 		});
 
@@ -588,9 +593,9 @@
 
 
 	// required
-	function validate() {
+	function validate(is_mandatory) {
 		let valid = true;
-		if ($("#wajib").val() == 1) {
+		if (is_mandatory == 1) {
 			$('.required').each(function () {
 				let value = $(this).val();
 				let value_radio = $(this).find('input[type="radio"]:checked').val() == '';

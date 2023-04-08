@@ -91,6 +91,7 @@ class In extends CI_Controller
 		$id_form = decrypt_url($id_form);
 		
 		$mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => [215, 330], 'margin_left' => 10, 'margin_right' => 10, 'margin_top' => 8, 'margin_bottom' => 10, 'margin_header' => 0, 'margin_footer' => 0]); //use this customization
+
 		$data['detail'] = $this->api_detail_pasien($visit_no);
 
 		// ambil data dari table mst_formulir
@@ -99,7 +100,8 @@ class In extends CI_Controller
 
 		$data['header'] = 'template/header';
 		$data['dtl'] = $this->Record_model->detail($formulir->table, $visit_no);
-		
+		// echo json_encode($data['dtl']);
+		// die();
 		// var_dump($data['dtl']['terapi_pulang']);
 		// die();
 		// $data['dtl_list'] = $this->Record_model->detail($formulir->table, $formulir->field, $visit_no);
@@ -123,10 +125,30 @@ class In extends CI_Controller
 		$mpdf->Output();
 	}
 
+	public function print_test($id_form, $visit_no)
+	{
+		require_once './vendor/autoload.php';
 
-	// api
+		$id_form = decrypt_url($id_form);
+		
+		$data['detail'] = $this->api_detail_pasien($visit_no);
 
-	
+		// ambil data dari table mst_formulir
+		$formulir = $this->Formulir_model->getFormulirDetailPrint($id_form);
+		$data['cabang'] = $formulir;
+
+		$data['header'] = 'template/header';
+		$data['dtl'] = $this->Record_model->detail($formulir->table, $visit_no);
+		
+		$i = 1;
+
+		$data['page'] = 'Hal ' . $i . '/3';
+		$data['content'] = $formulir->content . '/page-print-1';
+		$this->load->view('layout_print', $data);
+	}
+
+
+
     // API detail pasien
     public function api_detail_pasien($visit_no)
 	{

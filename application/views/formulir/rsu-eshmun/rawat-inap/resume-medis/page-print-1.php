@@ -228,6 +228,7 @@ $checkbox = '<input type="checkbox"/>';
                             </thead>
                             <?php
                                 $json = json_decode($dtl['terapi_pulang']);
+                                if (!empty($json)):
                                 $val_list = array_reverse($json);
                             ?>
                             <tbody>
@@ -236,28 +237,41 @@ $checkbox = '<input type="checkbox"/>';
                                     $no = 0;
                                     for ($i=0; $i < $count; $i++): 
                                 ?>
-                                <tr>
-                                    <td><?= $no + 1 ?></td>
-                                    <td><?= $val_list[$i]->nama_obat ?></td>
-                                    <td><?= $val_list[$i]->satuan ?></td>
-                                    <td><?= $val_list[$i]->jumlah ?></td>
-                                    <td><?= $val_list[$i]->dosis ?></td>
-                                    <td><?= $val_list[$i]->frekuensi ?></td>
-                                </tr>
-                                <?php 
+                                        <tr>
+                                            <td><?= $no + 1 ?></td>
+                                            <td><?= $val_list[$i]->nama_obat ?></td>
+                                            <td><?= $val_list[$i]->satuan ?></td>
+                                            <td><?= $val_list[$i]->jumlah ?></td>
+                                            <td><?= $val_list[$i]->dosis ?></td>
+                                            <td><?= $val_list[$i]->frekuensi ?></td>
+                                        </tr>
+                                        <?php 
                                     endfor; 
-                                    if ($no < 7)
-                                    for ($i=0; $i < 6 - $count; $i++):
-                                ?>
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                    </tr>
-                                <?php endfor; ?>
+                                        if ($no < 7):
+                                            for ($i=0; $i < 6 - $count; $i++):
+                                        ?>
+                                            <tr>
+                                                <td>&nbsp;</td>
+                                                <td>&nbsp;</td>
+                                                <td>&nbsp;</td>
+                                                <td>&nbsp;</td>
+                                                <td>&nbsp;</td>
+                                                <td>&nbsp;</td>
+                                            </tr>
+                                        <?php endfor; ?>
+                                    <?php endif; ?>
+                                <?php else: ?>
+                                    <?php for ($i=0; $i < 7; $i++): ?>
+                                                <tr>
+                                                    <td>&nbsp;</td>
+                                                    <td>&nbsp;</td>
+                                                    <td>&nbsp;</td>
+                                                    <td>&nbsp;</td>
+                                                    <td>&nbsp;</td>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                    <?php endfor; ?>
+                                <?php endif; ?>
                             </tbody>
                         </table>
                     </td>

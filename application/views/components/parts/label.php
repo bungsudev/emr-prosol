@@ -16,7 +16,7 @@
 			<div class="col-md-12">
 				<label for="">Data wajib lengkap</label>
 				<button type="button" class="btn btn-toggle" id="btnMandatory" data-toggle="button" 
-				aria-pressed="<?= ($row['wajib'] == 1) ? 'true' : 'false' ?>"
+				aria-pressed="<?= (!empty($row['wajib']) && $row['wajib'] == 1) ? 'true' : 'false' ?>"
 					autocomplete="off">
 					<div class="handle"></div>
 				</button> 
