@@ -190,10 +190,11 @@
 				let data = $('#form-data').serializeArray()
 
 				// tambah data tidak_lengkap
-				let data_merge = $.extend(data, [{
+				let data_merge = [{
 					'name': 'tidak_lengkap',
 					'value': tidak_lengkap
-				}]);
+				}];
+				data = data.concat(data_merge);
 
 				let promise = $.ajax({
 					url: url,

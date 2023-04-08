@@ -7,7 +7,7 @@
 		<!-- /.box-header -->
 		<div class="box-body">
 			<form id="form-data">
-				<input type="hidden" id="visit_no" name="visit_no" value="<?= $detail['Visit_No'] ?>">
+				<input type="hidden" name="visit_no" id="visit_no" value="<?= $detail['Visit_No'] ?>">
 				<input type="hidden" name="mr_code" id="mr_code" value="<?= $detail['MR_Code'] ?>">
 				<input type="hidden" name="wajib" id="wajib"
 					value="<?= ($row['wajib'] != '') ? $row['wajib'] : true ?>">
@@ -543,10 +543,12 @@
 				let data = $('#form-data').serializeArray()
 
 				// tambah data tidak_lengkap
-				let data_merge = $.extend(data, [{
+				let data_merge = [{
 					'name': 'tidak_lengkap',
 					'value': tidak_lengkap
-				}]);
+				}];
+				data = data.concat(data_merge);
+				cl(data);
 
 				let promise = $.ajax({
 					url: url,
