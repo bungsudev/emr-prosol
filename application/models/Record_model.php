@@ -28,7 +28,6 @@ class Record_model extends CI_Model
     {
         $db2 = $this->load->database('default', TRUE);
 
-        var_dump($data); die();
         foreach ($data as $key => $value)
             $data[$key] = $this->checkArray($data[$key]);
 
