@@ -592,27 +592,6 @@
 		}
 		return result;
 	}
-
-
-	// required
-	function validate(is_mandatory) {
-		let valid = true;
-		if (is_mandatory == 1) {
-			$('.required').each(function () {
-				let value = $(this).val();
-				let value_radio = $(this).find('input[type="radio"]:checked').val() == '';
-				if (value == '' || value_radio) {
-					// focus on first is-invalid
-					$('.is-invalid:first').focus();
-					$(this).addClass('is-invalid');
-					valid = false;
-				} else {
-					$(this).removeClass('is-invalid');
-				}
-			});
-		}
-		return valid;
-	}
 	// main form
 
 </script>

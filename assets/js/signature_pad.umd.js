@@ -518,4 +518,3 @@
     return SignaturePad;
 
 })));
-//# sourceMappingURL=signature_pad.umd.js.map

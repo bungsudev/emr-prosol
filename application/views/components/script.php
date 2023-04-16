@@ -13,7 +13,7 @@
 	<script src="<?= base_url() ?>assets/js/bootstrap-select.js"></script>
 	<script src="<?= base_url() ?>assets/vendor_components/select2/dist/js/select2.full.js"></script>
 	<script src="<?= base_url() ?>assets/js/template.js"></script>
-	<script src="<?= base_url() ?>assets/js/pages/data-table.js"></script>
+	<!-- <script src="<?= base_url() ?>assets/js/pages/data-table.js"></script> -->
 	<script src="<?= base_url() ?>assets/js/sweatalert.js"></script>
 	<!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
 	<script src="<?= base_url() ?>assets/js/iziToast.min.js"></script>
@@ -46,15 +46,59 @@
 			//sehingga jika naik ke hosting harus di sesuaikan lagi dengan URL nya
 			if (segment_url[2] == 'localhost') {
 				segment_active = segment_url[5];
+				segment_active = segment_active.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '-');
 				$("." + segment_active).addClass("active");
 			}else{
 				segment_active = segment_url[4];
+				segment_active = segment_active.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '-');
 				$("." + segment_active).addClass("active");
 			}
 		});
 	</script>
 
 	<script type="text/javascript">
+		const loading = (n) => {
+			if (n === 1)
+				$(".loading").css('display', 'block');
+			else
+				$(".loading").css('display', 'none');
+		};
+
+		// required function
+		const validate = (is_mandatory) => {
+			let valid = true;
+			if (is_mandatory == 1) {
+				$('.required').each(function () {
+					let value = $(this).val();
+					let value_radio = $(this).find('input[type="radio"]:checked').val() == '';
+					if (value == '' || value_radio) {
+						// focus on first is-invalid
+						$('.is-invalid:first').focus();
+						$(this).addClass('is-invalid');
+						valid = false;
+					} else {
+						$(this).removeClass('is-invalid');
+					}
+				});
+			}
+			return valid;
+		}
+
+		function alertOkCancel(title, html, confirmButtonText) {
+			let result = false;
+			Swal.fire({
+				title: title,
+				html: html,
+				type: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#3085d6",
+				cancelButtonColor: "#d33",
+				confirmButtonText: confirmButtonText
+			}).then((result) => {
+				result = true
+			})
+			return result;
+		}
 
 		function handleTrueFalse(input) {
 			return (input == 1)? "true" : "false";
@@ -109,6 +153,19 @@
 
 		function jika_null(data) {
 			return (data === null || data == '') ? '-' : data;
+		}
+
+		function date_dmy(inputDate) {
+			if (inputDate) {
+				let options = {
+					year: 'numeric',
+					month: 'short',
+					day: 'numeric',
+				}
+				let date = new Date(inputDate)
+				return date.toLocaleDateString("id-ID", options)
+			} else
+				return '-'
 		}
 
 		//check empty return some value

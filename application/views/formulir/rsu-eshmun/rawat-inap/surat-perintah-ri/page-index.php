@@ -177,7 +177,7 @@
 	});
 
     // main form
-	save = (tidak_lengkap) => {
+	const save = (tidak_lengkap) => {
 		$.ajax({
 			url: base_url + controller + '/detail/' + visit_no + '/' + table,
 			dataType: 'json',
@@ -225,7 +225,7 @@
 	}
 
 	// check in json has no value
-	cek_field_kosong = (json) => {
+	const cek_field_kosong = (json) => {
 		let result = [];
 		let is_required;
 
@@ -238,31 +238,10 @@
 		}
 		return result;
 	}
-
-
-	// required
-	validate = (is_mandatory) => {
-		let valid = true;
-		if (is_mandatory == 1) {
-			$('.required').each(function () {
-				let value = $(this).val();
-				let value_radio = $(this).find('input[type="radio"]:checked').val() == '';
-				if (value == '' || value_radio) {
-					// focus on first is-invalid
-					$('.is-invalid:first').focus();
-					$(this).addClass('is-invalid');
-					valid = false;
-				} else {
-					$(this).removeClass('is-invalid');
-				}
-			});
-		}
-		return valid;
-	}
 	// main form
 
 
-	radioHasInput = (value, valueShowInput, panel, panel_input, is_mandatory) => {
+	const radioHasInput = (value, valueShowInput, panel, panel_input, is_mandatory) => {
 		if (value != valueShowInput) {
 			panel_input.addClass('not-required');
 			panel_input.removeClass('required');

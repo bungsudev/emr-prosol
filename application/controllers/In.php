@@ -28,26 +28,31 @@ class In extends CI_Controller
 
 		// ambil data form dari table mst_formulir
 		$formulir = $this->Formulir_model->getFormulirDetail($id_form);
-		$data['table'] = $formulir->table;
-		$data['field'] = $formulir->field;
-		$data['kode_rm'] = $formulir->kode_formulir;
-		$data['content'] = $formulir->content;
-		$data['title'] = $formulir->nama_formulir;
+		if (empty($formulir->controller)) {
+			
+			$data['table'] = $formulir->table;
+			$data['field'] = $formulir->field;
+			$data['kode_rm'] = $formulir->kode_formulir;
+			$data['view'] = $formulir->content;
+			$data['title'] = $formulir->nama_formulir;
 
-		$this->id_form = $id_form;
-		// ambil detail pasien
-		$data['detail'] = $this->api_detail_pasien($visit_no);
-		
-		$data['link_print'] = base_url() . $this->controller .'/print/'.encrypt_url($id_form).'/'.$visit_no;
-		$data['row'] = $this->Record_model->detail($formulir->table, $visit_no);
-		// $data['dokter'] = $this->User_model->data_dokter();
-		// $data['rujukan'] = $this->Main_model->getPartner();
+			$this->id_form = $id_form;
+			// ambil detail pasien
+			$data['detail'] = $this->api_detail_pasien($visit_no);
+			
+			$data['link_print'] = base_url() . $this->controller .'/print/'.encrypt_url($id_form).'/'.$visit_no;
+			$data['row'] = $this->Record_model->detail($formulir->table, $visit_no);
+			// $data['dokter'] = $this->User_model->data_dokter();
+			// $data['rujukan'] = $this->Main_model->getPartner();
 
-		$data['controller'] = $this->controller;
-		$data['label'] = $this->label;
-		$data['content'] = $formulir->content . '/page-index';
+			$data['controller'] = $this->controller;
+			$data['label'] = $this->label;
+			$data['content'] = $formulir->content . '/page-index';
 
-		$this->load->view('layout', $data);
+			$this->load->view('layout', $data);
+		}else{
+			redirect(base_url().$formulir->controller.'/?id='. $id_form .'&Visit_No='.$visit_no);
+		}
 	}
 
 	public function detail($visit_no, $table)

@@ -13,7 +13,7 @@
 	</div>
 	<div class="col-md-6">
 		<div class="row text-right">
-			<div class="col-md-12">
+			<div class="col-md-12 divLabel">
 				<label for="">Data wajib lengkap</label>
 				<button type="button" class="btn btn-toggle" id="btnMandatory" data-toggle="button" 
 				aria-pressed="<?= (!empty($row['wajib']) && $row['wajib'] == 1) ? 'true' : 'false' ?>"
