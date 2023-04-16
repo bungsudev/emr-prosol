@@ -6,562 +6,557 @@
 		</div>
 		<!-- /.box-header -->
 		<div class="box-body">
-		<form id="myForm">
-			<div class="row">
-				<input type="hidden" name="visit_no" value="<?php echo $detail['Visit_No'] ?>" id="visit_no">
-				<input type="hidden" name="mr_code" value="<?php echo $detail['MR_Code'] ?>" id="mr_code">
-				<input type="hidden" name="pukul" value="<?php echo date('h:i') ?>">
-				<input type="hidden" name="ttd" id="ttd" value="<?= $this->session->userdata('sign') ?>">
-				<input type="hidden" name="dpjp" id="dpjp" value="<?= $detail['AttDoctorName'] ?>">
-				<input type="hidden" name="dpjpCode" id="dpjpCode" value="<?= $detail['AttDoctorCode'] ?>">
-				<input type="hidden" name="is_doctor" id="is_doctor" value="<?= $this->session->userdata('is_doctor') ?>">
-				<div class="form-group col-md-4">
-					<label>Tanggal</label>
-					<input type="date" name="tanggal" class="form-control" value="<?php echo date('Y-m-d') ?>">
-				</div>
-				<div class="form-group col-md-4">
-					<label>Jam</label>
-					<input type="text" id="example" class="form-control bs-timepicker" name="pukul" autocomplete="off" value="<?php echo date('H:i') ?>" />
-				</div>
-				<div class="form-group col-md-4">
-					<label>PPA</label>
-					<select class="form-control" name="ppa">
-						<?php if ($this->session->userdata('is_doctor') == 'DOKTER') : ?>
-							<option value="Dokter" selected>Dokter</option>
-						<?php else : ?>
-							<option value="Perawat">Perawat</option>
-							<option value="Bidan">Bidan</option>
-							<option value="Fisioterapis">Fisioterapis</option>
-							<option value="Apoteker">Apoteker</option>
-							<option value="Gizi">Gizi</option>
-							<option value="Lainnya">Lainnya</option>
-						<?php endif ?>
-					</select>
-				</div>
-
-				<div class="form-group col-md-4">
-					<label>Metode</label>
-					<select class="form-control" name="metode_asesmen" id="metode_asesmen">
-						<?php if ($this->session->userdata('is_doctor') == 'DOKTER') : ?>
-							<option value="SOAP">SOAP</option>
-							<option value="SOAP+PK">SOAP + PERMINTAAN KONSULTASI</option>
-							<option value="SOAP+JK">SOAP + JAWABAN KONSULTASI</option>
-							<option value="PSP">PSP</option>
-							<option value="SC">SC</option>
-							<option value="PICU">PICU</option>
-						<?php else : ?>
-							<option value="SOAP">SOAP</option>
-							<option value="SBAR">SBAR</option>
-							<option value="SBAR+PDU">SBAR + PERALIHAN DPJP UTAMA</option>
-							<option value="RB">RAWAT BERSAMA</option>
-							<option value="ADIME">ADIME</option>
-						<?php endif ?>
-					</select>
-				</div>
-
-				<!-- ===== SOAP ===== -->
-				<div id="soap" style="width:100%">
-					<!-- ===== S ===== -->
-					<div class="input-group col-md-12 mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="labelMtd1" style="width:3vw;">S</span>
-						</div>
-						<textarea class="form-control" id="soap_s" name="soap_s" placeholder="..... " rows="5"></textarea>
-						<div class="input-group-append" id="tambah-div">
-							<button class="btn btn-primary text-white addTemp" data-field="soap_s" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
-						</div>
+			<form id="myForm">
+				<div class="row">
+					<input type="hidden" name="visit_no" value="<?php echo $detail['Visit_No'] ?>" id="visit_no">
+					<input type="hidden" name="mr_code" value="<?php echo $detail['MR_Code'] ?>" id="mr_code">
+					<input type="hidden" name="pukul" value="<?php echo date('h:i') ?>">
+					<input type="hidden" name="ttd" id="ttd" value="<?= $this->session->userdata('sign') ?>">
+					<input type="hidden" name="dpjp" id="dpjp" value="<?= $detail['AttDoctorName'] ?>">
+					<input type="hidden" name="dpjpCode" id="dpjpCode" value="<?= $detail['AttDoctorCode'] ?>">
+					<input type="hidden" name="is_doctor" id="is_doctor" value="<?= $this->session->userdata('is_doctor') ?>">
+					<div class="form-group col-md-4">
+						<label>Tanggal</label>
+						<input type="date" name="tanggal" class="form-control" value="<?php echo date('Y-m-d') ?>">
 					</div>
-					<!-- ===== O ===== -->
-					<div class="input-group col-md-12 mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="labelMtd2" style="width:3vw;">O</span>
-						</div>
-						<textarea class="form-control" id="soap_o" name="soap_o" placeholder="..... " rows="5"></textarea>
-						<div class="input-group-append" id="tambah-div">
-							<button class="btn btn-primary text-white addTemp" data-field="soap_o" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
-						</div>
+					<div class="form-group col-md-4">
+						<label>Jam</label>
+						<input type="text" id="example" class="form-control bs-timepicker" name="pukul" autocomplete="off" value="<?php echo date('H:i') ?>" />
 					</div>
-					<!-- ===== A ===== -->
-					<div class="input-group col-md-12 mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="labelMtd3" style="width:3vw;">A</span>
-						</div>
-						<textarea class="form-control" id="soap_a" name="soap_a" placeholder="..... " rows="5"></textarea>
-						<div class="input-group-append" id="tambah-div">
-							<button class="btn btn-primary text-white addTemp" data-field="soap_a" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
-						</div>
-					</div>
-					<!-- ===== P ===== -->
-					<div class="input-group col-md-12 mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="labelMtd4" style="width:3vw;">P</span>
-						</div>
-						<textarea class="form-control" id="soap_p" name="soap_p" placeholder="..... " rows="5"></textarea>
-						<div class="input-group-append" id="tambah-div">
-							<button class="btn btn-primary text-white addTemp" data-field="soap_p" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
-						</div>
-					</div>
-				</div>
-
-				<!-- ===== SBAR ===== -->
-				<div id="sbar" style="width:100%">
-					<!-- ===== S ===== -->
-					<div class="input-group col-md-12 mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="labelMtd1" style="width:3vw;">S</span>
-						</div>
-						<textarea class="form-control" id="sbar_s" name="soap_s" placeholder="..... " rows="5"></textarea>
-						<div class="input-group-append" id="tambah-div">
-							<button class="btn btn-primary text-white addTemp" data-field="sbar_s" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
-						</div>
-					</div>
-					<!-- ===== B ===== -->
-					<div class="input-group col-md-12 mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="labelMtd2" style="width:3vw;">B</span>
-						</div>
-						<textarea class="form-control" id="sbar_b" name="soap_o" placeholder="..... " rows="5"></textarea>
-						<div class="input-group-append" id="tambah-div">
-							<button class="btn btn-primary text-white addTemp" data-field="sbar_b" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
-						</div>
-					</div>
-					<!-- ===== A ===== -->
-					<div class="input-group col-md-12 mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="labelMtd3" style="width:3vw;">A</span>
-						</div>
-						<textarea class="form-control" id="sbar_a" name="soap_a" placeholder="..... " rows="5"></textarea>
-						<div class="input-group-append" id="tambah-div">
-							<button class="btn btn-primary text-white addTemp" data-field="sbar_a" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
-						</div>
-					</div>
-					<!-- ===== R ===== -->
-					<div class="input-group col-md-12 mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="labelMtd4" style="width:3vw;">R</span>
-						</div>
-						<textarea class="form-control" id="sbar_r" name="soap_p" placeholder="..... " rows="5"></textarea>
-						<div class="input-group-append" id="tambah-div">
-							<button class="btn btn-primary text-white addTemp" data-field="sbar_r" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
-						</div>
-					</div>
-				</div>
-
-				<!-- ===== AIDME ===== -->
-				<div id="adime" style="width:100%">
-					<!-- ===== A ===== -->
-					<div class="input-group col-md-12 mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="labelMtd1" style="width:3vw;">A</span>
-						</div>
-						<textarea class="form-control" id="adime_a" name="soap_s" placeholder="..... " rows="5" required></textarea>
-						<div class="input-group-append" id="tambah-div">
-							<button class="btn btn-primary text-white addTemp" data-field="adime_a" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
-						</div>
-					</div>
-					<!-- ===== D ===== -->
-					<div class="input-group col-md-12 mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="labelMtd2" style="width:3vw;">D</span>
-						</div>
-						<textarea class="form-control" id="adime_d" name="soap_o" placeholder="..... " rows="5" required></textarea>
-						<div class="input-group-append" id="tambah-div">
-							<button class="btn btn-primary text-white addTemp" data-field="adime_d" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
-						</div>
-					</div>
-					<!-- ===== I ===== -->
-					<div class="input-group col-md-12 mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="labelMtd3" style="width:3vw;">I</span>
-						</div>
-						<textarea class="form-control" id="adime_i" name="soap_a" placeholder="..... " rows="5" required></textarea>
-						<div class="input-group-append" id="tambah-div">
-							<button class="btn btn-primary text-white addTemp" data-field="adime_i" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
-						</div>
-					</div>
-					<!-- ===== M ===== -->
-					<div class="input-group col-md-12 mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="labelMtd4" style="width:3vw;">M</span>
-						</div>
-						<textarea class="form-control" id="adime_m" name="soap_p[]" placeholder="..... " rows="5" required></textarea>
-						<div class="input-group-append" id="tambah-div">
-							<button class="btn btn-primary text-white addTemp" data-field="adime_m" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
-						</div>
-					</div>
-					<!-- ===== E ===== -->
-					<div class="input-group col-md-12 mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="labelMtd4" style="width:3vw;">E</span>
-						</div>
-						<textarea class="form-control" id="adime_e" name="soap_p[]" placeholder="..... " rows="5" required></textarea>
-						<div class="input-group-append" id="tambah-div">
-							<button class="btn btn-primary text-white addTemp" data-field="adime_e" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
-						</div>
-					</div>
-				</div>
-
-				<!-- ===== PSP ===== -->
-				<div id="psp" style="width:100%">
-					<!-- ===== S ===== -->
-					<div class="input-group col-md-12 mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="labelMtd1" style="width:3vw;">S</span>
-						</div>
-						<textarea class="form-control" id="psp_s" name="soap_s" placeholder="..... " rows="5" required></textarea>
-						<div class="input-group-append" id="tambah-div">
-							<button class="btn btn-primary text-white addTemp" data-field="psp_s" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
-						</div>
-					</div>
-					<!-- ===== O ===== -->
-					<div class="input-group col-md-12 mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="labelMtd2" style="width:3vw;">O</span>
-						</div>
-						<textarea class="form-control" id="psp_o" name="soap_o" placeholder="..... " rows="5" required></textarea>
-						<div class="input-group-append" id="tambah-div">
-							<button class="btn btn-primary text-white addTemp" data-field="psp_o" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
-						</div>
-					</div>
-					<!-- ===== A ===== -->
-					<div class="input-group col-md-12 mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="labelMtd3" style="width:3vw;">A</span>
-						</div>
-						<textarea class="form-control" id="psp_a" name="soap_a" placeholder="..... " rows="5" required></textarea>
-						<div class="input-group-append" id="tambah-div">
-							<button class="btn btn-primary text-white addTemp" data-field="psp_a" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
-						</div>
-					</div>
-					<!-- ===== P ===== -->
-					<div class="input-group col-md-12 mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="labelMtd4" style="width:3vw;">P</span>
-						</div>
-						<textarea class="form-control" id="psp_p" name="soap_p" placeholder="..... " rows="5" required></textarea>
-						<div class="input-group-append" id="tambah-div">
-							<button class="btn btn-primary text-white addTemp" data-field="psp_p" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
-						</div>
-					</div>
-				</div>
-
-				<!-- ===== SC ===== -->
-				<div id="sc" style="width:100%">
-					<!-- ===== S ===== -->
-					<div class="input-group col-md-12 mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="labelMtd1" style="width:3vw;">S</span>
-						</div>
-						<textarea class="form-control" id="sc_s" name="soap_s" placeholder="..... " rows="5" required></textarea>
-						<div class="input-group-append" id="tambah-div">
-							<button class="btn btn-primary text-white addTemp" data-field="sc_s" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
-						</div>
-					</div>
-					<!-- ===== O ===== -->
-					<div class="input-group col-md-12 mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="labelMtd2" style="width:3vw;">O</span>
-						</div>
-						<textarea class="form-control" id="sc_o" name="soap_o" placeholder="..... " rows="5" required></textarea>
-						<div class="input-group-append" id="tambah-div">
-							<button class="btn btn-primary text-white addTemp" data-field="sc_o" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
-						</div>
-					</div>
-					<!-- ===== A ===== -->
-					<div class="input-group col-md-12 mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="labelMtd3" style="width:3vw;">A</span>
-						</div>
-						<textarea class="form-control" id="sc_a" name="soap_a" placeholder="..... " rows="5" required></textarea>
-						<div class="input-group-append" id="tambah-div">
-							<button class="btn btn-primary text-white addTemp" data-field="sc_a" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
-						</div>
-					</div>
-					<!-- ===== P ===== -->
-					<div class="input-group col-md-12 mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="labelMtd4" style="width:3vw;">P</span>
-						</div>
-						<textarea class="form-control" id="sc_p" name="soap_p" placeholder="..... " rows="5" required></textarea>
-						<div class="input-group-append" id="tambah-div">
-							<button class="btn btn-primary text-white addTemp" data-field="sc_p" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
-						</div>
-					</div>
-				</div>
-
-				<!-- ===== PICU ===== -->
-				<div id="picu" style="width:100%">
-					<!-- ===== S + O ===== -->
-					<div class="input-group col-md-12 mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="labelMtd1" style="width:3vw;">S<br>+<br>O</span>
-						</div>
-						<textarea class="form-control" id="picu_s" name="soap_s" placeholder="..... " rows="5" required></textarea>
-						<div class="input-group-append" id="tambah-div">
-							<button class="btn btn-primary text-white addTemp" data-field="picu_s" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
-						</div>
-					</div>
-					<!-- ===== A ===== -->
-					<div class="input-group col-md-12 mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="labelMtd3" style="width:3vw;">A</span>
-						</div>
-						<textarea class="form-control" id="picu_a" name="soap_a" placeholder="..... " rows="5" required></textarea>
-						<div class="input-group-append" id="tambah-div">
-							<button class="btn btn-primary text-white addTemp" data-field="picu_a" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
-						</div>
-					</div>
-					<!-- ===== P ===== -->
-					<div class="input-group col-md-12 mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="labelMtd4" style="width:3vw;">P</span>
-						</div>
-						<textarea class="form-control" id="picu_p" name="soap_p" placeholder="..... " rows="5" required></textarea>
-						<div class="input-group-append" id="tambah-div">
-							<button class="btn btn-primary text-white addTemp" data-field="picu_p" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-12" id="intruksi_ppa_group">
-					<div class="row">
-						<div class="col-md-12">
-							<label id="intruksi_ppa_label">Instruksi PPA Termasuk Pasca Bedah</label>
-							<textarea name="intruksi_ppa" id="intruksi_ppa" cols="30" rows="6" class="form-control"></textarea>
-						</div>
-					</div>
-					<br>
-				</div>
-
-				<!-- ===== PERMINTAAN KONSULTASI START ===== -->
-				<div id="pk_group" class="col-md-6">
-					<table width="100%" class="stempel">
-						<tr style="border: solid black !important; border-width: 1px 1px 0px 1px !important;">
-							<td style="border: 0px !important">
-								<center><b>PERMINTAAN KONSULTASI</b></center>
-							</td>
-						</tr>
-						<tr style="border: 0px !important">
-							<td style="border: solid black !important; border-width: 0px 1px 0px 1px !important; padding: 10px !important">
-								<label id="smf_label">SMF</label>
-								<input type="text" name="smf" id="smf" class="form-control" />
-							</td>
-						</tr>
-						<tr style="border: 0px !important">
-							<td style="border: solid black !important; border-width: 0px 1px 1px 1px !important; padding: 10px !important">
-								<label id="diagnosa_label">Diagnosa</label>
-								<textarea name="diagnosa" id="diagnosa" cols="30" rows="2" class="form-control"></textarea>
-							</td>
-						</tr>
-					</table>
-				</div>
-				<!-- ===== PERMINTAAN KONSULTASI END ===== -->
-
-				<!-- ===== PERALIHAN DPJP UTAMA START ===== -->
-				<div id="pdu_group" class="col-md-6">
-					<table width="100%" class="stempel">
-						<tr style="border: solid black !important; border-width: 1px 1px 0px 1px !important;">
-							<td style="border: 0px !important">
-								<center><b>PERALIHAN DPJP UTAMA</b></center>
-							</td>
-						</tr>
-						<tr style="border: 0px !important">
-							<td style="border: solid black !important; border-width: 0px 1px 0px 1px !important; padding: 10px !important">
-								<label id="tgl_pdu_label">Tgl/ bln/ thn</label>
-								<input type="date" name="tgl_pdu" id="tgl_pdu" class="form-control col-md-6" value="<?= date('Y-m-d') ?>" />
-							</td>
-						</tr>
-						<tr style="border: 0px !important">
-							<td style="border: solid black !important; border-width: 0px 1px 0px 1px !important; padding: 10px !important">
-								<label id="alasan_pdu_label">ALASAN</label>
-								<textarea name="alasan_pdu" id="alasan_pdu" cols="30" rows="2" class="form-control"></textarea>
-							</td>
-						</tr>
-						<tr style="border: 0px !important">
-							<td style="border: solid black !important; border-width: 0px 1px 0px 1px !important; padding: 10px !important">
-								<label id="dpjp_lama_label">DPJP LAMA</label>
-								<select class="form-control" name="dpjp_lama_pdu" id="dpjp_lama_pdu">
-									<option value='' selected type="hidden">--- Pilih Dokter ---</option>
-									<?php foreach ($dokter as $row) : ?>
-										<option value='<?= $row['User_Name'] ?>'><?= $row['User_Name'] ?></option>
-									<?php endforeach ?>
-								</select>
-							</td>
-						</tr>
-						<tr style="border: 0px !important">
-							<td style="border: solid black !important; border-width: 0px 1px 1px 1px !important; padding: 10px !important">
-								<label id="dpjp_baru_label">DPJP BARU</label>
-								<select class="form-control" name="dpjp_baru_pdu" id="dpjp_baru_pdu">
-									<option value='' selected type="hidden">--- Pilih Dokter ---</option>
-									<?php foreach ($dokter as $row) : ?>
-										<option value='<?= $row['User_Name'] ?>'><?= $row['User_Name'] ?></option>
-									<?php endforeach ?>
-								</select>
-							</td>
-						</tr>
-					</table>
-				</div>
-				<!-- ===== PERALIHAN DPJP UTAMA END ===== -->
-
-				<div class="row col-md-12">
-					<div id="serah_terima_group" class="form-group col-md-4">
-						<label id="serah_terima_label">Serah Terima</label>
-						<select class="form-control" name="serah_terima" id="serah_terima">
-							<option value="Ya" selected>Ya</option>
-							<option value="Tidak">Tidak</option>
+					<div class="form-group col-md-4">
+						<label>PPA</label>
+						<select class="form-control" name="ppa">
+							<?php if ($this->session->userdata('is_doctor') == 'DOKTER') : ?>
+								<option value="Dokter" selected>Dokter</option>
+							<?php else : ?>
+								<option value="Perawat">Perawat</option>
+								<option value="Bidan">Bidan</option>
+								<option value="Fisioterapis">Fisioterapis</option>
+								<option value="Apoteker">Apoteker</option>
+								<option value="Gizi">Gizi</option>
+								<option value="Lainnya">Lainnya</option>
+							<?php endif ?>
 						</select>
 					</div>
-
-					<div id="dokter_rujukan_group" class="form-group col-md-4">
-						<label for="keterangan">Dokter Rujukan</label>
-						<select class="form-control" name="dokter_rujukan" id="dokter_rujukan">
-							<option value='' selected type="hidden">--- Pilih Dokter ---</option>
-							<?php foreach ($dokter as $row) : ?>
-								<option value='<?= $row['User_Code'] ?>'><?= $row['User_Name'] ?></option>
-							<?php endforeach ?>
-						</select>
-					</div>
-
-					<!-- ===== RAWAT BERSAMA START ===== -->
-					<div id="rb_group" class="col-md-12 p-2">
-						<div class="col-md-10">
-							<table width="100%" class="stempel">
-								<tr style="border: 1px solid black !important;">
-									<td colspan="2" style="border: 0px !important">
-										<center><b>RAWAT BERSAMA</b></center>
-									</td>
-								</tr>
-								<tr style="border: 0px !important">
-									<td style="border: 1px solid black !important; padding: 10px !important">
-										<label id="dpjp_utama_rb_label">DPJP UTAMA</label>
-										<select class="form-control" name="dpjp_utama_rb" id="dpjp_utama_rb">
-											<option value='' selected type="hidden">--- Pilih Dokter ---</option>
-											<?php foreach ($dokter as $row) : ?>
-												<option value='<?= $row['User_Name'] ?>'><?= $row['User_Name'] ?></option>
-											<?php endforeach ?>
-										</select>
-									</td>
-									<td style="border: 1px solid black !important; padding: 10px !important">
-										<label id="tgl_utama_rb_label">Tgl/ bln/ thn</label>
-										<input type="date" name="tgl_utama_rb" id="tgl_utama_rb" class="form-control" value="<?= date('Y-m-d') ?>" />
-									</td>
-								</tr>
-								<tr style="border: 0px !important">
-									<td style="border: 1px solid black !important; padding: 10px !important">
-										<label id="dpjp1_rb_label">DPJP</label>
-										<select class="form-control" name="dpjp1_rb" id="dpjp1_rb">
-											<option value='' selected type="hidden">--- Pilih Dokter ---</option>
-											<?php foreach ($dokter as $row) : ?>
-												<option value='<?= $row['User_Name'] ?>'><?= $row['User_Name'] ?></option>
-											<?php endforeach ?>
-										</select>
-									</td>
-									<td style="border: 1px solid black !important; padding: 10px !important">
-										<label id="tgl1_rb_label">Tgl/ bln/ thn</label>
-										<input type="date" name="tgl1_rb" id="tgl1_rb" class="form-control" value="<?= date('Y-m-d') ?>" />
-									</td>
-								</tr>
-								<tr style="border: 0px !important">
-									<td style="border: 1px solid black !important; padding: 10px !important">
-										<label id="dpjp2_rb_label">DPJP</label>
-										<select class="form-control" name="dpjp2_rb" id="dpjp2_rb">
-											<option value='' selected type="hidden">--- Pilih Dokter ---</option>
-											<?php foreach ($dokter as $row) : ?>
-												<option value='<?= $row['User_Name'] ?>'><?= $row['User_Name'] ?></option>
-											<?php endforeach ?>
-										</select>
-									</td>
-									<td style="border: 1px solid black !important; padding: 10px !important">
-										<label id="tgl2_rb_label">Tgl/ bln/ thn</label>
-										<input type="date" name="tgl2_rb" id="tgl2_rb" class="form-control" value="<?= date('Y-m-d') ?>" />
-									</td>
-								</tr>
-								<tr style="border: 0px !important">
-									<td style="border: 1px solid black !important; padding: 10px !important">
-										<label id="dpjp3_rb_label">DPJP</label>
-										<select class="form-control" name="dpjp3_rb" id="dpjp3_rb">
-											<option value='' selected type="hidden">--- Pilih Dokter ---</option>
-											<?php foreach ($dokter as $row) : ?>
-												<option value='<?= $row['User_Name'] ?>'><?= $row['User_Name'] ?></option>
-											<?php endforeach ?>
-										</select>
-									</td>
-									<td style="border: 1px solid black !important; padding: 10px !important">
-										<label id="tgl3_rb_label">Tgl/ bln/ thn</label>
-										<input type="date" name="tgl3_rb" id="tgl3_rb" class="form-control" value="<?= date('Y-m-d') ?>" />
-									</td>
-								</tr>
-							</table>
-						</div>
-					</div>
-					<!-- ===== RAWAT BERSAMA END ===== -->
 
 					<div class="form-group col-md-4">
-						<label>User</label>
-						<div class="input-group">
-							<input type="text" class="form-control" value="<?= $this->session->userdata('User_Name') ?>" readonly id="created_by" name="created_by">
-							<input type="hidden" value="<?= $this->session->userdata('User_Code') ?>" id="created_code" name="created_code">
+						<label>Metode</label>
+						<select class="form-control" name="metode_asesmen" id="metode_asesmen">
+							<?php if ($this->session->userdata('is_doctor') == 'DOKTER') : ?>
+								<option value="SOAP">SOAP</option>
+								<option value="SOAP+PK">SOAP + PERMINTAAN KONSULTASI</option>
+								<option value="SOAP+JK">SOAP + JAWABAN KONSULTASI</option>
+								<option value="PSP">PSP</option>
+								<option value="SC">SC</option>
+								<option value="PICU">PICU</option>
+							<?php else : ?>
+								<option value="SOAP">SOAP</option>
+								<option value="SBAR">SBAR</option>
+								<option value="SBAR+PDU">SBAR + PERALIHAN DPJP UTAMA</option>
+								<option value="RB">RAWAT BERSAMA</option>
+								<option value="ADIME">ADIME</option>
+							<?php endif ?>
+						</select>
+					</div>
+
+					<!-- ===== SOAP ===== -->
+					<div id="soap" style="width:100%">
+						<!-- ===== S ===== -->
+						<div class="input-group col-md-12 mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="labelMtd1" style="width:3vw;">S</span>
+							</div>
+							<textarea class="form-control" id="soap_s" name="soap_s" placeholder="..... " rows="5"></textarea>
 							<div class="input-group-append" id="tambah-div">
-								<button type="submit" class="btn btn-success text-white" style="cursor: pointer;" id="tambah-cppt"><i class="fa fa-plus"></i></button>
+								<button class="btn btn-primary text-white addTemp" data-field="soap_s" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
+							</div>
+						</div>
+						<!-- ===== O ===== -->
+						<div class="input-group col-md-12 mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="labelMtd2" style="width:3vw;">O</span>
+							</div>
+							<textarea class="form-control" id="soap_o" name="soap_o" placeholder="..... " rows="5"></textarea>
+							<div class="input-group-append" id="tambah-div">
+								<button class="btn btn-primary text-white addTemp" data-field="soap_o" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
+							</div>
+						</div>
+						<!-- ===== A ===== -->
+						<div class="input-group col-md-12 mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="labelMtd3" style="width:3vw;">A</span>
+							</div>
+							<textarea class="form-control" id="soap_a" name="soap_a" placeholder="..... " rows="5"></textarea>
+							<div class="input-group-append" id="tambah-div">
+								<button class="btn btn-primary text-white addTemp" data-field="soap_a" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
+							</div>
+						</div>
+						<!-- ===== P ===== -->
+						<div class="input-group col-md-12 mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="labelMtd4" style="width:3vw;">P</span>
+							</div>
+							<textarea class="form-control" id="soap_p" name="soap_p" placeholder="..... " rows="5"></textarea>
+							<div class="input-group-append" id="tambah-div">
+								<button class="btn btn-primary text-white addTemp" data-field="soap_p" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
 							</div>
 						</div>
 					</div>
-				</div>
 
-				<div class="table-responsive mt-3">
-					<table class="table table-bordered table-sm">
-						<thead class="text-center">
-							<tr>
-								<td colspan="6" style="background-color:#F5F5F5">
-									<div class="row col-md-12">
-										<div class="col-md-1 p-1" style="margin: auto 0">
-											<b>Filter:</b>
-										</div>
-										<select class="form-control col-md-4" id="filter">
-											<?php $data_filter = ['Semua', 'Tanggal', 'Diverifikasi', 'Belum Diverifikasi', 'Dokter']; ?>
-											<?php foreach ($data_filter as $df) : ?>
-												<option value="<?= $df ?>"><?= $df ?></option>
-											<?php endforeach ?>
-										</select>
-										<input type="date" class="form-control col-md-4 ml-3" id="filter_by_date" value="<?= date('Y-m-d') ?>">
-										<select id="filter_by_doctor" class="form-control col-md-4 ml-3">
-											<?php foreach ($dokter_filter as $d) : ?>
-												<?php if ($detail['AttDoctorCode'] == $d['created_by']) : ?>
-													<option value="<?= $d['created_by'] ?>" selected><?= $d['User_Name'] ?></option>
-												<?php else : ?>
-													<option value="<?= $d['created_by'] ?>"><?= $d['User_Name'] ?></option>
-												<?php endif ?>
-											<?php endforeach ?>
-										</select>
-									</div>
+					<!-- ===== SBAR ===== -->
+					<div id="sbar" style="width:100%">
+						<!-- ===== S ===== -->
+						<div class="input-group col-md-12 mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="labelMtd1" style="width:3vw;">S</span>
+							</div>
+							<textarea class="form-control" id="sbar_s" name="soap_s" placeholder="..... " rows="5"></textarea>
+							<div class="input-group-append" id="tambah-div">
+								<button class="btn btn-primary text-white addTemp" data-field="sbar_s" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
+							</div>
+						</div>
+						<!-- ===== B ===== -->
+						<div class="input-group col-md-12 mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="labelMtd2" style="width:3vw;">B</span>
+							</div>
+							<textarea class="form-control" id="sbar_b" name="soap_o" placeholder="..... " rows="5"></textarea>
+							<div class="input-group-append" id="tambah-div">
+								<button class="btn btn-primary text-white addTemp" data-field="sbar_b" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
+							</div>
+						</div>
+						<!-- ===== A ===== -->
+						<div class="input-group col-md-12 mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="labelMtd3" style="width:3vw;">A</span>
+							</div>
+							<textarea class="form-control" id="sbar_a" name="soap_a" placeholder="..... " rows="5"></textarea>
+							<div class="input-group-append" id="tambah-div">
+								<button class="btn btn-primary text-white addTemp" data-field="sbar_a" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
+							</div>
+						</div>
+						<!-- ===== R ===== -->
+						<div class="input-group col-md-12 mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="labelMtd4" style="width:3vw;">R</span>
+							</div>
+							<textarea class="form-control" id="sbar_r" name="soap_p" placeholder="..... " rows="5"></textarea>
+							<div class="input-group-append" id="tambah-div">
+								<button class="btn btn-primary text-white addTemp" data-field="sbar_r" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
+							</div>
+						</div>
+					</div>
+
+					<!-- ===== AIDME ===== -->
+					<div id="adime" style="width:100%">
+						<!-- ===== A ===== -->
+						<div class="input-group col-md-12 mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="labelMtd1" style="width:3vw;">A</span>
+							</div>
+							<textarea class="form-control" id="adime_a" name="soap_s" placeholder="..... " rows="5" required></textarea>
+							<div class="input-group-append" id="tambah-div">
+								<button class="btn btn-primary text-white addTemp" data-field="adime_a" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
+							</div>
+						</div>
+						<!-- ===== D ===== -->
+						<div class="input-group col-md-12 mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="labelMtd2" style="width:3vw;">D</span>
+							</div>
+							<textarea class="form-control" id="adime_d" name="soap_o" placeholder="..... " rows="5" required></textarea>
+							<div class="input-group-append" id="tambah-div">
+								<button class="btn btn-primary text-white addTemp" data-field="adime_d" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
+							</div>
+						</div>
+						<!-- ===== I ===== -->
+						<div class="input-group col-md-12 mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="labelMtd3" style="width:3vw;">I</span>
+							</div>
+							<textarea class="form-control" id="adime_i" name="soap_a" placeholder="..... " rows="5" required></textarea>
+							<div class="input-group-append" id="tambah-div">
+								<button class="btn btn-primary text-white addTemp" data-field="adime_i" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
+							</div>
+						</div>
+						<!-- ===== M ===== -->
+						<div class="input-group col-md-12 mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="labelMtd4" style="width:3vw;">M</span>
+							</div>
+							<textarea class="form-control" id="adime_m" name="soap_p[]" placeholder="..... " rows="5" required></textarea>
+							<div class="input-group-append" id="tambah-div">
+								<button class="btn btn-primary text-white addTemp" data-field="adime_m" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
+							</div>
+						</div>
+						<!-- ===== E ===== -->
+						<div class="input-group col-md-12 mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="labelMtd4" style="width:3vw;">E</span>
+							</div>
+							<textarea class="form-control" id="adime_e" name="soap_p[]" placeholder="..... " rows="5" required></textarea>
+							<div class="input-group-append" id="tambah-div">
+								<button class="btn btn-primary text-white addTemp" data-field="adime_e" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
+							</div>
+						</div>
+					</div>
+
+					<!-- ===== PSP ===== -->
+					<div id="psp" style="width:100%">
+						<!-- ===== S ===== -->
+						<div class="input-group col-md-12 mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="labelMtd1" style="width:3vw;">S</span>
+							</div>
+							<textarea class="form-control" id="psp_s" name="soap_s" placeholder="..... " rows="5" required></textarea>
+							<div class="input-group-append" id="tambah-div">
+								<button class="btn btn-primary text-white addTemp" data-field="psp_s" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
+							</div>
+						</div>
+						<!-- ===== O ===== -->
+						<div class="input-group col-md-12 mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="labelMtd2" style="width:3vw;">O</span>
+							</div>
+							<textarea class="form-control" id="psp_o" name="soap_o" placeholder="..... " rows="5" required></textarea>
+							<div class="input-group-append" id="tambah-div">
+								<button class="btn btn-primary text-white addTemp" data-field="psp_o" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
+							</div>
+						</div>
+						<!-- ===== A ===== -->
+						<div class="input-group col-md-12 mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="labelMtd3" style="width:3vw;">A</span>
+							</div>
+							<textarea class="form-control" id="psp_a" name="soap_a" placeholder="..... " rows="5" required></textarea>
+							<div class="input-group-append" id="tambah-div">
+								<button class="btn btn-primary text-white addTemp" data-field="psp_a" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
+							</div>
+						</div>
+						<!-- ===== P ===== -->
+						<div class="input-group col-md-12 mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="labelMtd4" style="width:3vw;">P</span>
+							</div>
+							<textarea class="form-control" id="psp_p" name="soap_p" placeholder="..... " rows="5" required></textarea>
+							<div class="input-group-append" id="tambah-div">
+								<button class="btn btn-primary text-white addTemp" data-field="psp_p" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
+							</div>
+						</div>
+					</div>
+
+					<!-- ===== SC ===== -->
+					<div id="sc" style="width:100%">
+						<!-- ===== S ===== -->
+						<div class="input-group col-md-12 mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="labelMtd1" style="width:3vw;">S</span>
+							</div>
+							<textarea class="form-control" id="sc_s" name="soap_s" placeholder="..... " rows="5" required></textarea>
+							<div class="input-group-append" id="tambah-div">
+								<button class="btn btn-primary text-white addTemp" data-field="sc_s" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
+							</div>
+						</div>
+						<!-- ===== O ===== -->
+						<div class="input-group col-md-12 mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="labelMtd2" style="width:3vw;">O</span>
+							</div>
+							<textarea class="form-control" id="sc_o" name="soap_o" placeholder="..... " rows="5" required></textarea>
+							<div class="input-group-append" id="tambah-div">
+								<button class="btn btn-primary text-white addTemp" data-field="sc_o" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
+							</div>
+						</div>
+						<!-- ===== A ===== -->
+						<div class="input-group col-md-12 mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="labelMtd3" style="width:3vw;">A</span>
+							</div>
+							<textarea class="form-control" id="sc_a" name="soap_a" placeholder="..... " rows="5" required></textarea>
+							<div class="input-group-append" id="tambah-div">
+								<button class="btn btn-primary text-white addTemp" data-field="sc_a" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
+							</div>
+						</div>
+						<!-- ===== P ===== -->
+						<div class="input-group col-md-12 mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="labelMtd4" style="width:3vw;">P</span>
+							</div>
+							<textarea class="form-control" id="sc_p" name="soap_p" placeholder="..... " rows="5" required></textarea>
+							<div class="input-group-append" id="tambah-div">
+								<button class="btn btn-primary text-white addTemp" data-field="sc_p" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
+							</div>
+						</div>
+					</div>
+
+					<!-- ===== PICU ===== -->
+					<div id="picu" style="width:100%">
+						<!-- ===== S + O ===== -->
+						<div class="input-group col-md-12 mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="labelMtd1" style="width:3vw;">S<br>+<br>O</span>
+							</div>
+							<textarea class="form-control" id="picu_s" name="soap_s" placeholder="..... " rows="5" required></textarea>
+							<div class="input-group-append" id="tambah-div">
+								<button class="btn btn-primary text-white addTemp" data-field="picu_s" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
+							</div>
+						</div>
+						<!-- ===== A ===== -->
+						<div class="input-group col-md-12 mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="labelMtd3" style="width:3vw;">A</span>
+							</div>
+							<textarea class="form-control" id="picu_a" name="soap_a" placeholder="..... " rows="5" required></textarea>
+							<div class="input-group-append" id="tambah-div">
+								<button class="btn btn-primary text-white addTemp" data-field="picu_a" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
+							</div>
+						</div>
+						<!-- ===== P ===== -->
+						<div class="input-group col-md-12 mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="labelMtd4" style="width:3vw;">P</span>
+							</div>
+							<textarea class="form-control" id="picu_p" name="soap_p" placeholder="..... " rows="5" required></textarea>
+							<div class="input-group-append" id="tambah-div">
+								<button class="btn btn-primary text-white addTemp" data-field="picu_p" style="cursor: pointer;"><i class="ti ti-bookmark-alt"></i></button>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-12" id="intruksi_ppa_group">
+						<div class="row">
+							<div class="col-md-12">
+								<label id="intruksi_ppa_label">Instruksi PPA Termasuk Pasca Bedah</label>
+								<textarea name="intruksi_ppa" id="intruksi_ppa" cols="30" rows="6" class="form-control"></textarea>
+							</div>
+						</div>
+						<br>
+					</div>
+
+					<!-- ===== PERMINTAAN KONSULTASI START ===== -->
+					<div id="pk_group" class="col-md-6">
+						<table width="100%" class="stempel">
+							<tr style="border: solid black !important; border-width: 1px 1px 0px 1px !important;">
+								<td style="border: 0px !important">
+									<center><b>PERMINTAAN KONSULTASI</b></center>
 								</td>
 							</tr>
-							<tr>
-								<th>Tanggal, Waktu</th>
-								<th>PPA</th>
-								<th>Hasil Asesmen Pasien dan Pemberian Pelayanan</th>
-								<th>Intruksi PPA Termasuk Pasca Bedah</th>
-								<th>Review dan Verifikasi DPJP</th>
-								<th>Action</th>
+							<tr style="border: 0px !important">
+								<td style="border: solid black !important; border-width: 0px 1px 0px 1px !important; padding: 10px !important">
+									<label id="smf_label">SMF</label>
+									<input type="text" name="smf" id="smf" class="form-control" />
+								</td>
 							</tr>
-						</thead>
-						<tbody id="list_cppt"></tbody>
-					</table>
+							<tr style="border: 0px !important">
+								<td style="border: solid black !important; border-width: 0px 1px 1px 1px !important; padding: 10px !important">
+									<label id="diagnosa_label">Diagnosa</label>
+									<textarea name="diagnosa" id="diagnosa" cols="30" rows="2" class="form-control"></textarea>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<!-- ===== PERMINTAAN KONSULTASI END ===== -->
+
+					<!-- ===== PERALIHAN DPJP UTAMA START ===== -->
+					<div id="pdu_group" class="col-md-6">
+						<table width="100%" class="stempel">
+							<tr style="border: solid black !important; border-width: 1px 1px 0px 1px !important;">
+								<td style="border: 0px !important">
+									<center><b>PERALIHAN DPJP UTAMA</b></center>
+								</td>
+							</tr>
+							<tr style="border: 0px !important">
+								<td style="border: solid black !important; border-width: 0px 1px 0px 1px !important; padding: 10px !important">
+									<label id="tgl_pdu_label">Tgl/ bln/ thn</label>
+									<input type="date" name="tgl_pdu" id="tgl_pdu" class="form-control col-md-6" value="<?= date('Y-m-d') ?>" />
+								</td>
+							</tr>
+							<tr style="border: 0px !important">
+								<td style="border: solid black !important; border-width: 0px 1px 0px 1px !important; padding: 10px !important">
+									<label id="alasan_pdu_label">ALASAN</label>
+									<textarea name="alasan_pdu" id="alasan_pdu" cols="30" rows="2" class="form-control"></textarea>
+								</td>
+							</tr>
+							<tr style="border: 0px !important">
+								<td style="border: solid black !important; border-width: 0px 1px 0px 1px !important; padding: 10px !important">
+									<label id="dpjp_lama_label">DPJP LAMA</label>
+									<select class="form-control" name="dpjp_lama_pdu" id="dpjp_lama_pdu">
+										<option value='' selected type="hidden">--- Pilih Dokter ---</option>
+										<?php foreach ($dokter as $row) : ?>
+											<option value='<?= $row['User_Name'] ?>'><?= $row['User_Name'] ?></option>
+										<?php endforeach ?>
+									</select>
+								</td>
+							</tr>
+							<tr style="border: 0px !important">
+								<td style="border: solid black !important; border-width: 0px 1px 1px 1px !important; padding: 10px !important">
+									<label id="dpjp_baru_label">DPJP BARU</label>
+									<select class="form-control" name="dpjp_baru_pdu" id="dpjp_baru_pdu">
+										<option value='' selected type="hidden">--- Pilih Dokter ---</option>
+										<?php foreach ($dokter as $row) : ?>
+											<option value='<?= $row['User_Name'] ?>'><?= $row['User_Name'] ?></option>
+										<?php endforeach ?>
+									</select>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<!-- ===== PERALIHAN DPJP UTAMA END ===== -->
+
+					<div class="row col-md-12">
+						<div id="serah_terima_group" class="form-group col-md-4">
+							<label id="serah_terima_label">Serah Terima</label>
+							<select class="form-control" name="serah_terima" id="serah_terima">
+								<option value="Ya" selected>Ya</option>
+								<option value="Tidak">Tidak</option>
+							</select>
+						</div>
+
+						<div id="dokter_rujukan_group" class="form-group col-md-4">
+							<label for="keterangan">Dokter Rujukan</label>
+							<select class="form-control" name="dokter_rujukan" id="dokter_rujukan">
+								<option value='' selected type="hidden">--- Pilih Dokter ---</option>
+								<?php foreach ($dokter as $row) : ?>
+									<option value='<?= $row['User_Code'] ?>'><?= $row['User_Name'] ?></option>
+								<?php endforeach ?>
+							</select>
+						</div>
+
+						<!-- ===== RAWAT BERSAMA START ===== -->
+						<div id="rb_group" class="col-md-12 p-2">
+							<div class="col-md-10">
+								<table width="100%" class="stempel">
+									<tr style="border: 1px solid black !important;">
+										<td colspan="2" style="border: 0px !important">
+											<center><b>RAWAT BERSAMA</b></center>
+										</td>
+									</tr>
+									<tr style="border: 0px !important">
+										<td style="border: 1px solid black !important; padding: 10px !important">
+											<label id="dpjp_utama_rb_label">DPJP UTAMA</label>
+											<select class="form-control" name="dpjp_utama_rb" id="dpjp_utama_rb">
+												<option value='' selected type="hidden">--- Pilih Dokter ---</option>
+												<?php foreach ($dokter as $row) : ?>
+													<option value='<?= $row['User_Name'] ?>'><?= $row['User_Name'] ?></option>
+												<?php endforeach ?>
+											</select>
+										</td>
+										<td style="border: 1px solid black !important; padding: 10px !important">
+											<label id="tgl_utama_rb_label">Tgl/ bln/ thn</label>
+											<input type="date" name="tgl_utama_rb" id="tgl_utama_rb" class="form-control" value="<?= date('Y-m-d') ?>" />
+										</td>
+									</tr>
+									<tr style="border: 0px !important">
+										<td style="border: 1px solid black !important; padding: 10px !important">
+											<label id="dpjp1_rb_label">DPJP</label>
+											<select class="form-control" name="dpjp1_rb" id="dpjp1_rb">
+												<option value='' selected type="hidden">--- Pilih Dokter ---</option>
+												<?php foreach ($dokter as $row) : ?>
+													<option value='<?= $row['User_Name'] ?>'><?= $row['User_Name'] ?></option>
+												<?php endforeach ?>
+											</select>
+										</td>
+										<td style="border: 1px solid black !important; padding: 10px !important">
+											<label id="tgl1_rb_label">Tgl/ bln/ thn</label>
+											<input type="date" name="tgl1_rb" id="tgl1_rb" class="form-control" value="<?= date('Y-m-d') ?>" />
+										</td>
+									</tr>
+									<tr style="border: 0px !important">
+										<td style="border: 1px solid black !important; padding: 10px !important">
+											<label id="dpjp2_rb_label">DPJP</label>
+											<select class="form-control" name="dpjp2_rb" id="dpjp2_rb">
+												<option value='' selected type="hidden">--- Pilih Dokter ---</option>
+												<?php foreach ($dokter as $row) : ?>
+													<option value='<?= $row['User_Name'] ?>'><?= $row['User_Name'] ?></option>
+												<?php endforeach ?>
+											</select>
+										</td>
+										<td style="border: 1px solid black !important; padding: 10px !important">
+											<label id="tgl2_rb_label">Tgl/ bln/ thn</label>
+											<input type="date" name="tgl2_rb" id="tgl2_rb" class="form-control" value="<?= date('Y-m-d') ?>" />
+										</td>
+									</tr>
+									<tr style="border: 0px !important">
+										<td style="border: 1px solid black !important; padding: 10px !important">
+											<label id="dpjp3_rb_label">DPJP</label>
+											<select class="form-control" name="dpjp3_rb" id="dpjp3_rb">
+												<option value='' selected type="hidden">--- Pilih Dokter ---</option>
+												<?php foreach ($dokter as $row) : ?>
+													<option value='<?= $row['User_Name'] ?>'><?= $row['User_Name'] ?></option>
+												<?php endforeach ?>
+											</select>
+										</td>
+										<td style="border: 1px solid black !important; padding: 10px !important">
+											<label id="tgl3_rb_label">Tgl/ bln/ thn</label>
+											<input type="date" name="tgl3_rb" id="tgl3_rb" class="form-control" value="<?= date('Y-m-d') ?>" />
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<!-- ===== RAWAT BERSAMA END ===== -->
+
+						<div class="form-group col-md-4">
+							<label>User</label>
+							<div class="input-group">
+								<input type="text" class="form-control" value="<?= $this->session->userdata('User_Name') ?>" readonly id="created_by" name="created_by">
+								<input type="hidden" value="<?= $this->session->userdata('User_Code') ?>" id="created_code" name="created_code">
+								<div class="input-group-append" id="tambah-div">
+									<button type="submit" class="btn btn-success text-white" style="cursor: pointer;" id="tambah-cppt"><i class="fa fa-plus"></i></button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="table-responsive mt-3">
+						<table class="table table-bordered table-sm">
+							<thead class="text-center">
+								<tr>
+									<td colspan="6" style="background-color:#F5F5F5">
+										<div class="row col-md-12">
+											<div class="col-md-1 p-1" style="margin: auto 0">
+												<b>Filter:</b>
+											</div>
+											<select class="form-control col-md-4" id="filter">
+												<?php $data_filter = ['Semua', 'Tanggal', 'Diverifikasi', 'Belum Diverifikasi', 'Dokter']; ?>
+												<?php foreach ($data_filter as $df) : ?>
+													<option value="<?= $df ?>"><?= $df ?></option>
+												<?php endforeach ?>
+											</select>
+											<input type="date" class="form-control col-md-4 ml-3" id="filter_by_date" value="<?= date('Y-m-d') ?>">
+											<select id="filter_by_doctor" class="form-control col-md-4 ml-3">
+												<?php foreach ($dokter_filter as $d) : ?>
+													<?php if ($detail['AttDoctorCode'] == $d['created_by']) : ?>
+														<option value="<?= $d['created_by'] ?>" selected><?= $d['User_Name'] ?></option>
+													<?php else : ?>
+														<option value="<?= $d['created_by'] ?>"><?= $d['User_Name'] ?></option>
+													<?php endif ?>
+												<?php endforeach ?>
+											</select>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th>Tanggal, Waktu</th>
+									<th>PPA</th>
+									<th>Hasil Asesmen Pasien dan Pemberian Pelayanan</th>
+									<th>Intruksi PPA Termasuk Pasca Bedah</th>
+									<th>Review dan Verifikasi DPJP</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody id="list_cppt"></tbody>
+						</table>
+					</div>
+					<div class="col-md-12 mt-4">
+						<input type="hidden" value="1" name="status">
+						<!-- <input type="hidden" value="<?= $this->session->userdata('User_Name') ?>" name="petugas" id='petugas'> -->
+						<input type="hidden" value="<?= $this->session->userdata('User_Name') ?>" name="edited_by">
+						<input type="hidden" value="<?php echo date("Y-m-d h:i") ?>" name="created_time">
+						<input type="hidden" value="<?php echo date("Y-m-d h:i") ?>" name="edited_time">
+					</div>
 				</div>
-				<div class="col-md-12 mt-4">
-					<input type="hidden" value="1" name="status">
-					<!-- <input type="hidden" value="<?= $this->session->userdata('User_Name') ?>" name="petugas" id='petugas'> -->
-					<input type="hidden" value="<?= $this->session->userdata('User_Name') ?>" name="edited_by">
-					<input type="hidden" value="<?php echo date("Y-m-d h:i") ?>" name="created_time">
-					<input type="hidden" value="<?php echo date("Y-m-d h:i") ?>" name="edited_time">
-				</div>
-			</div>
-		</form>
-		</div>
-		<!-- /.box-body -->
-		<div class="box-footer">
-			<button type="reset" class="btn btn-rounded btn-danger">Batal</button>
-			<button id="simpan" class="btn btn-rounded btn-success pull-right">Simpan</button>
+			</form>
 		</div>
 	</div>
 	<!-- /.box -->
@@ -1254,8 +1249,9 @@
 				type: 'POST',
 				dataType: 'JSON',
 				success: function(res) {
-					console.log(res.is_doctor)
-					if (res.is_doctor == "DOKTER") {
+					console.log(res.Role)
+					console.log(res.Role)
+					if (res.Role == "DOKTER") {
 						// ttdDPJP(id_cppt)
 						// checkTtdDpjp1Day(visit_no, tanggal)
 						checkTtdDpjpBeforeDate(visit_no, tanggal + " " + jam)

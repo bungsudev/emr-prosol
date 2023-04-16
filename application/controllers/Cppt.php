@@ -21,7 +21,7 @@ class Cppt extends CI_Controller
 		$this->label = 'components/parts/label';
 	}
 
-	public function index() // data_v5.2 -- add metode PICU, req by dr. Gema
+	public function index()
 	{
 		// database
 		$db2 = $this->load->database('default', TRUE);
@@ -29,11 +29,10 @@ class Cppt extends CI_Controller
 		$data['dtl'] = $this->cppt->detail_cppt($_GET['Visit_No']);
 		$data['dokter'] = api_daftar_dokter($this->endpoint, $this->session->userdata('token'), $this->session->userdata('User_Code'), '');
 		$data['tanggal'] = $db2->query("SELECT tanggal, COUNT(*) as total_data FROM form_cppt_n WHERE visit_no = '$_GET[Visit_No]' AND is_deleted IS NULL GROUP BY tanggal ORDER BY tanggal")->result_array();
-		// $data['dokter_filter'] = $db2->query("
-		// 	SELECT DISTINCT created_by, User_Name FROM form_cppt_n
-		// 	LEFT JOIN [HIMain].[dbo].[User_Pass] U ON U.User_Code = form_cppt_n.created_by
-		// 	WHERE visit_no = '$_GET[Visit_No]' AND is_deleted IS NULL AND U.Dep_Code = 'DOKTER'
-		// ")->result_array();
+		$data['dokter_filter'] = $db2->query("
+			SELECT DISTINCT created_by FROM form_cppt_n
+			WHERE visit_no = '$_GET[Visit_No]' AND is_deleted IS NULL 
+		")->result_array();
 
 		// static data
 		$data['link_insert'] = 'cppt/insert_cppt_v4';
@@ -42,7 +41,7 @@ class Cppt extends CI_Controller
 		// template
 		$data['title'] = 'Catatan Perkembangan Pasien Terintegrasi (CPPT)';
 		$data['label'] = $this->label;
-		$data['content'] = 'formulir/rsu-eshmun/rawat-inap/new-cppt/page-cppt-5-2';
+		$data['content'] = 'formulir/rsu-eshmun/rawat-inap/new-cppt/page-index';
 
 		$this->load->view('layout', $data);
 	}
@@ -69,9 +68,9 @@ class Cppt extends CI_Controller
 		require_once './vendor/autoload.php';
 		$mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'Legal', 'margin_left' => 5, 'margin_right' => 5, 'margin_top' => 8, 'margin_bottom' => 0, 'margin_header' => 0, 'margin_footer' => 0]); //use this customization
 		
-
+		
 		$data['detail'] = api_detail_pasien($this->endpoint, $this->session->userdata('token'), $this->session->userdata('User_Code'), $visit_no);
-
+		
 		$formulir = $this->Formulir_model->getFormulirDetailPrint($id_form);
 		$data['cabang'] = $formulir;
 
@@ -89,26 +88,16 @@ class Cppt extends CI_Controller
 					SELECT CPPT.* FROM form_cppt_n CPPT 
 					where CPPT.visit_no='$visit_no' AND CPPT.tanggal='" . $dataTanggal[$i]['tanggal'] . "' AND CPPT.is_deleted IS NULL ORDER BY jam
 				")->result();
-			$data['content'] = 'formulir/rsu-eshmun/rawat-inap/new-cppt/print-cppt-v6';
+
+			$data['content'] = 'formulir/rsu-eshmun/rawat-inap/new-cppt/page-print';
 			if ($data['order'] == 0)
 				$html = $this->load->view('layout_print', $data, true);
-				$html = $this->load->view('formulir/rsu-eshmun/rawat-inap/new-cppt/print-cppt-v6', $data, true);
+				$html = $this->load->view('formulir/rsu-eshmun/rawat-inap/new-cppt/page-print', $data, true);
 			$mpdf->WriteHTML($html);
 			$i++;
 		} while ($i < $data['max']);
 
 		$mpdf->Output();
-	}
-
-	public function insert_cppt()
-	{
-		if (strtoupper($this->input->post('dpjp')) == strtoupper($this->session->userdata('User_Name'))) {
-			$this->cppt->tambah_cppt('is_dokter');
-		} else if (strtoupper($this->input->post('dpjpCode')) == strtoupper($this->session->userdata('User_Name'))) {
-			$this->cppt->tambah_cppt('is_dokter');
-		} else {
-			$this->cppt->tambah_cppt('');
-		}
 	}
 
 	public function insert_cppt_v4()

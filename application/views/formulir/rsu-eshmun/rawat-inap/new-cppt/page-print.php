@@ -464,7 +464,7 @@
 							<!-- end intruksi ppa -->
 							<td style="text-align:center; font-size:9px" width="16%">
 								<?php if (!empty($dtl->ttd_dpjp)) : ?>
-									<img width="10%" src="<?= (!empty($sign)) ? $sign : '' ?>"> <br>
+									<img width="10%" src="<?= (!empty($dtl->ttd_dpjp)) ? $dtl->ttd_dpjp : '' ?>"> <br>
 									<?= $dtl->review_dpjp ?>
 								<?php endif; ?>
 							</td>
