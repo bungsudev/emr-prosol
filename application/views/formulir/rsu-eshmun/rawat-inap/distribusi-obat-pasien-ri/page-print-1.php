@@ -90,9 +90,13 @@
 						}
 						$tanggal = array_values($tanggal);
 					?>
+					<?php if($dtl_tanggal){ ?>
 					<?php $no = 1; for ($i=0; $i < 2; $i++): ?>
 						<th colspan="6"><?= $dtl_tanggal[$i]['tanggal'] ?></th>
 					<?php endfor ?>
+					<?php }else{ ?>
+						<th colspan="6">&nbsp;</th>
+					<?php } ?>
 				</tr>
 				<tr>
 					<th width="30%">Jenis Obat</th>
