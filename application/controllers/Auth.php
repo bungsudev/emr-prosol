@@ -41,6 +41,7 @@ class Auth extends CI_Controller
 		$data = json_decode($data);
 
 		// pisah response dan metadata
+		
 		$response = $data->response;
 		$metadata = $data->metadata;
 
@@ -63,7 +64,7 @@ class Auth extends CI_Controller
 					'sign' => $response->sign,
 				);
 
-
+				
 				// ambil data settings
 				$settings = $this->Settings_m->getCurrentsettings($this->cabang);
 				// data session settings
@@ -84,13 +85,13 @@ class Auth extends CI_Controller
 					"foto_dokter" => $settings->foto_dokter
 				);
 
+				$this->session->set_userdata($session);
+				$this->session->set_userdata($session_settings);
+				$this->session->set_userdata('Sidebar', $this->akses_sidebar());
 				if (empty($response->sign)) {
 					redirect('auth/sign');
 				} else {
 					// simpan session
-					$this->session->set_userdata($session);
-					$this->session->set_userdata($session_settings);
-					$this->session->set_userdata('Sidebar', $this->akses_sidebar());
 
 					if ($this->session->userdata('prev_url'))
 						header("Location: " . $this->session->userdata('prev_url'));
