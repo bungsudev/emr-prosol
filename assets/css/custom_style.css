@@ -178,3 +178,9 @@ select:hover {
 span.text-xsm {
 	font-size: 0.75rem !important;
 }
+
+span.judul {
+	display: inline-block;
+	font-weight: 500;
+	margin-bottom: 0.5rem;
+}

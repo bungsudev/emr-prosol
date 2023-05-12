@@ -30,6 +30,10 @@ class In extends CI_Controller
 		$formulir = $this->Formulir_model->getFormulirDetail($id_form);
 		if (empty($formulir->controller)) {
 			
+			// ambil dari surat perintah ranap
+			$data['default_diagnosa_pasien'] = $this->Record_model->getDiagnosaPasien($visit_no);
+			$data['dokter'] = api_daftar_dokter($this->endpoint, $this->session->userdata('token'), $this->session->userdata('User_Code'), '');
+
 			$data['table'] = $formulir->table;
 			$data['field'] = $formulir->field;
 			$data['kode_rm'] = $formulir->kode_formulir;
@@ -41,7 +45,13 @@ class In extends CI_Controller
 			$data['detail'] = $this->api_detail_pasien($visit_no);
 			
 			$data['link_print'] = base_url() . $this->controller .'/print/'.encrypt_url($id_form).'/'.$visit_no;
-			$data['row'] = $this->Record_model->detail($formulir->table, $visit_no);
+
+			if ($formulir->is_multiple) {
+				$form_ke = $this->input->get('ke');
+				$data['rows'] = $this->Record_model->getMultipleData($formulir->table, $visit_no, $form_ke)->num_rows();
+			}else{
+				$data['row'] = $this->Record_model->detail($formulir->table, $visit_no);
+			}
 			// $data['dokter'] = $this->User_model->data_dokter();
 			// $data['rujukan'] = $this->Main_model->getPartner();
 
@@ -57,7 +67,6 @@ class In extends CI_Controller
 
 	public function detail($visit_no, $table)
 	{
-		// echo $table; die();
 		echo json_encode($this->Record_model->detail($table, $visit_no));
 	}
 
@@ -70,6 +79,13 @@ class In extends CI_Controller
 	{
 		echo json_encode($this->Record_model->update($table, $visit_no));
 	}
+
+	// Multi input detail
+	public function detail_list_multiple($table, $visit_no, $form_ke, $filter)
+	{
+		echo json_encode($this->Record_model->detail_list_multiple($table, $visit_no, $form_ke, urldecode($filter))->result_array());
+	}
+
 
 	//	RIWAYAT PENGOBATAN 
 	public function insert_list($visit_no, $field, $table)
@@ -104,7 +120,17 @@ class In extends CI_Controller
 		$data['cabang'] = $formulir;
 
 		$data['header'] = 'template/header';
-		$data['dtl'] = $this->Record_model->detail($formulir->table, $visit_no);
+
+		$data['default_diagnosa_pasien'] = $this->Record_model->getDiagnosaPasien($visit_no);
+
+		if ($formulir->is_multiple) {
+			$form_ke = $this->input->get('ke');
+			$data['dtl'] = $this->Record_model->getMultipleData($formulir->table, $visit_no, $form_ke)->result_array();
+			$data['dtl_tanggal'] = $this->Record_model->getTanggalPOB($formulir->table, $visit_no, $form_ke);
+		}else{
+			$data['dtl'] = $this->Record_model->detail($formulir->table, $visit_no);
+		}
+		
 		// echo json_encode($data['dtl']);
 		// die();
 		// var_dump($data['dtl']['terapi_pulang']);

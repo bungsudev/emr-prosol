@@ -26,7 +26,7 @@
 					<div class="form-group col-md-4">
 						<label>PPA</label>
 						<select class="form-control" name="ppa">
-							<?php if ($this->session->userdata('is_doctor') == 'DOKTER') : ?>
+							<?php if ($this->session->userdata('Role') == 'DOKTER') : ?>
 								<option value="Dokter" selected>Dokter</option>
 							<?php else : ?>
 								<option value="Perawat">Perawat</option>
@@ -42,7 +42,7 @@
 					<div class="form-group col-md-4">
 						<label>Metode</label>
 						<select class="form-control" name="metode_asesmen" id="metode_asesmen">
-							<?php if ($this->session->userdata('is_doctor') == 'DOKTER') : ?>
+							<?php if ($this->session->userdata('Role') == 'DOKTER') : ?>
 								<option value="SOAP">SOAP</option>
 								<option value="SOAP+PK">SOAP + PERMINTAAN KONSULTASI</option>
 								<option value="SOAP+JK">SOAP + JAWABAN KONSULTASI</option>

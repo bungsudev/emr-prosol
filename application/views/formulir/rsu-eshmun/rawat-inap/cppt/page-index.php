@@ -77,7 +77,7 @@
 					<div class="form-group col-md-4">
 						<label>Metode</label>
 						<select class="form-control" name="metode_cppt" id="metode_cppt">
-							<?php if ($this->session->userdata('is_doctor') == 'DOKTER') : ?>
+							<?php if ($this->session->userdata('Role') == 'DOKTER') : ?>
 								<option value="SOAP">SOAP</option>
 								<option value="ADIME">ADIME</option>
 							<?php else : ?>

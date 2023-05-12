@@ -60,8 +60,23 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label for="dpjp">Dokter Penanggungjawab (DPJP) Utama</label>
-							<input type="text" name="dpjp" id="dpjp" class="form-control"
-								value="<?= (!empty($row['dpjp'])) ? $row['dpjp'] : $detail['AttDoctorName'] ?>">
+							<?php 
+								$data_dpjp = api_daftar_dokter(ENDPOINT, $this->session->userdata('token'), $this->session->userdata('User_Code'), '');
+							?>
+							
+							<select class="form-select select2" name="dpjp" id="dpjp">
+								<option value='<?= (!empty($row['dpjp'])) ? $row['dpjp'] : $detail['AttDoctorName'] ?>' selected><?= (!empty($row['dpjp'])) ? $row['dpjp'] : $detail['AttDoctorName'] ?></option>
+								<?php foreach ($data_dpjp as $key => $list) : ?>
+									<?php if ($row['dpjp'] == $list['User_Name']) : ?>
+										<option value='<?= $list['User_Name'] ?>' selected="selected"><?= $list['User_Name'] ?></option>
+									<?php else : ?>
+										<option value='<?= $list['User_Name'] ?>'><?= $list['User_Name'] ?></option>
+									<?php endif; ?>
+								<?php endforeach ?>
+							</select>
+
+							<!-- <input type="text" name="dpjp" id="dpjp" class="form-control"
+								value="<?= (!empty($row['dpjp'])) ? $row['dpjp'] : $detail['AttDoctorName'] ?>"> -->
 						</div>
 					</div>
 					<hr />
@@ -359,6 +374,7 @@
 	$(".not-req input").removeClass('required');
 
 	$(document).ready(function () {
+		$(".select2").select2();
 		// list terapi obat
 		$("#btnMandatory").attr('aria-pressed', handleTrueFalse(is_mandatory));
 		get_list()

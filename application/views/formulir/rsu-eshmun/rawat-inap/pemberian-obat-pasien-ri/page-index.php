@@ -9,73 +9,73 @@
 				<input type="hidden" name="form_ke" id="form_ke" value="<?= (!empty($_GET['form_ke'])? $_GET['form_ke'] : 1) ?>">
 				<input type="hidden" name="visit_no" id="visit_no" value="<?= $detail['Visit_No'] ?>">
 				<input type="hidden" name="mr_code" id="mr_code" value="<?= $detail['MR_Code'] ?>">
-				<div class="form-group col-md-3">
-					<label>Tanggal</label>
-					<input type="date" id="tanggal" name="tanggal" class="form-control" value="<?php echo date('Y-m-d') ?>">
-				</div>
-				<div class="col-md-8">
-					<span class="judul">Diagnosa <span class="text-xsm text-danger">(diambil dari surat perintah rawat
-							inap)</span></span>
-					<p class="text-justify">
-						<?= (!empty($default_diagnosa_pasien->diagnosa)) ? $default_diagnosa_pasien->diagnosa : '' ?>
-					</p>
-				</div>
-				<!-- <div class="col-md-12">
-					<div class="form-group">
-						<label for="diagnosa">Diagnosa</label>
-						<textarea rows="3" name="diagnosa" id="diagnosa" class="form-control"
-							placeholder="Diagnosa Masuk" readonly></textarea>
-					</div>
+				<!-- <div class="form-group col-md-3">
+					<label>Jam Pemberian Obat Injeksi</label>
+					<select class="form-control" name="jam_pemberian_obat" id="jam_pemberian_obat">
+						<option value="" disabled>Pilih</option>
+						<option value="24">Per 24 Jam</option>
+						<option value="12">Per 12 Jam</option>
+						<option value="8">Per 8 Jam</option>
+						<option value="6">Per 6 Jam</option>
+						<option value="4">Per 4 Jam</option>
+					</select>
 				</div> -->
 				<div class="col-md-12">
 					<hr>
 					<div class="row">
 						<div class="form-group col-md-3">
-							<label>Jenis Obat</label>
+							<label>Antibiotik</label>
 							<select class="form-control" name="jenis" id="jenis">
-								<option value="Obat Oral" selected="selected">Obat Oral</option>
-								<option value="Obat Injeksi">Obat Injeksi</option>
-								<option value="Cairan Infus">Cairan Infus</option>
-								<option value="SIV">Suppositoria/Inhalasi/Vagina</option>
-								<option value="Alkes">Alkes</option>
+								<option value="Profilaksis" selected="selected">Profilaksis</option>
+								<option value="Empiris">Empiris</option>
+								<option value="Defenitif">Defenitif</option>
 							</select>
-						</div>
-						<div class="form-group col-md-9">
-							<label>Nama Cairan / Obat</label>
-							<input type="text" name="nama_obat" class="form-control">
 						</div>
 						<div class="form-group col-md-3">
 							<label>Dosis</label>
 							<input type="text" name="dosis" class="form-control">
 						</div>
+						<div class="form-group col-md-3">
+							<label>Frekuensi</label>
+							<input type="text" name="frekuensi" class="form-control">
+						</div>
+						<div class="form-group col-md-3">
+							<label>Cara Pemberian</label>
+							<input type="text" name="cara_pemberian" class="form-control">
+						</div>
+						<div class="form-group col-md-3">
+							<label>Awal Pemberian (Tanggal/jam)</label>
+							<input type="date" name="awal_tanggal" class="form-control" value="">
+						</div>
+						<div class="form-group col-md-2">
+							<label>&nbsp;</label>
+							<input type="time" name="awal_jam" class="form-control" value="">
+						</div>
 						<div class="form-group col-md-7">
-							<label>Aturan Pakai</label>
-							<input type="text" name="aturan" class="form-control">
+							<label for="awal_dokter">Dokter</label>
+							<select class="form-control select2" name="awal_dokter" id="awal_dokter">
+								<option value='' selected type="hidden">--- Pilih Dokter ---</option>
+								<?php foreach ($dokter as $row) : ?>
+									<option value='<?= $row['User_Name'] ?>'><?= $row['User_Name'] ?></option>
+								<?php endforeach ?>
+							</select>
+						</div>
+						<div class="form-group col-md-3">
+							<label>Dihentikan (Tanggal/jam)</label>
+							<input type="date" name="dihentikan_tanggal" class="form-control" value="">
 						</div>
 						<div class="form-group col-md-2">
-							<label>Jumlah</label>
-							<input type="text" name="jumlah" class="form-control">
+							<label>&nbsp;</label>
+							<input type="time" name="dihentikan_jam" class="form-control" value="">
 						</div>
-						<div class="form-group col-md-2">
-							<label>Pukul</label>
-							<input type="time" name="pukul_1" class="form-control" value="">
-						</div>
-						<div class="form-group col-md-2">
-							<label>Pukul</label>
-							<input type="time" name="pukul_2" class="form-control" value="">
-						</div>
-						<div class="form-group col-md-2">
-							<label>Pukul</label>
-							<input type="time" name="pukul_3" class="form-control" value="">
-						</div>
-						<div class="form-group col-md-2">
-							<label>Pukul</label>
-							<input type="time" name="pukul_4" class="form-control" value="">
-						</div>
-						<div class="form-group col-md-2"></div>
-						<div class="form-group col-md-2">
-							<label>Retur</label>
-							<input type="text" name="retur" class="form-control" value="">
+						<div class="form-group col-md-7">
+							<label for="dihentikan_dokter">Dokter</label>
+							<select class="form-control select2" name="dihentikan_dokter" id="dihentikan_dokter">
+								<option value='' selected type="hidden">--- Pilih Dokter ---</option>
+								<?php foreach ($dokter as $row) : ?>
+									<option value='<?= $row['User_Name'] ?>'><?= $row['User_Name'] ?></option>
+								<?php endforeach ?>
+							</select>
 						</div>
 						<div class="col-md-12">
 							<button class="btn btn-primary float-right save">Tambah
@@ -132,6 +132,7 @@
 	$("#link_print").removeClass('disabled');
 	
 	$(document).ready(function () {
+		$(".select2").select2();
 		get_list(filter);
 
 		// if (cek > 0) {
@@ -170,7 +171,6 @@
 				if (promise) {
 					$('#link_print').removeClass('disabled', true)
 					a_ok("Berhasil", "Data Berhasil Ditambahkan")
-					$("#tanggal").prop("readonly", true)
 					$('#form-data')[0].reset()
 					get_list(filter);
 				} else {

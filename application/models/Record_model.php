@@ -24,6 +24,55 @@ class Record_model extends CI_Model
         return $query->row_array();
     }
 
+    // multiple
+    public function getMultipleData($table, $visit_no, $form_ke)
+    {
+        $db2 = $this->load->database('default', TRUE);
+
+        ($form_ke) ? $append_where = " AND a.form_ke = '$form_ke'" : $append_where = " AND a.form_ke = 1";
+
+        $query = $db2->query("SELECT a.* 
+                FROM $table a
+                WHERE a.visit_no = '$visit_no' 
+                $append_where");
+        return $query;
+    }
+
+    public function detail_list_multiple($table, $visit_no, $form_ke, $filter)
+    {
+        $db2 = $this->load->database('default', TRUE);
+        $cabang = $this->session->userdata('Cabang');
+        $append_where = '';
+        ($form_ke) ? $append_where .= " AND a.form_ke = '$form_ke'" : $append_where = "";
+        ($filter != 'Semua') ? $append_where .= " AND a.jenis = '$filter'" : $append_where = "";
+
+        $query = $db2->query("SELECT a.* 
+                FROM $table a
+                WHERE a.visit_no = '$visit_no' 
+                $append_where 
+                AND id_cabang = '$cabang'
+                ");
+        return $query;
+    }
+    
+    // end multiple
+
+    // catatan pemberian obat
+    public function getTanggalPOB($table, $visit_no, $form_ke)
+    {
+        $db2 = $this->load->database('default', TRUE);
+
+        $query = $db2->query("SELECT DISTINCT a.tanggal 
+                FROM $table a
+                WHERE 
+                a.visit_no = '$visit_no'
+                ")->result_array();
+        return $query;
+    }
+
+    // end catatan pemberian obat
+
+
     public function insert($table, $data)
     {
         $db2 = $this->load->database('default', TRUE);
@@ -268,4 +317,15 @@ class Record_model extends CI_Model
         else
             return json_encode(array('msg_insert' => json_encode($db2->error()), 'status_insert' => 500));
     }
+
+    // DIAGNOSA
+    // diagnosa pasien dari formulir surat perintah rawah inap
+    public function getDiagnosaPasien($visit_no)
+    {
+        $id_cabang = $this->session->userdata('Cabang');
+
+        $query = $this->db->query("SELECT a.diagnosa FROM form_surat_perintah_ranap a WHERE a.visit_no = '$visit_no' AND id_cabang = '$id_cabang'");
+        return $query->row();
+    }
+
 }
