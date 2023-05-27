@@ -85,7 +85,7 @@
 		}
 
 		function alertOkCancel(title, html, confirmButtonText) {
-			let result = false;
+			let res = false;
 			Swal.fire({
 				title: title,
 				html: html,
@@ -95,9 +95,13 @@
 				cancelButtonColor: "#d33",
 				confirmButtonText: confirmButtonText
 			}).then((result) => {
-				result = true
+				if(result.value){
+					res = true
+				}else{
+					res = false;
+				}
 			})
-			return result;
+			return res;
 		}
 
 		function handleTrueFalse(input) {

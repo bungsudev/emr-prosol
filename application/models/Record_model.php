@@ -51,6 +51,7 @@ class Record_model extends CI_Model
                 WHERE a.visit_no = '$visit_no' 
                 $append_where 
                 AND id_cabang = '$cabang'
+                AND is_deleted IS NULL
                 ");
         return $query;
     }
@@ -305,6 +306,27 @@ class Record_model extends CI_Model
             return json_encode(array('msg_update' => json_encode($db2->error()), 'status_update' => 500));
     }
 
+    public function delete($table, $id)
+    {
+        $db2 = $this->load->database('default', TRUE);
+
+        $is_deleted = [
+            "deleted_by" => $this->session->userdata('User_Code'),
+            "deleted_time" => date('Y-m-d H:i:s')
+        ];
+
+        $data = [
+            "status" => "deleted",
+            "is_deleted" => json_encode($is_deleted)
+        ];
+
+        $db2->where('id', $id);
+        if ($db2->update($table, $data))
+            return array('msg_update' => 'Success', 'status_update' => 200);
+        else
+            return array('msg_update' => json_encode($db2->error()), 'status_update' => 500);
+    }
+
     // insert formulir baru
     public function insert_form($table, $data)
     {
@@ -328,4 +350,18 @@ class Record_model extends CI_Model
         return $query->row();
     }
 
+
+    public function save_alergi()
+    {
+        $data = [
+            "tanggal" => $this->input->post('tanggal'),
+            "jenis_nilai" => $this->input->post('jenis_nilai'),
+            "nilai" => $this->input->post('nilai'),
+            "keterangan" => $this->input->post('keterangan'),
+            "status" => $this->input->post('status'),
+            "created" => date("d-m-Y H:i:s").'-'.$this->session->userdata('username'),
+        ];
+        $this->db->insert('lembur', $data);
+        return ($this->db->affected_rows() != 1) ? false : true;
+    }
 }

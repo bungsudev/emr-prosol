@@ -75,6 +75,11 @@ class In extends CI_Controller
 		echo json_encode($this->Record_model->insert($table, $_POST));
 	}
 
+	public function delete($table, $id)
+	{
+		echo json_encode($this->Record_model->delete($table,  $id));
+	}
+
 	public function update($visit_no, $table)
 	{
 		echo json_encode($this->Record_model->update($table, $visit_no));
@@ -110,13 +115,19 @@ class In extends CI_Controller
 		require_once './vendor/autoload.php';
 
 		$id_form = decrypt_url($id_form);
-		
-		$mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => [215, 330], 'margin_left' => 10, 'margin_right' => 10, 'margin_top' => 8, 'margin_bottom' => 10, 'margin_header' => 0, 'margin_footer' => 0]); //use this customization
 
 		$data['detail'] = $this->api_detail_pasien($visit_no);
 
 		// ambil data dari table mst_formulir
 		$formulir = $this->Formulir_model->getFormulirDetailPrint($id_form);
+
+		if ($formulir->display_print == 'potrait') {
+			$mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => [215, 330], 'margin_left' => 10, 'margin_right' => 10, 'margin_top' => 8, 'margin_bottom' => 10, 'margin_header' => 0, 'margin_footer' => 0]); //use this customization
+		}else{
+			$mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => [330, 215], 'margin_left' => 10, 'margin_right' => 10, 'margin_top' => 8, 'margin_bottom' => 10, 'margin_header' => 0, 'margin_footer' => 0]); //use this customization
+		}
+		
+
 		$data['cabang'] = $formulir;
 
 		$data['header'] = 'template/header';
@@ -126,7 +137,9 @@ class In extends CI_Controller
 		if ($formulir->is_multiple) {
 			$form_ke = $this->input->get('ke');
 			$data['dtl'] = $this->Record_model->getMultipleData($formulir->table, $visit_no, $form_ke)->result_array();
-			$data['dtl_tanggal'] = $this->Record_model->getTanggalPOB($formulir->table, $visit_no, $form_ke);
+			if ($formulir->id == 43) {
+				$data['dtl_tanggal'] = $this->Record_model->getTanggalPOB($formulir->table, $visit_no, $form_ke);
+			}
 		}else{
 			$data['dtl'] = $this->Record_model->detail($formulir->table, $visit_no);
 		}
