@@ -97,7 +97,7 @@
 						<textarea name="intruksi_ppa" id="intruksi_ppa" cols="30" rows="3"
 							class="form-control"></textarea>
 					</div>
-					<div class="col-md-4">
+					<!-- <div class="col-md-4">
 						<div class="form-group">
 							<label id="serah_terima_label">Serah Terima</label>
 							<select class="form-control" name="serah_terima" id="serah_terima">
@@ -105,7 +105,7 @@
 								<option value="Tidak">Tidak</option>
 							</select>
 						</div>
-					</div>
+					</div> -->
 
 					<div class="col-md-4">
 						<div id="dokter_rujukan_group" class="form-group">

@@ -404,13 +404,13 @@
 					<!-- ===== PERALIHAN DPJP UTAMA END ===== -->
 
 					<div class="row col-md-12">
-						<div id="serah_terima_group" class="form-group col-md-4">
+						<!-- <div id="serah_terima_group" class="form-group col-md-4">
 							<label id="serah_terima_label">Serah Terima</label>
 							<select class="form-control" name="serah_terima" id="serah_terima">
 								<option value="Ya" selected>Ya</option>
 								<option value="Tidak">Tidak</option>
 							</select>
-						</div>
+						</div> -->
 
 						<div id="dokter_rujukan_group" class="form-group col-md-4">
 							<label for="keterangan">Dokter Rujukan</label>

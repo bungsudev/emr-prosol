@@ -27,7 +27,7 @@
 				<button type="button" class="btn btn-danger mr-2" data-toggle="modal" data-target="#mdlAlergi">
 					<span class="ti-info-alt"></span> Riwayat Alergi
 				</button>
-				<a href="<?= $link_print ?>" id="link_print" class="btn btn-primary disabled" target="_blank"> <i
+				<a href="<?= $link_print ?>" id="link_print" class="btn btn-primary " target="_blank"> <i
 						class="bi bi-printer-fill"></i> Print</a>
 			</div>
 		</div>
