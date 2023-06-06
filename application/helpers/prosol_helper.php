@@ -208,3 +208,176 @@ if ( ! function_exists('unique_array'))
 	
 	}
 }
+
+
+if ( ! function_exists('api_daftar_obat'))
+{
+    // API detail pasien
+    function api_daftar_obat($endpoint, $token, $user_code, $params)
+	{
+		// try and catch get department
+		try 
+		{
+			$curl = curl_init();
+			curl_setopt_array($curl, array(
+				CURLOPT_URL => $endpoint.'daftar_obat',
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_ENCODING => '',
+				CURLOPT_MAXREDIRS => 10,
+				CURLOPT_TIMEOUT => 0,
+				CURLOPT_FOLLOWLOCATION => true,
+				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+				CURLOPT_CUSTOMREQUEST => 'POST',
+				CURLOPT_POSTFIELDS => array('params' => $params),
+				CURLOPT_HTTPHEADER => array(
+					'x-token: '.$token,
+					'x-username: '.$user_code
+				),
+			));
+
+			$response = curl_exec($curl);
+			curl_close($curl);
+
+			$response = json_decode($response, true);
+
+			if ($response['metadata']['code'] === 200)
+				// echo json_encode($response['response']['data']);
+				return $response['response']['data'];
+			// else
+				// $this->Log_model->save_log($response, 'Detail Pasien Error');
+		} catch (Exception $e) {
+            // insert log
+			// $this->Log_model->save_log($e, 'Detail Pasien Error');
+		}
+	}
+	// data api section END  
+}
+
+if ( ! function_exists('api_daftar_durasi'))
+{
+    // API detail pasien
+    function api_daftar_durasi($endpoint, $token, $user_code, $params)
+	{
+		// try and catch get department
+		try 
+		{
+			$curl = curl_init();
+			curl_setopt_array($curl, array(
+				CURLOPT_URL => $endpoint.'daftar_durasi',
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_ENCODING => '',
+				CURLOPT_MAXREDIRS => 10,
+				CURLOPT_TIMEOUT => 0,
+				CURLOPT_FOLLOWLOCATION => true,
+				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+				CURLOPT_CUSTOMREQUEST => 'POST',
+				CURLOPT_POSTFIELDS => array('params' => $params),
+				CURLOPT_HTTPHEADER => array(
+					'x-token: '.$token,
+					'x-username: '.$user_code
+				),
+			));
+
+			$response = curl_exec($curl);
+			curl_close($curl);
+
+			$response = json_decode($response, true);
+
+			if ($response['metadata']['code'] === 200)
+				// echo json_encode($response['response']['data']);
+				return $response['response']['data'];
+			// else
+				// $this->Log_model->save_log($response, 'Detail Pasien Error');
+		} catch (Exception $e) {
+            // insert log
+			// $this->Log_model->save_log($e, 'Detail Pasien Error');
+		}
+	}
+	// data api section END  
+}
+
+if ( ! function_exists('api_daftar_frekuensi'))
+{
+    // API detail pasien
+    function api_daftar_frekuensi($endpoint, $token, $user_code, $params)
+	{
+		// try and catch get department
+		try 
+		{
+			$curl = curl_init();
+			curl_setopt_array($curl, array(
+				CURLOPT_URL => $endpoint.'daftar_frekuensi',
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_ENCODING => '',
+				CURLOPT_MAXREDIRS => 10,
+				CURLOPT_TIMEOUT => 0,
+				CURLOPT_FOLLOWLOCATION => true,
+				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+				CURLOPT_CUSTOMREQUEST => 'POST',
+				CURLOPT_POSTFIELDS => array('params' => $params),
+				CURLOPT_HTTPHEADER => array(
+					'x-token: '.$token,
+					'x-username: '.$user_code
+				),
+			));
+
+			$response = curl_exec($curl);
+			curl_close($curl);
+
+			$response = json_decode($response, true);
+
+			if ($response['metadata']['code'] === 200)
+				// echo json_encode($response['response']['data']);
+				return $response['response']['data'];
+			// else
+				// $this->Log_model->save_log($response, 'Detail Pasien Error');
+		} catch (Exception $e) {
+            // insert log
+			// $this->Log_model->save_log($e, 'Detail Pasien Error');
+		}
+	}
+	// data api section END  
+}
+
+if ( ! function_exists('api_daftar_instruksi'))
+{
+    // API detail pasien
+    function api_daftar_instruksi($endpoint, $token, $user_code, $params)
+	{
+		// try and catch get department
+		try 
+		{
+			$curl = curl_init();
+			curl_setopt_array($curl, array(
+				CURLOPT_URL => $endpoint.'daftar_instruksi',
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_ENCODING => '',
+				CURLOPT_MAXREDIRS => 10,
+				CURLOPT_TIMEOUT => 0,
+				CURLOPT_FOLLOWLOCATION => true,
+				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+				CURLOPT_CUSTOMREQUEST => 'POST',
+				CURLOPT_POSTFIELDS => array('params' => $params),
+				CURLOPT_HTTPHEADER => array(
+					'x-token: '.$token,
+					'x-username: '.$user_code
+				),
+			));
+
+			$response = curl_exec($curl);
+			curl_close($curl);
+
+			$response = json_decode($response, true);
+
+			if ($response['metadata']['code'] === 200)
+				// echo json_encode($response['response']['data']);
+				return $response['response']['data'];
+			// else
+				// $this->Log_model->save_log($response, 'Detail Pasien Error');
+		} catch (Exception $e) {
+            // insert log
+			// $this->Log_model->save_log($e, 'Detail Pasien Error');
+		}
+	}
+	// data api section END  
+}

@@ -41,16 +41,46 @@
 							</select>
 						</div>
 						<div class="form-group col-md-9">
-							<label>Nama Cairan / Obat</label>
-							<input type="text" name="nama_obat" class="form-control">
+							<label>Nama Cairan / Obat <span class="judul">Diagnosa <span class="text-xsm text-danger">(Jika tidak ditemukan tambahkan di HIS terlebih dahulu!)</span></label>
+							<?php 
+								$data_obat = api_daftar_obat(ENDPOINT, $this->session->userdata('token'), $this->session->userdata('User_Code'), '');
+							?>
+							
+							<select class="form-select select2" name="nama_obat" id="nama_obat">
+								<option selected disabled>--PILIH--</option>
+								<?php foreach ($data_obat as $key => $list) : ?>
+									<option value='<?= $list['Item_Code'] ?>'><?= $list['Item_Name'] ?></option>
+								<?php endforeach ?>
+							</select>
+							<!-- <input type="text" name="nama_obat" class="form-control"> -->
 						</div>
 						<div class="form-group col-md-3">
 							<label>Dosis</label>
-							<input type="text" name="dosis" class="form-control">
+							<?php 
+								$data_frekuensi = api_daftar_frekuensi(ENDPOINT, $this->session->userdata('token'), $this->session->userdata('User_Code'), '');
+							?>
+							
+							<select class="form-select select2" name="dosis" id="dosis">
+								<option selected disabled>--PILIH--</option>
+								<?php foreach ($data_frekuensi as $key => $list) : ?>
+									<option value='<?= $list['Frequent_Code'] ?>'><?= $list['Frequent_Name'] ?></option>
+								<?php endforeach ?>
+							</select>
+							<!-- <input type="text" name="dosis" class="form-control"> -->
 						</div>
 						<div class="form-group col-md-7">
 							<label>Aturan Pakai</label>
-							<input type="text" name="aturan" class="form-control">
+							<?php 
+								$data_instruksi = api_daftar_instruksi(ENDPOINT, $this->session->userdata('token'), $this->session->userdata('User_Code'), '');
+							?>
+							
+							<select class="form-select select2" name="aturan" id="aturan">
+								<option selected disabled>--PILIH--</option>
+								<?php foreach ($data_instruksi as $key => $list) : ?>
+									<option value='<?= $list['Instruction_Code'] ?>'><?= $list['Instruction_Name'] ?></option>
+								<?php endforeach ?>
+							</select>
+							<!-- <input type="text" name="aturan" class="form-control"> -->
 						</div>
 						<div class="form-group col-md-2">
 							<label>Jumlah</label>
@@ -132,6 +162,7 @@
 	$("#link_print").removeClass('disabled');
 	
 	$(document).ready(function () {
+		$(".select2").select2();
 		get_list(filter);
 
 		// if (cek > 0) {
