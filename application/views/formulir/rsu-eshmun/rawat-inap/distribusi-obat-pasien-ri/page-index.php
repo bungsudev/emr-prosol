@@ -31,7 +31,7 @@
 					<hr>
 					<div class="row">
 						<div class="form-group col-md-3">
-							<label>Jenis Obat</label>
+							<label>Jenis Obat <span class="judul">Diagnosa <span class="text-xsm text-danger">&nbsp;</span></span></label>
 							<select class="form-control" name="jenis" id="jenis">
 								<option value="Obat Oral" selected="selected">Obat Oral</option>
 								<option value="Obat Injeksi">Obat Injeksi</option>
@@ -41,7 +41,7 @@
 							</select>
 						</div>
 						<div class="form-group col-md-9">
-							<label>Nama Cairan / Obat <span class="judul">Diagnosa <span class="text-xsm text-danger">(Jika tidak ditemukan tambahkan di HIS terlebih dahulu!)</span></label>
+							<label>Nama Cairan / Obat <span class="judul">Diagnosa <span class="text-xsm text-danger">(Jika tidak ditemukan tambahkan di HIS terlebih dahulu!)</span></span></label>
 							<?php 
 								$data_obat = api_daftar_obat(ENDPOINT, $this->session->userdata('token'), $this->session->userdata('User_Code'), '');
 							?>
