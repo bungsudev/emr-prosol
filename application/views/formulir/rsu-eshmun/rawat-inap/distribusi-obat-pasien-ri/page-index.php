@@ -168,7 +168,7 @@
 						?>
 						<div class="form-group col-md-6">
 							<label>Staff Installasi Farmasi</label>					
-							<select class="form-select select2" name="staff_instalasi_farmasi" id="staff_instalasi_farmasi">
+							<select class="form-select select2mdl" name="staff_instalasi_farmasi" id="staff_instalasi_farmasi">
 								<option selected disabled>--PILIH--</option>
 								<?php foreach ($data_user as $key => $list) : ?>
 									<option value='<?= $list['User_Code'] ?>'><?= $list['User_Name'] ?></option>
@@ -178,7 +178,7 @@
 
 						<div class="form-group col-md-6">
 							<label>Staff Farmasi Depo 1</label>					
-							<select class="form-select select2" name="staff_farmasi_depo_1" id="staff_farmasi_depo_1">
+							<select class="form-select select2mdl" name="staff_farmasi_depo_1" id="staff_farmasi_depo_1">
 								<option selected disabled>--PILIH--</option>
 								<?php foreach ($data_user as $key => $list) : ?>
 									<option value='<?= $list['User_Code'] ?>'><?= $list['User_Name'] ?></option>
@@ -188,7 +188,7 @@
 
 						<div class="form-group col-md-6">
 							<label>Staff Farmasi Depo 2</label>					
-							<select class="form-select select2" name="staff_farmasi_depo_2" id="staff_farmasi_depo_2">
+							<select class="form-select select2mdl" name="staff_farmasi_depo_2" id="staff_farmasi_depo_2">
 								<option selected disabled>--PILIH--</option>
 								<?php foreach ($data_user as $key => $list) : ?>
 									<option value='<?= $list['User_Code'] ?>'><?= $list['User_Name'] ?></option>
@@ -198,7 +198,7 @@
 
 						<div class="form-group col-md-6">
 							<label>Perawat Penerima Obat</label>					
-							<select class="form-select select2" name="perawat_penerima_obat" id="perawat_penerima_obat">
+							<select class="form-select select2mdl" name="perawat_penerima_obat" id="perawat_penerima_obat">
 								<option selected disabled>--PILIH--</option>
 								<?php foreach ($data_user as $key => $list) : ?>
 									<option value='<?= $list['User_Code'] ?>'><?= $list['User_Name'] ?></option>
@@ -208,7 +208,7 @@
 
 						<div class="form-group col-md-6">
 							<label>Perawat Retur</label>					
-							<select class="form-select select2" name="perawat_retur" id="perawat_retur">
+							<select class="form-select select2mdl" name="perawat_retur" id="perawat_retur">
 								<option selected disabled>--PILIH--</option>
 								<?php foreach ($data_user as $key => $list) : ?>
 									<option value='<?= $list['User_Code'] ?>'><?= $list['User_Name'] ?></option>
@@ -218,7 +218,7 @@
 
 						<div class="form-group col-md-6">
 							<label>Staff Depo Retur</label>					
-							<select class="form-select select2" name="staff_depo_retur" id="staff_depo_retur">
+							<select class="form-select select2mdl" name="staff_depo_retur" id="staff_depo_retur">
 								<option selected disabled>--PILIH--</option>
 								<?php foreach ($data_user as $key => $list) : ?>
 									<option value='<?= $list['User_Code'] ?>'><?= $list['User_Name'] ?></option>
@@ -228,7 +228,7 @@
 
 						<div class="form-group col-md-6">
 							<label>Staff Inst. Farmasi Retur</label>					
-							<select class="form-select select2" name="staff_inst_farmasi_retur" id="staff_inst_farmasi_retur">
+							<select class="form-select select2mdl" name="staff_inst_farmasi_retur" id="staff_inst_farmasi_retur">
 								<option selected disabled>--PILIH--</option>
 								<?php foreach ($data_user as $key => $list) : ?>
 									<option value='<?= $list['User_Code'] ?>'><?= $list['User_Name'] ?></option>
@@ -266,7 +266,7 @@
 		$(".select2").select2();
 		get_list(filter);
 
-		$(".select2").select2({
+		$(".select2mdl").select2({
 			dropdownParent: $("#mdlSigned")
 		});
 
