@@ -423,4 +423,80 @@ class Record_model extends CI_Model
         else
             return json_encode(array('msg_insert' => json_encode($db2->error()), 'status' => 500));
     }
+
+
+
+    // verifikasi distribusi obat
+    public function kirim_verif($table, $visit_no, $data)
+    {
+        $db2 = $this->load->database('default', TRUE);
+
+        $cek = $db2->query("SELECT * FROM $table WHERE visit_no = '$visit_no'")->num_rows();
+
+        if($cek > 0){
+            $db2->where('visit_no', $visit_no);
+            if ($db2->update($table, $data))
+                return json_encode(array('msg_update' => 'Success', 'status' => 200));
+            else
+                return json_encode(array('msg_update' => json_encode($db2->error()), 'status' => 500));
+        }else{
+            foreach ($data as $key => $value)
+                $data[$key] = $this->checkArray($data[$key]);
+    
+            $data['visit_no'] = $visit_no;
+    
+            $data['status'] = 'created';
+            $data['created_by'] = $this->session->userdata('User_Code');
+            $data['created_time'] = date('Y-m-d H:i:s');
+            $data['id_cabang'] = $this->session->userdata('Cabang');
+    
+            if ($db2->insert($table, $data))
+                return json_encode(array('msg_insert' => 'Success', 'status' => 200));
+            else
+                return json_encode(array('msg_insert' => json_encode($db2->error()), 'status' => 500));
+        }
+    }
+
+    public function detail_verif($visit_no, $table)
+	{
+		$db2 = $this->load->database('default', TRUE);
+        
+		$db2->where('visit_no', $visit_no);
+		$db2->where('is_deleted', NULL);
+		return $db2->get($table)->result();
+	}
+
+    public function notif_verif($user_code)
+	{
+		$db2 = $this->load->database('default', TRUE);
+
+        $cek = $db2->query("SELECT visit_no FROM form_distribusi_obat_ri_verif WHERE '$user_code' 
+        IN 
+        (staff_instalasi_farmasi,
+        staff_farmasi_depo_1,
+        staff_farmasi_depo_2,
+        perawat_penerima_obat,
+        perawat_retur,
+        staff_depo_retur,
+        staff_inst_farmasi_retur) AND 
+        is_deleted IS NULL")->result();
+
+		return $cek;
+	}
+
+    public function update_verif($table, $visit_no)
+    {
+        $db2 = $this->load->database('default', TRUE);
+
+        $data = [
+            "status" => "deleted",
+            "is_deleted" => json_encode($is_deleted)
+        ];
+
+        $db2->where('id', $id);
+        if ($db2->update($table, $data))
+            return json_encode(array('msg_insert' => 'Success', 'status' => 200));
+        else
+            return json_encode(array('msg_insert' => json_encode($db2->error()), 'status' => 500));
+    }
 }

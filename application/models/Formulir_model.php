@@ -31,7 +31,7 @@ class Formulir_model extends CI_Model
 
     public function getFormulirDetailPrint($id)
     {
-        $query = $this->db->query("SELECT t.*, s.nama_rs, s.*  FROM $this->table t
+        $query = $this->db->query("SELECT t.id AS id_form, t.*, s.nama_rs, s.*  FROM $this->table t
         LEFT JOIN settings s ON s.id = t.id_cabang
         WHERE t.id = '$id' AND t.status = 1 AND t.id_cabang= '$this->cabang'")->row();
         return $query;

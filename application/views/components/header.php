@@ -38,8 +38,40 @@
 		<div class="navbar-custom-menu r-side">
 			<ul class="nav navbar-nav">
 				<!-- Notifications -->
-				<!--  -->
+				<li class="dropdown notifications-menu">
+					<a href="#" class="waves-effect waves-light notifArea dropdown-toggle" data-toggle="dropdown" title="Notifications">
+						<i class="icon-Notifications"><span class="path1"></span><span class="path2"></span></i>
+					</a>
+					<ul class="dropdown-menu animated bounceIn">
 
+					<li class="header">
+						<div class="p-20">
+							<div class="flexbox">
+								<div>
+									<h4 class="mb-0 mt-0">Notifications</h4>
+								</div>
+								<div>
+									<!-- <a href="#" class="text-danger">Clear All</a> -->
+								</div>
+							</div>
+						</div>
+					</li>
+
+					<li>
+						<!-- inner menu: contains the actual data -->
+						<ul class="menu sm-scrol" id="secNotif">
+							<!-- <li>
+								<a href="#">
+									<i class="fa fa-users text-info"></i> Curabitur id eros quis nunc suscipit blandit.
+								</a>
+							</li> -->
+						</ul>
+					</li>
+					<!-- <li class="footer">
+						<a href="#">View all</a>
+					</li> -->
+					</ul>
+				</li>	
 				<!-- User Account-->
 				<li class="dropdown user user-menu">
 					<a href="#" class="waves-effect waves-light dropdown-toggle" data-toggle="dropdown" title="User">

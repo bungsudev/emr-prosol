@@ -39,6 +39,7 @@ class In extends CI_Controller
 			$data['kode_rm'] = $formulir->kode_formulir;
 			$data['view'] = $formulir->content;
 			$data['title'] = $formulir->nama_formulir;
+			$data['id_form'] = $id_form;
 
 			$this->id_form = $id_form;
 			// ambil detail pasien
@@ -83,6 +84,31 @@ class In extends CI_Controller
 	public function update($visit_no, $table)
 	{
 		echo json_encode($this->Record_model->update($table, $visit_no));
+	}
+
+	public function kirim_verif($table, $visit_no)
+	{
+		echo json_encode($this->Record_model->kirim_verif($table,  $visit_no, $_POST));
+	}
+
+	public function update_verif($table, $visit_no)
+	{
+		echo json_encode($this->Record_model->update_verif($table,  $visit_no));
+	}
+
+	public function notif_verif($user_code)
+	{
+		echo json_encode($this->Record_model->notif_verif($user_code));
+	}
+
+	public function notif_verif_detail($visit_no)
+	{
+		echo json_encode($this->Record_model->detail_verif($visit_no, 'form_distribusi_obat_ri_verif'));
+	}
+
+	public function detail_verif($visit_no, $table)
+	{
+		echo json_encode($this->Record_model->detail_verif($visit_no, $table));
 	}
 
 	// Multi input detail
@@ -137,8 +163,9 @@ class In extends CI_Controller
 		if ($formulir->is_multiple) {
 			$form_ke = $this->input->get('ke');
 			$data['dtl'] = $this->Record_model->getMultipleData($formulir->table, $visit_no, $form_ke)->result_array();
-			if ($formulir->id == 43) {
+			if ($id_form == 43) {
 				$data['dtl_tanggal'] = $this->Record_model->getTanggalPOB($formulir->table, $visit_no, $form_ke);
+				$data['ttd'] = $this->Record_model->detail_verif($visit_no, $formulir->table.'_verif');
 			}
 		}else{
 			$data['dtl'] = $this->Record_model->detail($formulir->table, $visit_no);

@@ -1,13 +1,16 @@
 <html lang="en">
 <?php 
 	$data_json = [];
+	$arr_json = [];
 	foreach ($dtl as $key => $val) {
 		$data_json[$key] = $val['data_json'];	
 	}
 
-	$arr_json = json_encode($data_json[0]);
-	$arr_json = json_decode($arr_json, true);
-	$arr_json = json_decode($arr_json, true);
+	if ($data_json) {
+		$arr_json = json_encode($data_json[0]);
+		$arr_json = json_decode($arr_json, true);
+		$arr_json = json_decode($arr_json, true);
+	}
 ?>
 <style rel="stylesheet" type="text/css">
 	.header .center {
@@ -123,9 +126,9 @@
 				<th style="vertical-align: middle;" width="" colspan="2">Awal Pemberian</th>
 				<th style="vertical-align: middle;" width="" colspan="2">Dihentikan</th>
 				<th style="vertical-align: middle;" width="50" rowspan="2">Tanggal</th>
-				<?php for ($i=0; $i < count($arr_json); $i++) { 
-					echo '<th style="vertical-align: middle;" width="" rowspan="2" colspan="4">'.date('d-M-y').'</th>';
-				} ?>
+				<?php for ($i=0; $i < count($arr_json); $i++): ?>
+					<th style="vertical-align: middle;" width="" rowspan="2" colspan="4"><?= date('d-M-y') ?></th>
+				<?php endfor; ?>
 				
 				<?php for ($i=count($arr_json); $i < 5; $i++) { 
 					echo '<th style="vertical-align: middle;" width="" rowspan="2" colspan="4">&nbsp;</th>';
@@ -163,7 +166,7 @@
 						];
 						?>
 						<?php for ($e = 0; $e < sizeof($data); $e++) { ?>
-							<?= ($dtl[$i]['nama'] == $data[$i]) ? checkbox() : box() ?> <?= $data[$e] . '&nbsp;&nbsp;&nbsp;' ?>
+							<?= ($dtl[$i]['nama'] == $data[$e]) ? checkbox() : box() ?> <?= $data[$e] . '&nbsp;&nbsp;&nbsp;' ?>
 						<?php } ?>
 					</td>
 					<td rowspan="4" class="b-all" style="font-size: 10px;"><?= $dtl[$i]['dosis'] ?></td>

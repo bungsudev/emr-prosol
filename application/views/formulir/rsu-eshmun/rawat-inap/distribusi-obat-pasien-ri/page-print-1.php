@@ -53,6 +53,10 @@
 		background-color: grey !important;
 	}
 
+	.nonttd {
+		background-color: #76923C !important;
+	}
+
 </style>
 
 <body>
@@ -89,14 +93,15 @@
 							$tanggal[$key] = $value['tanggal'];
 						}
 						$tanggal = array_values($tanggal);
+						// var_dump($tanggal); die();
 					?>
-					<?php if($dtl_tanggal){ ?>
-					<?php $no = 1; for ($i=0; $i < 2; $i++): ?>
-						<th colspan="6"><?= $dtl_tanggal[$i]['tanggal'] ?></th>
+					<?php if(isset($tanggal)){ ?>
+					<?php $no = 1; for ($i=0; $i < count($tanggal); $i++): ?>
+						<th colspan="12" align="left" class="b-right"><?= $tanggal[$i] ?></th>
 					<?php endfor ?>
 					<?php }else{ ?>
-						<th colspan="6">&nbsp;</th>
-					<?php } ?>
+						<th colspan="12">&nbsp;</th>
+					<?php }  ?>
 				</tr>
 				<tr>
 					<th width="30%">Jenis Obat</th>
@@ -398,25 +403,69 @@
 
 				<!-- ttd -->
 				<tr>
-					<td class="b-bot b-right b-left" colspan='15'><b>Tanda Tangan Staf Instalasi Farmasi</b></td>
+					<td class="b-bot b-right b-left"><b>Tanda Tangan Staf Instalasi Farmasi</b></td>
+					<td class="b-right b-left nonttd" colspan='2'></td>
+					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_staff_instalasi_farmasi) ?></td>
+					<td class="b-bot b-right b-left nonttd" colspan='5'>&nbsp;</td>
+					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_staff_instalasi_farmasi) ?></td>
+					<td class="b-bot b-right b-left nonttd" colspan='5'>&nbsp;</td>
 				</tr>
 				<tr>
-					<td class="b-bot b-right b-left" colspan='15'><b>Tanda Tangan Staf Farmasi Depo</b></td>
+					<td class="b-bot b-right b-left"><b>Tanda Tangan Staf Farmasi Depo</b></td>
+					<td class="b-right b-left nonttd" colspan='2'></td>
+					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_staff_farmasi_depo_1) ?></td>
+					<td class="b-bot b-right b-left nonttd" colspan='5'>&nbsp;</td>
+					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_staff_farmasi_depo_1) ?></td>
+					<td class="b-bot b-right b-left nonttd" colspan='5'>&nbsp;</td>
 				</tr>
 				<tr>
-					<td class="b-bot b-right b-left" colspan='15'><b>Tanda Tangan Staf Farmasi Depo</b></td>
+					<td class="b-bot b-right b-left"><b>Tanda Tangan Staf Farmasi Depo</b></td>
+					<td class="b-right b-left nonttd" colspan='3'></td>
+					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_staff_farmasi_depo_2) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_staff_farmasi_depo_2) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_staff_farmasi_depo_2) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_staff_farmasi_depo_2) ?></td>
+					<td class="b-bot b-right b-left nonttd" colspan='2'>&nbsp;</td>
+					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_staff_farmasi_depo_2) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_staff_farmasi_depo_2) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_staff_farmasi_depo_2) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_staff_farmasi_depo_2) ?></td>
+					<td class="b-bot b-right b-left nonttd" colspan='1'>&nbsp;</td>
 				</tr>
 				<tr>
-					<td class="b-bot b-right b-left" colspan='15'><b>Tanda Tangan Perawat Penerima Obat</b></td>
+					<td class="b-bot b-right b-left"><b>Tanda Tangan Perawat Penerima Obat</b></td>
+					<td class="b-right b-left nonttd" colspan='3'></td>
+					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_perawat_penerima_obat) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_perawat_penerima_obat) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_perawat_penerima_obat) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_perawat_penerima_obat) ?></td>
+					<td class="b-bot b-right b-left nonttd" colspan='2'>&nbsp;</td>
+					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_perawat_penerima_obat) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_perawat_penerima_obat) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_perawat_penerima_obat) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_perawat_penerima_obat) ?></td>
+					<td class="b-bot b-right b-left nonttd" colspan='1'>&nbsp;</td>
 				</tr>
 				<tr>
-					<td class="b-bot b-right b-left" colspan='15'><b>Tanda Tangan Perawat Retur</b></td>
+					<td class="b-bot b-right b-left"><b>Tanda Tangan Perawat Retur</b></td>
+					<td class="b-right b-left nonttd" colspan='7'></td>
+					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_perawat_retur) ?></td>
+					<td class="b-right b-left nonttd" colspan='5'></td>
+					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_perawat_retur) ?></td>
 				</tr>
 				<tr>
-					<td class="b-bot b-right b-left" colspan='15'><b>Tanda Tangan Staf Depo Retur</b></td>
+					<td class="b-bot b-right b-left"><b>Tanda Tangan Staf Depo Retur</b></td>
+					<td class="b-right b-left nonttd" colspan='7'></td>
+					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_staff_depo_retur) ?></td>
+					<td class="b-right b-left nonttd" colspan='5'></td>
+					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_staff_depo_retur) ?></td>
 				</tr>
 				<tr>
-					<td class="b-bot b-right b-left" colspan='15'><b>Tanda Tangan Staf Inst. Farmasi Retur</b></td>
+					<td class="b-bot b-right b-left"><b>Tanda Tangan Staf Inst. Farmasi Retur</b></td>
+					<td class="b-right b-left nonttd" colspan='7'></td>
+					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_staff_inst_farmasi_retur) ?></td>
+					<td class="b-right b-left nonttd" colspan='5'></td>
+					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_staff_inst_farmasi_retur) ?></td>
 				</tr>
 			</tbody>
 		</table>

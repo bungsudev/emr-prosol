@@ -110,6 +110,8 @@
 						<div class="col-md-12">
 							<button class="btn btn-primary float-right save">Tambah
 								<i class="ti-angle-double-down"></i></button>
+							<button class="btn btn-info float-right mr-2 btnSigned">Penandatangan
+								<i class="ti-marker-alt"></i></button>
 						</div>
 						<div class="col-md-12">
 							<hr>
@@ -149,6 +151,104 @@
 	</div>
 </div>
 
+
+<!-- modal -->
+<div class="modal fade" id="mdlSigned" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title"><b id="mdlTitle">Penandatangan</b></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			</div>
+			<div class="modal-body" id="mdlBodySigned">
+				<form id="form-signed">
+					<div class="row">
+						<?php 
+							$data_user = api_daftar_user(ENDPOINT, $this->session->userdata('token'), $this->session->userdata('User_Code'), '');
+						?>
+						<div class="form-group col-md-6">
+							<label>Staff Installasi Farmasi</label>					
+							<select class="form-select select2" name="staff_instalasi_farmasi" id="staff_instalasi_farmasi">
+								<option selected disabled>--PILIH--</option>
+								<?php foreach ($data_user as $key => $list) : ?>
+									<option value='<?= $list['User_Code'] ?>'><?= $list['User_Name'] ?></option>
+								<?php endforeach ?>
+							</select>
+						</div>
+
+						<div class="form-group col-md-6">
+							<label>Staff Farmasi Depo 1</label>					
+							<select class="form-select select2" name="staff_farmasi_depo_1" id="staff_farmasi_depo_1">
+								<option selected disabled>--PILIH--</option>
+								<?php foreach ($data_user as $key => $list) : ?>
+									<option value='<?= $list['User_Code'] ?>'><?= $list['User_Name'] ?></option>
+								<?php endforeach ?>
+							</select>
+						</div>
+
+						<div class="form-group col-md-6">
+							<label>Staff Farmasi Depo 2</label>					
+							<select class="form-select select2" name="staff_farmasi_depo_2" id="staff_farmasi_depo_2">
+								<option selected disabled>--PILIH--</option>
+								<?php foreach ($data_user as $key => $list) : ?>
+									<option value='<?= $list['User_Code'] ?>'><?= $list['User_Name'] ?></option>
+								<?php endforeach ?>
+							</select>
+						</div>
+
+						<div class="form-group col-md-6">
+							<label>Perawat Penerima Obat</label>					
+							<select class="form-select select2" name="perawat_penerima_obat" id="perawat_penerima_obat">
+								<option selected disabled>--PILIH--</option>
+								<?php foreach ($data_user as $key => $list) : ?>
+									<option value='<?= $list['User_Code'] ?>'><?= $list['User_Name'] ?></option>
+								<?php endforeach ?>
+							</select>
+						</div>
+
+						<div class="form-group col-md-6">
+							<label>Perawat Retur</label>					
+							<select class="form-select select2" name="perawat_retur" id="perawat_retur">
+								<option selected disabled>--PILIH--</option>
+								<?php foreach ($data_user as $key => $list) : ?>
+									<option value='<?= $list['User_Code'] ?>'><?= $list['User_Name'] ?></option>
+								<?php endforeach ?>
+							</select>
+						</div>
+
+						<div class="form-group col-md-6">
+							<label>Staff Depo Retur</label>					
+							<select class="form-select select2" name="staff_depo_retur" id="staff_depo_retur">
+								<option selected disabled>--PILIH--</option>
+								<?php foreach ($data_user as $key => $list) : ?>
+									<option value='<?= $list['User_Code'] ?>'><?= $list['User_Name'] ?></option>
+								<?php endforeach ?>
+							</select>
+						</div>
+
+						<div class="form-group col-md-6">
+							<label>Staff Inst. Farmasi Retur</label>					
+							<select class="form-select select2" name="staff_inst_farmasi_retur" id="staff_inst_farmasi_retur">
+								<option selected disabled>--PILIH--</option>
+								<?php foreach ($data_user as $key => $list) : ?>
+									<option value='<?= $list['User_Code'] ?>'><?= $list['User_Name'] ?></option>
+								<?php endforeach ?>
+							</select>
+						</div>
+
+						<div class="col-md-12">
+							<button class="btn btn-primary float-right btnVerifSign">Kirim Verifikasi
+								<i class="ti-announcement"></i></button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- modal End -->
+
 <script type="text/javascript">
 	// declare
 	let visit_no = $('#visit_no').val();
@@ -160,10 +260,15 @@
 
 	$(".divLabel").remove();
 	$("#link_print").removeClass('disabled');
-	
+	$(".btnSigned").hide();
+
 	$(document).ready(function () {
 		$(".select2").select2();
 		get_list(filter);
+
+		$(".select2").select2({
+			dropdownParent: $("#mdlSigned")
+		});
 
 		// if (cek > 0) {
 		// 	$("#tanggal").prop("readonly", true)
@@ -178,7 +283,180 @@
 			filter = $(this).val();
 			get_list(filter);
 		})
+		
+		$("#form-data").on('click', '.btnSigned', function(e){
+			e.preventDefault();
+			detail_verif();
+			$("#mdlSigned").modal('show');
+		})
+
+		$(".btnVerifSign").click(function (e){
+			e.preventDefault();
+			Swal.fire({
+				title: 'Anda yakin?',
+				html: 'Verifikasi tanda tangan akan dikirimkan!',
+				type: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#3085d6",
+				cancelButtonColor: "#d33",
+				confirmButtonText: 'Kirim'
+			}).then((result) => {
+				if(result.value){
+					kirimVerif();
+				}
+			})
+		})
+
+		if (last_parameter == "notif") {
+			let htmlTTD = `
+				<button type="button" class="btn btn-warning mr-2" id="btnVerifTTD">
+					<span class="ti-marker-alt"></span> Tanda tangani
+				</button>
+			`;
+			$(".divLabelBtn").prepend(htmlTTD)
+		}
+
+		$(".divLabelBtn").on('click', '#btnVerifTTD', function(e){
+			e.preventDefault();
+			Swal.fire({
+				title: 'Anda yakin?',
+				html: 'Verifikasi data ini, tanda tangan akan diberikan!',
+				type: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#3085d6",
+				cancelButtonColor: "#d33",
+				confirmButtonText: 'Kirim'
+			}).then((result) => {
+				if(result.value){
+					alert('diverif');
+				}
+			})
+		})
 	})
+
+	function detail_verif() {
+		$.ajax({
+			url: base_url + controller + '/detail_verif/' + visit_no + '/' + table + '_verif/',
+			dataType: 'json',
+			async: false,
+			beforeSend: function () {
+				$('.loading').css('display', 'block')
+			},
+			success: function (res) {
+				console.log(res);
+				let cekVerif = 0;
+				if (res) {
+					$(".btnSigned").show();
+					res.forEach(list => {
+						$("#staff_instalasi_farmasi").val(list.staff_instalasi_farmasi).trigger('change');
+						if (list.staff_instalasi_farmasi) {
+							$("#staff_instalasi_farmasi").prop('disabled', true);
+							cekVerif = 1;
+						}else{
+							cekVerif = 0;
+						}
+						$("#staff_farmasi_depo_1").val(list.staff_farmasi_depo_1).trigger('change');
+						if (list.staff_farmasi_depo_1) {
+							$("#staff_farmasi_depo_1").prop('disabled', true);
+							cekVerif = 1;
+						}else{
+							cekVerif = 0;
+						}
+						$("#staff_farmasi_depo_2").val(list.staff_farmasi_depo_2).trigger('change');
+						if (list.staff_farmasi_depo_2) {
+							$("#staff_farmasi_depo_2").prop('disabled', true);
+							cekVerif = 1;
+						}else{
+							cekVerif = 0;
+						}
+						$("#perawat_penerima_obat").val(list.perawat_penerima_obat).trigger('change');
+						if (list.perawat_penerima_obat) {
+							$("#perawat_penerima_obat").prop('disabled', true);
+							cekVerif = 1;
+						}else{
+							cekVerif = 0;
+						}
+						$("#perawat_retur").val(list.perawat_retur).trigger('change');
+						if (list.perawat_retur) {
+							$("#perawat_retur").prop('disabled', true);
+							cekVerif = 1;
+						}else{
+							cekVerif = 0;
+						}
+						$("#staff_depo_retur").val(list.staff_depo_retur).trigger('change');
+						if (list.staff_depo_retur) {
+							$("#staff_depo_retur").prop('disabled', true);
+							cekVerif = 1;
+						}else{
+							cekVerif = 0;
+						}
+						$("#staff_inst_farmasi_retur").val(list.staff_inst_farmasi_retur).trigger('change');
+						if (list.staff_inst_farmasi_retur) {
+							$("#staff_inst_farmasi_retur").prop('disabled', true);
+							cekVerif = 1;
+						}else{
+							cekVerif = 0;
+						}
+
+						if (cekVerif == 1) {
+							$(".btnVerifSign").hide();
+						}
+					});
+				}
+			},
+			complete: function () {
+				$('.loading').css('display', 'none');
+			}
+		})
+	}
+
+	// kirim verifikasi
+	function kirimVerif() {
+		$.ajax({
+			url: base_url + controller + '/kirim_verif/' + table + '_verif/' + visit_no,
+			method: 'POST',
+			data: $('#form-signed').serializeArray(),
+			dataType: 'JSON',
+			async: false,
+			beforeSend: function () {
+				$('.loading').css('display', 'block');
+			},
+			success: function (res) {
+				console.log(res);
+				res = JSON.parse(res);
+				if (res.status == 200) {
+					$("#mdlSigned").modal('hide');
+					a_ok('Berhasil', 'Verifikasi terkirim!');
+				}
+			},
+			complete: function () {
+				$('.loading').css('display', 'none');
+			}
+		})
+	}
+
+	// kirim verifikasi
+	function updateVerif() {
+		$.ajax({
+			url: base_url + controller + '/update_verif/' + table + '_verif/' + visit_no,
+			method: 'POST',
+			dataType: 'JSON',
+			async: false,
+			beforeSend: function () {
+				$('.loading').css('display', 'block');
+			},
+			success: function (res) {
+				console.log(res);
+				res = JSON.parse(res);
+				if (res.status == 200) {
+					a_ok('Berhasil', 'Data telah diverifikasi!');
+				}
+			},
+			complete: function () {
+				$('.loading').css('display', 'none');
+			}
+		})
+	}
 
 	// Main form
 	function save() {
@@ -226,6 +504,7 @@
 
 				console.log(res);
 				if (res) {
+					$(".btnSigned").show();
 					res.forEach(list => {
 						btnHapus = '<button data-id="' + list.id +
 							'" class="btn btn-danger btn-sm delete" ><i class="ti-trash"></i></button>'

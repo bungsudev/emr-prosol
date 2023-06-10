@@ -19,6 +19,14 @@
 	<script src="<?= base_url() ?>assets/js/iziToast.min.js"></script>
 
 	<script type="text/javascript">
+		let user_code_login = '<?= $this->session->userdata('User_Code') ?>';
+		// ambil full url
+		let full_url = window.location.href;
+		// pecah segment url menjadi array
+		let segment_url = full_url.split('/');
+		let segment_active = '';
+		let last_parameter = segment_url.slice(-1)[0];
+
 		$(document).ready(function() {
 			//buka sidebar  menu jika mouse hover
 			let is_collapsed_sidebar = "<?= (isset($is_collapsed) == true)? "sidebar-collapse" : "" ?>";
@@ -35,13 +43,6 @@
 
 			//kondisi aktif sidebar
 
-			// ambil full url
-			let full_url = window.location.href;
-			// pecah segment url menjadi array
-			let segment_url = full_url.split('/');
-
-			let segment_active = '';
-
 			// jika di localhost dengan asumsi link http://localhost/prosolution/emr_eshmun/formulir maka 'formulir' ada di posisi 5 (dihitung dari 0)
 			//sehingga jika naik ke hosting harus di sesuaikan lagi dengan URL nya
 			if (segment_url[2] == 'localhost') {
@@ -53,7 +54,55 @@
 				segment_active = segment_active.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '-');
 				$("." + segment_active).addClass("active");
 			}
-		});
+
+			// notification
+			getNotifHeader();
+		});	
+
+		const getNotifHeader = () => {
+			$.ajax({
+				url: base_url + 'in/notif_verif/' + '<?= $this->session->userdata('User_Code') ?>',
+				dataType: 'json',
+				success: function (res) {
+					if (res.length > 0) {
+						// console.log(res);
+						if (last_parameter != 'notif') {
+							$('.notifArea').dropdown('toggle');
+						}
+						res.forEach(list => {
+							getNotifPemberianObat(list.visit_no);
+						});
+					}
+					// $("#secNotif").html();
+				}
+			})
+		}
+
+		const getNotifPemberianObat = (visit_no) => {
+			$.ajax({
+				url: base_url + 'in/notif_verif_detail/' + visit_no,
+				dataType: 'json',
+				success: function (res) {
+					let html = '';
+					if (res.length > 0) {
+						console.log(res);
+						
+						res.forEach(list => {
+							var arrTemp = $.inArray(user_code_login, list) > -1;
+							console.log(user_code_login, list);
+							html += `
+								<li>
+									<a href="` + base_url + 'in/form/43/' + list.visit_no +`/notif" target="_blank">
+										<i class="fa fa-users text-info"></i> Verifikasi Pemberian Obat - ` + list.visit_no + `
+									</a>
+								</li>
+							`;
+						});
+					}
+					$("#secNotif").html(html);
+				}
+			})
+		}
 	</script>
 
 	<script type="text/javascript">

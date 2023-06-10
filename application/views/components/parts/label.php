@@ -23,7 +23,10 @@
 				<br />
 				<span class="text-xsm text-danger">*Nonaktifkan jika tidak ingin melengkapi seluruh isian.</span>
 			</div>
-			<div class="col-md-12 mt-4">
+			<div class="col-md-12 mt-4 divLabelBtn">
+				<!-- <button type="button" class="btn btn-warning mr-2" id="btnVerifTTD">
+					<span class="ti-marker-alt"></span> Tanda tangani
+				</button> -->
 				<button type="button" class="btn btn-danger mr-2" data-toggle="modal" data-target="#mdlAlergi">
 					<span class="ti-info-alt"></span> Riwayat Alergi
 				</button>

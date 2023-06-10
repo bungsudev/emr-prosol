@@ -1,4 +1,9 @@
 <?php
+function imgTtd($ttd)
+{
+	return (empty($ttd))? "": '<img style="padding:0px !important; margin:0px !important;" src="' . $ttd . '" width="35px">';
+}
+
 function date_dmy($date_str)
 {
 	$date = date('d m Y', $date_str);
