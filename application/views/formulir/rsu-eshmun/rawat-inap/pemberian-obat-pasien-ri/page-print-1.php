@@ -191,11 +191,11 @@
 						// print_r($data_json1); die();
 					?>
 					<!-- detail pemberian obay data_json -->
-					<?php for ($a=0; $a < count($data_json1); $a++) { 
+					<?php for ($a=0; $a < count((array)$data_json1); $a++) { 
 						echo '<td width="20" class="b-all" style="font-size: 10px; vertical-align:top;">'.$data_json1[$a]['dtl_jam'].'</td>';
 					} ?>
 
-					<?php for ($a=count($data_json1); $a < 20; $a++) { 
+					<?php for ($a=count((array)$data_json1); $a < 20; $a++) { 
 						echo '<td width="20" class="b-all" style="font-size: 10px; vertical-align:top;">&nbsp;</td>';
 					} ?>
 					<td rowspan="2" class="b-all b-right" style="font-size: 10px;">
@@ -204,21 +204,21 @@
 				</tr>
 				<tr>
 					<td class="b-all" style="font-size: 10px;">Petugas</td>
-					<?php for ($a=0; $a < count($data_json1); $a++) { 
+					<?php for ($a=0; $a < count((array)$data_json1); $a++) { 
 						echo '<td width="20" class="b-all" style="font-size: 10px; vertical-align:top;">'.$data_json1[$a]['dtl_petugas'].'</td>';
 					} ?>
 
-					<?php for ($a=count($data_json1); $a < 20; $a++) { 
+					<?php for ($a=count((array)$data_json1); $a < 20; $a++) { 
 						echo '<td width="20" class="b-all" style="font-size: 10px; vertical-align:top;">&nbsp;</td>';
 					} ?>
 				</tr>
 				<tr>
 					<td class="b-all" style="font-size: 10px;">ket</td>
-					<?php for ($a=0; $a < count($data_json1); $a++) { 
+					<?php for ($a=0; $a < count((array)$data_json1); $a++) { 
 						echo '<td width="20" class="b-all" style="font-size: 10px; vertical-align:top;">'.$data_json1[$a]['dtl_keterangan'].'</td>';
 					} ?>
 
-					<?php for ($a=count($data_json1); $a < 20; $a++) { 
+					<?php for ($a=count((array)$data_json1); $a < 20; $a++) { 
 						echo '<td width="20" class="b-all" style="font-size: 10px; vertical-align:top;">&nbsp;</td>';
 					} ?>
 					<td rowspan="2" class="b-all b-right" style="font-size: 10px;">
@@ -227,11 +227,11 @@
 				</tr>
 				<tr>
 					<td class="b-all" style="font-size: 10px;">Pas/Kel</td>
-					<?php for ($a=0; $a < count($data_json1); $a++) { 
+					<?php for ($a=0; $a < count((array)$data_json1); $a++) { 
 						echo '<td width="20" class="b-all" style="font-size: 10px; vertical-align:top;">'.$data_json1[$a]['dtl_pk'].'</td>';
 					} ?>
 
-					<?php for ($a=count($data_json1); $a < 20; $a++) { 
+					<?php for ($a=count((array)$data_json1); $a < 20; $a++) { 
 						echo '<td width="20" class="b-all" style="font-size: 10px; vertical-align:top;">&nbsp;</td>';
 					} ?>
 				</tr>
@@ -332,11 +332,11 @@
 						// print_r($data_json2); die();
 					?>
 					<!-- detail pemberian obay data_json -->
-					<?php for ($a=0; $a < count($data_json2); $a++) { 
+					<?php for ($a=0; $a < count((array)$data_json2); $a++) { 
 						echo '<td width="20" class="b-all" style="font-size: 10px; vertical-align:top;">'.$data_json2[$a]['dtl_jam'].'</td>';
 					} ?>
 
-					<?php for ($a=count($data_json2); $a < 20; $a++) { 
+					<?php for ($a=count((array)$data_json2); $a < 20; $a++) { 
 						echo '<td width="20" class="b-all" style="font-size: 10px; vertical-align:top;">&nbsp;</td>';
 					} ?>
 					<td rowspan="2" class="b-all b-right" style="font-size: 10px;">
@@ -345,21 +345,21 @@
 				</tr>
 				<tr>
 					<td class="b-all" style="font-size: 10px;">Petugas</td>
-					<?php for ($a=0; $a < count($data_json2); $a++) { 
+					<?php for ($a=0; $a < count((array)$data_json2); $a++) { 
 						echo '<td width="20" class="b-all" style="font-size: 10px; vertical-align:top;">'.$data_json2[$a]['dtl_petugas'].'</td>';
 					} ?>
 
-					<?php for ($a=count($data_json2); $a < 20; $a++) { 
+					<?php for ($a=count((array)$data_json2); $a < 20; $a++) { 
 						echo '<td width="20" class="b-all" style="font-size: 10px; vertical-align:top;">&nbsp;</td>';
 					} ?>
 				</tr>
 				<tr>
 					<td class="b-all" style="font-size: 10px;">ket</td>
-					<?php for ($a=0; $a < count($data_json2); $a++) { 
+					<?php for ($a=0; $a < count((array)$data_json2); $a++) { 
 						echo '<td width="20" class="b-all" style="font-size: 10px; vertical-align:top;">'.$data_json2[$a]['dtl_keterangan'].'</td>';
 					} ?>
 
-					<?php for ($a=count($data_json2); $a < 20; $a++) { 
+					<?php for ($a=count((array)$data_json2); $a < 20; $a++) { 
 						echo '<td width="20" class="b-all" style="font-size: 10px; vertical-align:top;">&nbsp;</td>';
 					} ?>
 					<td rowspan="2" class="b-all b-right" style="font-size: 10px;">
@@ -368,11 +368,11 @@
 				</tr>
 				<tr>
 					<td class="b-all" style="font-size: 10px;">Pas/Kel</td>
-					<?php for ($a=0; $a < count($data_json2); $a++) { 
+					<?php for ($a=0; $a < count((array)$data_json2); $a++) { 
 						echo '<td width="20" class="b-all" style="font-size: 10px; vertical-align:top;">'.$data_json2[$a]['dtl_pk'].'</td>';
 					} ?>
 
-					<?php for ($a=count($data_json2); $a < 20; $a++) { 
+					<?php for ($a=count((array)$data_json2); $a < 20; $a++) { 
 						echo '<td width="20" class="b-all" style="font-size: 10px; vertical-align:top;">&nbsp;</td>';
 					} ?>
 				</tr>
@@ -466,11 +466,11 @@
 						// print_r($data_json2); die();
 					?>
 					<!-- detail pemberian obay data_json -->
-					<?php for ($a=0; $a < count($data_json3); $a++) { 
+					<?php for ($a=0; $a < count((array)$data_json3); $a++) { 
 						echo '<td width="20" class="b-all" style="font-size: 10px; vertical-align:top;">'.$data_json3[$a]['dtl_jam'].'</td>';
 					} ?>
 
-					<?php for ($a=count($data_json3); $a < 20; $a++) { 
+					<?php for ($a=count((array)$data_json3); $a < 20; $a++) { 
 						echo '<td width="20" class="b-all" style="font-size: 10px; vertical-align:top;">&nbsp;</td>';
 					} ?>
 					<td rowspan="2" class="b-all b-right" style="font-size: 10px;">
@@ -479,21 +479,21 @@
 				</tr>
 				<tr>
 					<td class="b-all" style="font-size: 10px;">Petugas</td>
-					<?php for ($a=0; $a < count($data_json3); $a++) { 
+					<?php for ($a=0; $a < count((array)$data_json3); $a++) { 
 						echo '<td width="20" class="b-all" style="font-size: 10px; vertical-align:top;">'.$data_json3[$a]['dtl_petugas'].'</td>';
 					} ?>
 
-					<?php for ($a=count($data_json3); $a < 20; $a++) { 
+					<?php for ($a=count((array)$data_json3); $a < 20; $a++) { 
 						echo '<td width="20" class="b-all" style="font-size: 10px; vertical-align:top;">&nbsp;</td>';
 					} ?>
 				</tr>
 				<tr>
 					<td class="b-all" style="font-size: 10px;">ket</td>
-					<?php for ($a=0; $a < count($data_json3); $a++) { 
+					<?php for ($a=0; $a < count((array)$data_json3); $a++) { 
 						echo '<td width="20" class="b-all" style="font-size: 10px; vertical-align:top;">'.$data_json3[$a]['dtl_keterangan'].'</td>';
 					} ?>
 
-					<?php for ($a=count($data_json3); $a < 20; $a++) { 
+					<?php for ($a=count((array)$data_json3); $a < 20; $a++) { 
 						echo '<td width="20" class="b-all" style="font-size: 10px; vertical-align:top;">&nbsp;</td>';
 					} ?>
 					<td rowspan="2" class="b-all b-right" style="font-size: 10px;">
@@ -502,11 +502,11 @@
 				</tr>
 				<tr>
 					<td class="b-all" style="font-size: 10px;">Pas/Kel</td>
-					<?php for ($a=0; $a < count($data_json3); $a++) { 
+					<?php for ($a=0; $a < count((array)$data_json3); $a++) { 
 						echo '<td width="20" class="b-all" style="font-size: 10px; vertical-align:top;">'.$data_json3[$a]['dtl_pk'].'</td>';
 					} ?>
 
-					<?php for ($a=count($data_json3); $a < 20; $a++) { 
+					<?php for ($a=count((array)$data_json3); $a < 20; $a++) { 
 						echo '<td width="20" class="b-all" style="font-size: 10px; vertical-align:top;">&nbsp;</td>';
 					} ?>
 				</tr>
