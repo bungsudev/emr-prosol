@@ -22,13 +22,13 @@ $checkbox = '<input type="checkbox"/>';
 <table class="tblData">
     <tr>
         <td class="b-left">
-            <b>Tanggal :</b> <?= (!empty($dtl['tanggal_masuk'])) ? date_dfy(strtotime($dtl['tanggal_masuk'])) : $empty ?>
+            <b>Tanggal :</b> <?= date_dfy(strtotime($dtl['tanggal_masuk'])) ?? $empty ?>
         </td>
         <td>
-            <b>Pukul :</b> <?= (!empty($dtl['tgl_kontrol_ulang'])) ? date('H:i T', strtotime($dtl['tgl_kontrol_ulang'])) : $empty ?>
+            <b>Pukul :</b> <?= date('H:i T', strtotime($dtl['tgl_kontrol_ulang'])) ?? $empty ?>
         </td>
         <td class="b-right">
-            <b>Bed IGD No :</b> <?= (!empty($dtl['ruang_rawat_akhir'])) ? $dtl['ruang_rawat_akhir'] : $empty ?>
+            <b>Bed IGD No :</b> <?= $dtl['ruang_rawat_akhir'] ?? $empty ?>
         </td>
     </tr>
     <tr>

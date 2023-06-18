@@ -86,5 +86,5 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 
 
 // custom
-// define('ENDPOINT','http://192.168.0.2:81/prosolution/api-his/prosol/'); //his
-define('ENDPOINT','http://66.96.238.142:8888/prosolution/api-his/prosol/'); //his stella maris
+define('ENDPOINT','http://192.168.0.2:81/prosolution/api-his/prosol/'); //his
+// define('ENDPOINT','http://66.96.238.142:8888/prosolution/api-his/prosol/'); //his stella maris

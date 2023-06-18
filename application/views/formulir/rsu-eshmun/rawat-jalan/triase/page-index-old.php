@@ -1,6 +1,3 @@
-<?php
-error_reporting(0);
-?>
 <div class="col-lg-12 col-12">
     <!-- Basic Forms -->
     <div class="box">
@@ -30,6 +27,12 @@ error_reporting(0);
                         <div class="form-group">
                             <label for="ruang_rawat_akhir">Bed IGD No</label>
                             <input type="text" value="<?= (!empty($row['ruang_rawat_akhir'])) ? $row['ruang_rawat_akhir'] : '' ?>" name="ruang_rawat_akhir" id="ruang_rawat_akhir" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="keluhan_utama">Keluhan Utama</label>
+                            <textarea rows="2" name="keluhan_utama" id="keluhan_utama" class="form-control" placeholder="keluhan Utama"><?= (!empty($row['keluhan_utama'])) ? $row['keluhan_utama'] : '' ?></textarea>
                         </div>
                     </div>
                 </div>
@@ -87,13 +90,6 @@ error_reporting(0);
                 </div>
                 <hr>
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="keluhan_utama">Keluhan Utama</label>
-                            <textarea rows="2" name="keluhan_utama" id="keluhan_utama" class="form-control" placeholder="keluhan Utama"><?= (!empty($row['keluhan_utama'])) ? $row['keluhan_utama'] : '' ?></textarea>
-                        </div>
-                    </div>
-                    <div class="col-md-12"></div>
                     <div class="col-md-1">
                         <div class="form-group">
                             <label for="e">E</label>
@@ -183,7 +179,7 @@ error_reporting(0);
                 <table class="table" style="collapse: collapse;" width="100%">
                     <tr>
                         <th><b>SKALA TRIASE <br>Keterangan <br>Response Time</b></th>
-                        <th style="background-color: #f06262;"><b>1 <br> Resusitasi <br> Segera</b></th>
+                        <th style="background-color: #f06262;"><b>1 <br> Resusitasi <br> 10 menit</b></th>
                         <th style="background-color: #ffa500;"><b>2 <br> Gawat Darurat <br> 10 menit</b></th>
                         <th style="background-color: #f7e752;"><b>3 <br> Darurat <br> 30 menit</b></th>
                         <th style="background-color: #00a300;"><b>4 <br> Semi Darurat <br> 60 menit</b></th>
@@ -1057,13 +1053,13 @@ error_reporting(0);
                                         <div class="col-md-5">
                                             <b>Pekerjaan,</b> Sebutkan :
                                         </div>
-                                        <div class="col-md-7">
+                                        <div class="col-md-7 mb-3">
                                             <input type="text" name="pekerjaan" id="pekerjaan" value="<?= (!empty($row['pekerjaan'])) ? $row['pekerjaan'] : '' ?>" class="form-control">
                                         </div>
                                         <div class="col-md-5">
                                             <b>Kultural : Suku Bangsa, </b> Sebutkan :
                                         </div>
-                                        <div class="col-md-7">
+                                        <div class="col-md-7 mb-3">
                                             <input type="text" name="suku_bangsa" id="suku_bangsa" value="<?= (!empty($row['suku_bangsa'])) ? $row['suku_bangsa'] : '' ?>" class="form-control">
                                         </div>
                                         <div class="col-md-5">
@@ -1079,13 +1075,13 @@ error_reporting(0);
                                         <div class="col-md-3">
                                             <b>Luka di </b>
                                         </div>
-                                        <div class="col-md-9">
+                                        <div class="col-md-9 mb-3">
                                             <input type="text" name="luka_di" id="luka_di" value="<?= (!empty($row['luka_di'])) ? $row['luka_di'] : '' ?>" class="form-control">
                                         </div>
                                         <div class="col-md-3">
                                             <b>Lain-lain</b>
                                         </div>
-                                        <div class="col-md-9">
+                                        <div class="col-md-9 mb-3">
                                             <input type="text" name="luka_lainnya" id="luka_lainnya" value="<?= (!empty($row['luka_lainnya'])) ? $row['luka_lainnya'] : '' ?>" class="form-control">
                                         </div>
                                     </div>
@@ -1101,68 +1097,7 @@ error_reporting(0);
                                 <td align="center"><b>PEMERIKSAAN FISIK</b></td>
                             </tr>
                             <tr>
-                                <td>
-                                    <br><br>
-                                    <!-- <img src="<?= base_url() ?>assets/images/anatomi/triase.png"> -->
-                                    <table class="table table-sm" style="text-align: center;">
-                                        <tr>
-                                            <td>Pilih Warna Pencil</td>
-                                            <td>Ganti Foto Baru</td>
-                                            <td>Hapus Coretan</td>
-                                            <td>Ubah Ukuran Pencil</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="color" class="form-control-color js-color-picker" id="color" value="#0000" title="Choose your color">
-                                            </td>
-                                            <td>
-                                                <span id="new_image" class="btn btn-primary btn-xs"><i class="fa fa-image"></i></span>
-                                            </td>
-                                            <td>
-                                                <span id="clear" class="btn btn-secondary btn-xs"><i class="fa fa-eraser"></i></span>
-                                            </td>
-                                            <td>
-                                                <input type="range" id="slider" class="js-line-range form-range" min="1" max="20" value="1" oninput="sliderChange(this.value)">
-                                                <output id="output">1</output>px
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="4">
-                                                <div id="canvas_div" style="overflow-x: auto;">
-                                                    <canvas id="canvas" width="600" height="300"></canvas>
-                                                </div>
-
-                                                <img id="gambar_baru" src="<?= base_url() ?>assets/images/anatomi/triase.png" style="display:none">
-                                                <img id="db_img" src="<?= $row['images'] ?>" style="display:none">
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <table class="table table-sm table-borderless">
-                                        <tr>
-                                            <td width="25%" align="center">DEPAN</td>
-                                            <td width="30%">KANAN</td>
-                                            <td width="25%">KIRI</td>
-                                            <td>BELAKANG</td>
-                                        </tr>
-                                        <tr>
-                                            <td><b>Kode Gambar</b></td>
-                                            <td>A: Abrasi</td>
-                                            <td>U: Ulkus</td>
-                                            <td>N: Nyeri</td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td>C: Cumbutio</td>
-                                            <td>D: Deformitas</td>
-                                            <td>L: Lain-lain</td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td>VA: Vulnus Appertum</td>
-                                            <td colspan="2">H: Hematoma</td>
-                                        </tr>
-                                    </table>
-                                </td>
+                                <td></td>
                                 <td>
                                     <table class="table table-sm">
                                         <tr>
@@ -1194,19 +1129,19 @@ error_reporting(0);
                                         <div class="col-md-3">
                                             <b>EKG</b>
                                         </div>
-                                        <div class="col-md-9">
+                                        <div class="col-md-9 mb-3">
                                             <input type="text" name="peme_ekg" id="peme_ekg" value="<?= (!empty($row['peme_ekg'])) ? $row['peme_ekg'] : '' ?>" class="form-control">
                                         </div>
                                         <div class="col-md-3">
                                             <b>Radiologi</b>
                                         </div>
-                                        <div class="col-md-9">
+                                        <div class="col-md-9 mb-3">
                                             <input type="text" name="peme_rad" id="peme_rad" value="<?= (!empty($row['peme_rad'])) ? $row['peme_rad'] : '' ?>" class="form-control">
                                         </div>
                                         <div class="col-md-3">
                                             <b>Laboratorium</b>
                                         </div>
-                                        <div class="col-md-9">
+                                        <div class="col-md-9 mb-3">
                                             <input type="text" name="peme_lab" id="peme_lab" value="<?= (!empty($row['peme_lab'])) ? $row['peme_lab'] : '' ?>" class="form-control">
                                         </div>
                                         <div class="col-md-3">
@@ -1223,25 +1158,25 @@ error_reporting(0);
                                         <div class="col-md-3">
                                             <b>EKG</b>
                                         </div>
-                                        <div class="col-md-9">
+                                        <div class="col-md-9 mb-3">
                                             <input type="text" name="peme_ekg_ext" id="peme_ekg_ext" value="<?= (!empty($row['peme_ekg_ext'])) ? $row['peme_ekg_ext'] : '' ?>" class="form-control">
                                         </div>
                                         <div class="col-md-3">
                                             <b>Radiologi</b>
                                         </div>
-                                        <div class="col-md-9">
+                                        <div class="col-md-9 mb-3">
                                             <input type="text" name="peme_rad_ext" id="peme_rad_ext" value="<?= (!empty($row['peme_rad_ext'])) ? $row['peme_rad_ext'] : '' ?>" class="form-control">
                                         </div>
                                         <div class="col-md-3">
                                             <b>Laboratorium</b>
                                         </div>
-                                        <div class="col-md-9">
+                                        <div class="col-md-9 mb-3">
                                             <input type="text" name="peme_lab_ext" id="peme_lab_ext" value="<?= (!empty($row['peme_lab_ext'])) ? $row['peme_lab_ext'] : '' ?>" class="form-control">
                                         </div>
                                         <div class="col-md-3">
                                             <b>Lain-lain</b>
                                         </div>
-                                        <div class="col-md-9">
+                                        <div class="col-md-9 mb-3">
                                             <input type="text" name="peme_lainnya_ext" id="peme_lainnya_ext" value="<?= (!empty($row['peme_lainnya_ext'])) ? $row['peme_lainnya_ext'] : '' ?>" class="form-control">
                                         </div>
                                     </div>
@@ -1256,13 +1191,13 @@ error_reporting(0);
                                                 <div class="col-md-4">
                                                     <b>Diagnosa Utama</b>
                                                 </div>
-                                                <div class="col-md-8">
+                                                <div class="col-md-8 mb-3">
                                                     <input type="text" name="diagnosa_utama" id="diagnosa_utama" value="<?= (!empty($row['diagnosa_utama'])) ? $row['diagnosa_utama'] : '' ?>" class="form-control">
                                                 </div>
                                                 <div class="col-md-4">
                                                     <b>Diagnosa Tambahan</b>
                                                 </div>
-                                                <div class="col-md-8">
+                                                <div class="col-md-8 mb-3">
                                                     <input type="text" name="diagnosa_tambahan" id="diagnosa_tambahan" value="<?= (!empty($row['diagnosa_tambahan'])) ? $row['diagnosa_tambahan'] : '' ?>" class="form-control">
                                                 </div>
                                             </div>
@@ -1319,7 +1254,7 @@ error_reporting(0);
                                         <input class="form-check-input" id="edukasi_awal<?= $key ?>" name="edukasi_awal" value="<?= $value ?>" type="radio" <?= (in_array($value, $temp_Val)) ? 'checked' : '' ?>>
                                         <label for="edukasi_awal<?= $key ?>"><?= $value ?></label><br>
                                     <?php endforeach ?>
-                                    <input type="text" <?= ($row['edukasi_awal'] == 'Pasien') ? 'readonly' : '' ?> name="edukasi_awal_detail" id="edukasi_awal_detail" value="<?= (!empty($row['edukasi_awal_detail'])) ? $row['edukasi_awal_detail'] : '' ?>" class="form-control">
+                                    <input type="text" name="edukasi_awal_detail" id="edukasi_awal_detail" value="<?= (!empty($row['edukasi_awal_detail'])) ? $row['edukasi_awal_detail'] : '' ?>" class="form-control">
                                 </td>
                                 <td>
                                     <b>CATATAN RINGKAS</b> (*hanya diisi apabila pasien membutuhkan operasi segera / emergency)
@@ -1402,11 +1337,11 @@ error_reporting(0);
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <label for="">Kebutuhan O2 (L/mnt)</label>
-                                                    <input type="text" <?= ($row['peralatan_pindah']) ? '' : 'readonly' ?> name="kebutuhan_o2" id="kebutuhan_o2" value="<?= (!empty($row['kebutuhan_o2'])) ? $row['kebutuhan_o2'] : '' ?>" class="form-control">
+                                                    <input type="text" name="kebutuhan_o2" id="kebutuhan_o2" value="<?= (!empty($row['kebutuhan_o2'])) ? $row['kebutuhan_o2'] : '' ?>" class="form-control">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="">Peralatan Lainnya</label>
-                                                    <input type="text" <?= ($row['peralatan_pindah']) ? '' : 'readonly' ?> name="peralatan_pindah_lainnya" id="peralatan_pindah_lainnya" value="<?= (!empty($row['peralatan_pindah_lainnya'])) ? $row['peralatan_pindah_lainnya'] : '' ?>" class="form-control">
+                                                    <input type="text" name="peralatan_pindah_lainnya" id="peralatan_pindah_lainnya" value="<?= (!empty($row['peralatan_pindah_lainnya'])) ? $row['peralatan_pindah_lainnya'] : '' ?>" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -1537,8 +1472,6 @@ error_reporting(0);
     let field = '<?= $field ?>';
     let table = '<?= $table ?>';
     // let cek = '<?= (!empty($row['status'])) ? $row['status'] : '' ?>';
-    let images = '<?= (!empty($row['images'])) ? $row['images'] : '' ?>'
-
     let tidak_lengkap;
     $(document).ready(function() {
         // list terapi obat
@@ -1587,16 +1520,12 @@ error_reporting(0);
 
                 // tambah data tidak_lengkap
                 let data_merge = [{
-                        name: 'tidak_lengkap',
-                        value: tidak_lengkap
+                        'name': 'tidak_lengkap',
+                        'value': tidak_lengkap
                     },
                     {
-                        name: 'dokter',
-                        value: '<?= $this->session->userdata('User_Code') ?>'
-                    },
-                    {
-                        name: 'images',
-                        value: document.getElementById("canvas").toDataURL("image/png")
+                        'name': 'dokter',
+                        'value': '<?= $this->session->userdata('User_Code') ?>'
                     }
                 ];
                 data = data.concat(data_merge);
@@ -1614,7 +1543,7 @@ error_reporting(0);
 
                 if (res == null) {
                     if (promise) {
-                        $('#link_print').removeClass('disabled', true)
+                        $('#link_print').removeClass('disable', true)
                         a_ok("Berhasil", "Data Berhasil Ditambahkan")
                     } else {
                         a_error("Error", "Data Gagal Ditambahkan")
@@ -1628,169 +1557,5 @@ error_reporting(0);
                 }
             }
         })
-    }
-
-    // image drawer
-    function sliderChange(val) {
-        document.getElementById('output').innerHTML = val;
-    }
-    const canvas = document.getElementById('canvas');
-    const context = canvas.getContext('2d');
-    let img
-    if (images)
-        img = document.getElementById("db_img");
-    else
-        img = document.getElementById("gambar_baru");
-    context.drawImage(img, 0, 0, 600, 300);
-    let isDrawing = false;
-    let x = 0;
-    let y = 0;
-    var offsetX;
-    var offsetY;
-
-    const newImage = document.getElementById("new_image");
-    newImage.onclick = () => {
-        context.drawImage(document.getElementById("gambar_baru"), 0, 0, 600, 300);
-    };
-
-    const clearElement = document.getElementById("clear");
-    clearElement.onclick = () => {
-        context.clearRect(0, 0, 600, 900);
-        context.drawImage(img, 0, 0, 600, 300);
-    };
-
-    function startup() {
-        canvas.addEventListener('touchstart', handleStart);
-        canvas.addEventListener('touchend', handleEnd);
-        canvas.addEventListener('touchcancel', handleCancel);
-        canvas.addEventListener('touchmove', handleMove);
-        canvas.addEventListener('mousedown', (e) => {
-            x = e.offsetX;
-            y = e.offsetY;
-            isDrawing = true;
-        });
-
-        canvas.addEventListener('mousemove', (e) => {
-            if (isDrawing) {
-                drawLine(context, x, y, e.offsetX, e.offsetY);
-                x = e.offsetX;
-                y = e.offsetY;
-            }
-        });
-
-        canvas.addEventListener('mouseup', (e) => {
-            if (isDrawing) {
-                drawLine(context, x, y, e.offsetX, e.offsetY);
-                x = 0;
-                y = 0;
-                isDrawing = false;
-            }
-        });
-    }
-
-    document.addEventListener("DOMContentLoaded", startup);
-
-    const ongoingTouches = [];
-    const colorPicker = document.querySelector('.js-color-picker');
-    const lineWidthRange = document.querySelector('.js-line-range');
-    const lineWidthLabel = document.querySelector('.js-range-value');
-    colorPicker.addEventListener('change', event => {
-        console.log(event.target.value)
-        context.strokeStyle = event.target.value;
-    });
-
-    lineWidthRange.addEventListener('change', event => {
-        console.log(event.target.value)
-        context.lineWidth = 2;
-        context.lineWidth = event.target.value;
-    });
-
-    function handleStart(evt) {
-        evt.preventDefault();
-        const touches = evt.changedTouches;
-        offsetX = canvas.getBoundingClientRect().left;
-        offsetY = canvas.getBoundingClientRect().top;
-        for (let i = 0; i < touches.length; i++) {
-            ongoingTouches.push(copyTouch(touches[i]));
-        }
-    }
-
-    function handleMove(evt) {
-        evt.preventDefault();
-        const touches = evt.changedTouches;
-        if (evt.touches.length > 1)
-            evt.preventDefault()
-        else {
-            for (let i = 0; i < touches.length; i++) {
-                const idx = ongoingTouchIndexById(touches[i].identifier);
-                if (idx >= 0) {
-                    context.beginPath();
-                    context.moveTo(ongoingTouches[idx].clientX - offsetX, ongoingTouches[idx].clientY - offsetY);
-                    context.lineTo(touches[i].clientX - offsetX, touches[i].clientY - offsetY);
-                    context.lineJoin = "round";
-                    context.closePath();
-                    context.stroke();
-                    ongoingTouches.splice(idx, 1, copyTouch(touches[i])); // swap in the new touch record
-                }
-            }
-        }
-    }
-
-    function handleEnd(evt) {
-        evt.preventDefault();
-        const touches = evt.changedTouches;
-        for (let i = 0; i < touches.length; i++) {
-            const color = 'black';
-            let idx = ongoingTouchIndexById(touches[i].identifier);
-            if (idx >= 0) {
-                context.fillStyle = color;
-                ongoingTouches.splice(idx, 1); // remove it; we're done
-            }
-        }
-    }
-
-    function handleCancel(evt) {
-        evt.preventDefault();
-        const touches = evt.changedTouches;
-        for (let i = 0; i < touches.length; i++) {
-            let idx = ongoingTouchIndexById(touches[i].identifier);
-            ongoingTouches.splice(idx, 1); // remove it; we're done
-        }
-    }
-
-    function copyTouch({
-        identifier,
-        clientX,
-        clientY
-    }) {
-        return {
-            identifier,
-            clientX,
-            clientY
-        };
-    }
-
-    function ongoingTouchIndexById(idToFind) {
-        for (let i = 0; i < ongoingTouches.length; i++) {
-            const id = ongoingTouches[i].identifier;
-            if (id === idToFind) {
-                return i;
-            }
-        }
-        return -1; // not found
-    }
-
-    function drawLine(context, x1, y1, x2, y2) {
-        context.beginPath();
-        context.lineJoin = "round";
-        context.moveTo(x1, y1);
-        context.lineTo(x2, y2);
-        context.closePath();
-        context.stroke();
-    }
-
-    function clearArea() {
-        context.setTransform(1, 0, 0, 1, 0, 0);
-        context.clearRect(0, 0, context.canvas.width, context.canvas.height);
     }
 </script>

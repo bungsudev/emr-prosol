@@ -137,7 +137,10 @@
 				?>
 				<?php $no = 1; for ($i=0; $i < count($obat_oral); $i++): ?>
 				<tr>
-					<td><?= $no++ ?>. </td>
+					<?php 
+						$nama_obat_api = api_obat(ENDPOINT, $this->session->userdata('token'), $this->session->userdata('User_Code'), $obat_oral[$i]['nama_obat']); 
+					?>
+					<td><?= $no++ ?>. <?= $nama_obat_api[0]['Item_Name'] ?></td>
 					<td><?= $obat_oral[$i]['dosis'] ?></td>
 					<td><?= $obat_oral[$i]['aturan'] ?></td>
 					<td class="bg-second"><?= $obat_oral[$i]['jumlah'] ?></td>
@@ -193,7 +196,10 @@
 				?>
 				<?php $no = 1; for ($i=0; $i < count($obat_oral); $i++): ?>
 				<tr>
-					<td><?= $no++ ?>. </td>
+					<?php 
+						$nama_obat_api = api_obat(ENDPOINT, $this->session->userdata('token'), $this->session->userdata('User_Code'), $obat_oral[$i]['nama_obat']); 
+					?>
+					<td><?= $no++ ?>. <?= $nama_obat_api[0]['Item_Name'] ?></td>
 					<td><?= $obat_oral[$i]['dosis'] ?></td>
 					<td><?= $obat_oral[$i]['aturan'] ?></td>
 					<td class="bg-second"><?= $obat_oral[$i]['jumlah'] ?></td>
@@ -249,7 +255,10 @@
 				?>
 				<?php $no = 1; for ($i=0; $i < count($obat_oral); $i++): ?>
 				<tr>
-					<td><?= $no++ ?>. </td>
+					<?php 
+						$nama_obat_api = api_obat(ENDPOINT, $this->session->userdata('token'), $this->session->userdata('User_Code'), $obat_oral[$i]['nama_obat']); 
+					?>
+					<td><?= $no++ ?>. <?= $nama_obat_api[0]['Item_Name'] ?></td>
 					<td><?= $obat_oral[$i]['dosis'] ?></td>
 					<td><?= $obat_oral[$i]['aturan'] ?></td>
 					<td class="bg-second"><?= $obat_oral[$i]['jumlah'] ?></td>
@@ -305,7 +314,10 @@
 				?>
 				<?php $no = 1; for ($i=0; $i < count($obat_oral); $i++): ?>
 				<tr>
-					<td><?= $no++ ?>. </td>
+					<?php 
+						$nama_obat_api = api_obat(ENDPOINT, $this->session->userdata('token'), $this->session->userdata('User_Code'), $obat_oral[$i]['nama_obat']); 
+					?>
+					<td><?= $no++ ?>. <?= $nama_obat_api[0]['Item_Name'] ?></td>
 					<td><?= $obat_oral[$i]['dosis'] ?></td>
 					<td><?= $obat_oral[$i]['aturan'] ?></td>
 					<td class="bg-second"><?= $obat_oral[$i]['jumlah'] ?></td>
@@ -361,7 +373,10 @@
 				?>
 				<?php $no = 1; for ($i=0; $i < count($obat_oral); $i++): ?>
 				<tr>
-					<td><?= $no++ ?>. </td>
+					<?php 
+						$nama_obat_api = api_obat(ENDPOINT, $this->session->userdata('token'), $this->session->userdata('User_Code'), $obat_oral[$i]['nama_obat']); 
+					?>
+					<td><?= $no++ ?>. <?= $nama_obat_api[0]['Item_Name'] ?></td>
 					<td><?= $obat_oral[$i]['dosis'] ?></td>
 					<td><?= $obat_oral[$i]['aturan'] ?></td>
 					<td class="bg-second"><?= $obat_oral[$i]['jumlah'] ?></td>
@@ -403,69 +418,125 @@
 
 				<!-- ttd -->
 				<tr>
+					<!-- staff_instalasi_farmasi -->
+					<?php 
+						if(isset($ttd)){
+							$staff_instalasi_farmasi = api_user(ENDPOINT, $this->session->userdata('token'), $this->session->userdata('User_Code'), $ttd[0]->staff_instalasi_farmasi); 
+						}else{
+							$staff_instalasi_farmasi = '';
+						}
+					?>
 					<td class="b-bot b-right b-left"><b>Tanda Tangan Staf Instalasi Farmasi</b></td>
 					<td class="b-right b-left nonttd" colspan='2'></td>
-					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_staff_instalasi_farmasi) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd((isset($staff_instalasi_farmasi['ttd'])? $staff_instalasi_farmasi['ttd'] : '')) ?></td>
 					<td class="b-bot b-right b-left nonttd" colspan='5'>&nbsp;</td>
-					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_staff_instalasi_farmasi) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd((isset($staff_instalasi_farmasi['ttd'])? $staff_instalasi_farmasi['ttd'] : '')) ?></td>
 					<td class="b-bot b-right b-left nonttd" colspan='5'>&nbsp;</td>
 				</tr>
 				<tr>
+					<!-- staff_farmasi_depo_1 -->
+					<?php 
+						if(isset($ttd)){
+							$staff_farmasi_depo_1 = api_user(ENDPOINT, $this->session->userdata('token'), $this->session->userdata('User_Code'), $ttd[0]->staff_farmasi_depo_1); 
+						}else{
+							$staff_farmasi_depo_1 = '';
+						}
+					?>
 					<td class="b-bot b-right b-left"><b>Tanda Tangan Staf Farmasi Depo</b></td>
 					<td class="b-right b-left nonttd" colspan='2'></td>
-					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_staff_farmasi_depo_1) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd((isset($staff_farmasi_depo_1['ttd'])? $staff_farmasi_depo_1['ttd'] : '')) ?></td>
 					<td class="b-bot b-right b-left nonttd" colspan='5'>&nbsp;</td>
-					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_staff_farmasi_depo_1) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd((isset($staff_farmasi_depo_1['ttd'])? $staff_farmasi_depo_1['ttd'] : '')) ?></td>
 					<td class="b-bot b-right b-left nonttd" colspan='5'>&nbsp;</td>
 				</tr>
 				<tr>
+					<!-- staff_farmasi_depo_2 -->
+					<?php 
+						if(isset($ttd)){
+							$staff_farmasi_depo_2 = api_user(ENDPOINT, $this->session->userdata('token'), $this->session->userdata('User_Code'), $ttd[0]->staff_farmasi_depo_2); 
+						}else{
+							$staff_farmasi_depo_2 = '';
+						}
+					?>
 					<td class="b-bot b-right b-left"><b>Tanda Tangan Staf Farmasi Depo</b></td>
 					<td class="b-right b-left nonttd" colspan='3'></td>
-					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_staff_farmasi_depo_2) ?></td>
-					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_staff_farmasi_depo_2) ?></td>
-					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_staff_farmasi_depo_2) ?></td>
-					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_staff_farmasi_depo_2) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd((isset($staff_farmasi_depo_2['ttd'])? $staff_farmasi_depo_2['ttd'] : '')) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd((isset($staff_farmasi_depo_2['ttd'])? $staff_farmasi_depo_2['ttd'] : '')) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd((isset($staff_farmasi_depo_2['ttd'])? $staff_farmasi_depo_2['ttd'] : '')) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd((isset($staff_farmasi_depo_2['ttd'])? $staff_farmasi_depo_2['ttd'] : '')) ?></td>
 					<td class="b-bot b-right b-left nonttd" colspan='2'>&nbsp;</td>
-					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_staff_farmasi_depo_2) ?></td>
-					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_staff_farmasi_depo_2) ?></td>
-					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_staff_farmasi_depo_2) ?></td>
-					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_staff_farmasi_depo_2) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd((isset($staff_farmasi_depo_2['ttd'])? $staff_farmasi_depo_2['ttd'] : '')) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd((isset($staff_farmasi_depo_2['ttd'])? $staff_farmasi_depo_2['ttd'] : '')) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd((isset($staff_farmasi_depo_2['ttd'])? $staff_farmasi_depo_2['ttd'] : '')) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd((isset($staff_farmasi_depo_2['ttd'])? $staff_farmasi_depo_2['ttd'] : '')) ?></td>
 					<td class="b-bot b-right b-left nonttd" colspan='1'>&nbsp;</td>
 				</tr>
 				<tr>
+					<!-- perawat_penerima_obat -->
+					<?php 
+						if(isset($ttd)){
+							$perawat_penerima_obat = api_user(ENDPOINT, $this->session->userdata('token'), $this->session->userdata('User_Code'), $ttd[0]->perawat_penerima_obat); 
+						}else{
+							$perawat_penerima_obat = '';
+						}
+					?>
 					<td class="b-bot b-right b-left"><b>Tanda Tangan Perawat Penerima Obat</b></td>
 					<td class="b-right b-left nonttd" colspan='3'></td>
-					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_perawat_penerima_obat) ?></td>
-					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_perawat_penerima_obat) ?></td>
-					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_perawat_penerima_obat) ?></td>
-					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_perawat_penerima_obat) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd((isset($perawat_penerima_obat['ttd'])? $perawat_penerima_obat['ttd'] : '')) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd((isset($perawat_penerima_obat['ttd'])? $perawat_penerima_obat['ttd'] : '')) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd((isset($perawat_penerima_obat['ttd'])? $perawat_penerima_obat['ttd'] : '')) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd((isset($perawat_penerima_obat['ttd'])? $perawat_penerima_obat['ttd'] : '')) ?></td>
 					<td class="b-bot b-right b-left nonttd" colspan='2'>&nbsp;</td>
-					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_perawat_penerima_obat) ?></td>
-					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_perawat_penerima_obat) ?></td>
-					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_perawat_penerima_obat) ?></td>
-					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_perawat_penerima_obat) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd((isset($perawat_penerima_obat['ttd'])? $perawat_penerima_obat['ttd'] : '')) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd((isset($perawat_penerima_obat['ttd'])? $perawat_penerima_obat['ttd'] : '')) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd((isset($perawat_penerima_obat['ttd'])? $perawat_penerima_obat['ttd'] : '')) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd((isset($perawat_penerima_obat['ttd'])? $perawat_penerima_obat['ttd'] : '')) ?></td>
 					<td class="b-bot b-right b-left nonttd" colspan='1'>&nbsp;</td>
 				</tr>
 				<tr>
+					<!-- perawat_retur -->
+					<?php 
+						if(isset($ttd)){
+							$perawat_retur = api_user(ENDPOINT, $this->session->userdata('token'), $this->session->userdata('User_Code'), $ttd[0]->perawat_retur); 
+						}else{
+							$perawat_retur = '';
+						}
+					?>
 					<td class="b-bot b-right b-left"><b>Tanda Tangan Perawat Retur</b></td>
 					<td class="b-right b-left nonttd" colspan='7'></td>
-					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_perawat_retur) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd((isset($perawat_retur['ttd'])? $perawat_retur['ttd'] : '')) ?></td>
 					<td class="b-right b-left nonttd" colspan='5'></td>
-					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_perawat_retur) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd((isset($perawat_retur['ttd'])? $perawat_retur['ttd'] : '')) ?></td>
 				</tr>
 				<tr>
+					<!-- staff_depo_retur -->
+					<?php 
+						if(isset($ttd)){
+							$staff_depo_retur = api_user(ENDPOINT, $this->session->userdata('token'), $this->session->userdata('User_Code'), $ttd[0]->staff_depo_retur); 
+						}else{
+							$staff_depo_retur = '';
+						}
+					?>
 					<td class="b-bot b-right b-left"><b>Tanda Tangan Staf Depo Retur</b></td>
 					<td class="b-right b-left nonttd" colspan='7'></td>
-					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_staff_depo_retur) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd((isset($ttd_staff_depo_retur['ttd'])? $ttd_staff_depo_retur['ttd'] : '')) ?></td>
 					<td class="b-right b-left nonttd" colspan='5'></td>
-					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_staff_depo_retur) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd((isset($ttd_staff_depo_retur['ttd'])? $ttd_staff_depo_retur['ttd'] : '')) ?></td>
 				</tr>
 				<tr>
+					<!-- staff_inst_farmasi_retur -->
+					<?php 
+						if(isset($ttd)){
+							$staff_inst_farmasi_retur = api_user(ENDPOINT, $this->session->userdata('token'), $this->session->userdata('User_Code'), $ttd[0]->staff_inst_farmasi_retur); 
+						}else{
+							$staff_inst_farmasi_retur = '';
+						}
+					?>
 					<td class="b-bot b-right b-left"><b>Tanda Tangan Staf Inst. Farmasi Retur</b></td>
 					<td class="b-right b-left nonttd" colspan='7'></td>
-					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_staff_inst_farmasi_retur) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd((isset($staff_inst_farmasi_retur['ttd'])? $staff_inst_farmasi_retur['ttd'] : '')) ?></td>
 					<td class="b-right b-left nonttd" colspan='5'></td>
-					<td class="b-bot b-right b-left"><?= imgTtd($ttd[0]->ttd_staff_inst_farmasi_retur) ?></td>
+					<td class="b-bot b-right b-left"><?= imgTtd((isset($staff_inst_farmasi_retur['ttd'])? $staff_inst_farmasi_retur['ttd'] : '')) ?></td>
 				</tr>
 			</tbody>
 		</table>
