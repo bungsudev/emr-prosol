@@ -6,7 +6,7 @@
 		$data_json[$key] = $val['data_json'];	
 	}
 
-	if ($data_json) {
+	if (!empty($data_json)) {
 		$arr_json = json_encode($data_json[0]);
 		$arr_json = json_decode($arr_json, true);
 		$arr_json = json_decode($arr_json, true);
