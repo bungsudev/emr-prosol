@@ -147,7 +147,7 @@
 			<tr>
 				<td class="b-all" colspan="2"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Antibiotik</b></td>
 				<td style="background-color: #888a8c" class="b-all" colspan="15"></td>
-				<td style="background-color: #888a8c" class="b-all" colspan="15"></td>
+				<td style="background-color: #888a8c" class="b-all b-right" colspan="14"></td>
 			</tr>
 			<?php 
 				$total = 0;
@@ -298,7 +298,7 @@
 			<tr>
 				<td class="b-all" colspan="2"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Non-Antibiotik</b></td>
 				<td style="background-color: #888a8c" class="b-all" colspan="15"></td>
-				<td style="background-color: #888a8c" class="b-all" colspan="15"></td>
+				<td style="background-color: #888a8c" class="b-all b-right" colspan="14"></td>
 			</tr>
 			<?php 
 				$jml_nonantibiotik = 0;
@@ -432,7 +432,7 @@
 			<tr>
 				<td class="b-all" colspan="2"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cairan / Nutrisi Parental</b></td>
 				<td style="background-color: #888a8c" class="b-all" colspan="15"></td>
-				<td style="background-color: #888a8c" class="b-all" colspan="15"></td>
+				<td style="background-color: #888a8c" class="b-all b-right" colspan="14"></td>
 			</tr>
 			<?php 
 				$jml_cairan = 0;
