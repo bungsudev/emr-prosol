@@ -126,11 +126,11 @@
 				<th style="vertical-align: middle;" width="" colspan="2">Awal Pemberian</th>
 				<th style="vertical-align: middle;" width="" colspan="2">Dihentikan</th>
 				<th style="vertical-align: middle;" width="50" rowspan="2">Tanggal</th>
-				<?php for ($i=0; $i < count($arr_json); $i++): ?>
+				<?php for ($i=0; $i < count((array)$arr_json); $i++): ?>
 					<th style="vertical-align: middle;" width="" rowspan="2" colspan="4"><?= date('d-M-y') ?></th>
 				<?php endfor; ?>
 				
-				<?php for ($i=count($arr_json); $i < 5; $i++) { 
+				<?php for ($i=count((array)$arr_json); $i < 5; $i++) { 
 					echo '<th style="vertical-align: middle;" width="" rowspan="2" colspan="4">&nbsp;</th>';
 				} ?>
 				<th style="vertical-align: middle;" width="" rowspan="2">Keterangan</th>
